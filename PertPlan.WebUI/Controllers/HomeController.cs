@@ -18,6 +18,12 @@ namespace PertPlan.WebUI.Controllers
             return View();
         }
 
+        public IActionResult Actions()
+        {
+            var actions = new List<ActionPERT>();
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
