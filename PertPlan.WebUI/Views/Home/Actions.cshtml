@@ -12,6 +12,8 @@
     </defs>
 </svg>
 
+<svg width="100%" height="200" id="table-container"></svg>
+
 <script type="module">
     import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
@@ -107,3 +109,81 @@
             })
     });
 </script>
+
+<script type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+    // Data for the table
+    const tableData = [
+        [1, 2, 3],
+        [4, 5, 6], // Adjust the data for the second row
+        [7, 8, 9],
+    ];
+
+    // Create the SVG container
+    const svg = d3.select("#table-container");
+
+    // Create rows
+    const rows = svg
+        .selectAll("g")
+        .data(tableData)
+        .enter()
+        .append("g")
+        .attr("transform", (d, i) => `translate(0, ${i * 50})`); // Adjust the row height as needed
+
+    // Create cells within each row
+    const cells = rows
+        .selectAll("rect")
+        .data((d) => d)
+        .enter()
+        .append("rect")
+        .attr("x", (d, i) => i * 50) // Adjust the cell width as needed
+        .attr("width", 50) // Adjust the cell width as needed
+        .attr("height", 40) // Adjust the cell height as needed
+        .attr("fill", "lightblue")
+        .attr("stroke", "gray");
+
+    // Add text to each cell
+    rows.selectAll("text")
+        .data((d) => d)
+        .enter()
+        .append("text")
+        .text((d) => d)
+        .attr("x", (d, i) => i * 50 + 25) // Adjust the x position for centering text
+        .attr("y", 20) // Adjust the y position for centering text
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
+        .attr("fill", "black");
+</script>
+
+
+@*<svg width="300" height="300">
+    <g id="1" class="table" transform="translate(0, 0)">
+        <g transform="translate(0, 0)">
+            <rect x="0" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <rect x="50" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <rect x="100" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <text x="25" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">1</text>
+            <text x="75" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">2</text>
+            <text x="128" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">3</text>
+        </g>
+        <g transform="translate(0, 40)">
+            <rect x="0" width="150" height="40" fill="lightblue" stroke="gray"></rect>
+            <text x="75" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">lorem ipsum</text>
+        </g>
+        <g transform="translate(0, 80)">
+            <rect x="0" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <rect x="50" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <rect x="100" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <text x="25" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">1</text>
+            <text x="75" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">2</text>
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">3</text>
+        </g>
+    </g>
+    <line stroke="gray" marker-end="url(#arrow)" x1="151" y1="60" x2="215" y2="140"></line>
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L10,5 L0,10 Z" fill="gray" />
+        </marker>
+    </defs>
+</svg>*@
