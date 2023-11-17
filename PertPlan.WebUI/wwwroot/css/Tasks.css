@@ -1,0 +1,38 @@
+﻿thead {
+    text-align: center;
+}
+
+th {
+    vertical-align: middle
+}
+
+.tableCell {
+    text-align: center
+}
+
+/* Table headers */
+#number {
+    width: 10%;
+}
+
+#name, #dependencies {
+    width: 20%;
+
+}
+
+#dependencies {
+    width: 15%;
+}
+
+#finishTimePositive, #finishTimeNegative, #finishTimeAverage {
+    width: 1em; /* way to make columns doesn't change sizes after adding row */
+}
+
+/* bootstrap's md breakpoint */
+@media (min-width: 768px) {
+
+    /* Table headers */
+    #name {
+        width: 30%
+    }
+}
