@@ -1,39 +1,11 @@
-﻿@{
+﻿@using PertPlan.WebUI.Models.ViewModels;
+@{
     ViewData["Title"] = "Tasks";
 }
 
-@*@section Scripts {
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+@model List<ProjectTask>
+@{
 }
-@section Styles {
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" asp-append-version="true" />
-}
-
-<table id="myTable" class="display">
-    <thead>
-        <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Row 1 Data 1</td>
-            <td>Row 1 Data 2</td>
-        </tr>
-        <tr>
-            <td>Row 2 Data 1</td>
-            <td>Row 2 Data 2</td>
-        </tr>
-    </tbody>
-</table>
-
-<script type="module">
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
-</script>*@
-
 @section Styles {
     <link rel="stylesheet" href="~/css/Tasks.css" asp-append-version="true" />
 }
@@ -48,14 +20,14 @@
     <p>D - poprzedające zadania</p>
 </div>
 
-<form asp-action="">
+<form asp-action="Tasks" method="post">
     <table id="myTable" class="table table-bordered">
         <thead>
             <tr>
                 <th id="number" rowspan="2">Numer</th>
                 <th id="name" rowspan="2">Nazwa</th>
                 <th id="finishTime" colspan="3">Czas ukończenia</th>
-                <th id="dependencies" rowspan="2">Poprzedzające zadania</th>
+                <th id="dependencies" rowspan="2" title="Numery poprzednich zadań">Poprzedzające zadania</th>
             </tr>
             <tr>
                 <th id="finishTimePositive">Pozytywny</th>
@@ -64,10 +36,33 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Rows will be dynamically added here -->
+            @foreach(var task in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="text" class="form-control tableCell" asp-for=@task.Id readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control tableCell" asp-for=@task.Name>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control tableCell" asp-for=@task.PositiveFinishTime>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control tableCell" asp-for=@task.AverageFinishTime>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control tableCell" asp-for=@task.NegativeFinishTime>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control tableCell" placeholder="1, 2, 3..." asp-for=@task.DependOnTasks>
+                    </td>
+                </tr>
+                <!-- Rows will be dynamically added here -->
+            }
         </tbody>
     </table>
-    <button class="btn btn-primary" onclick="addRow()">Dodaj wiersz</button>
+    <button class="btn btn-primary" onclick="addRow()" type="button">Dodaj wiersz</button>
     <button class="btn btn-primary" type="submit">Stwórz diagram</button>
 </form>
 

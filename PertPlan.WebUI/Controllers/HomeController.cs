@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PertPlan.WebUI.Logics;
 using PertPlan.WebUI.Models;
+using PertPlan.WebUI.Models.ViewModels;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace PertPlan.WebUI.Controllers
 {
@@ -29,9 +32,26 @@ namespace PertPlan.WebUI.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Tasks() 
         {
-            return View();
+            var projectTasks = new List<ProjectTask>();
+            return View(projectTasks);
+        }
+
+        [HttpPost]
+        public IActionResult Tasks(List<ProjectTask> projectTasks)
+        {
+            var logic = new HomeLogic();
+
+            if (ModelState.IsValid)
+            {
+                var actions = logic.MapToActionsPERT(projectTasks);
+                return RedirectToAction(nameof(Actions));
+            }
+
+            // Dane nie przeszły walidacji, zwróć widok z błędami
+            return View(projectTasks);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

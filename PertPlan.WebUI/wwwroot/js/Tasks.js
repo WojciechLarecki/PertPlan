@@ -1,4 +1,4 @@
-var taskIndex = 1
+let taskIndex = 0
 
 
 function addRow() {
@@ -12,12 +12,14 @@ function addRow() {
     const cell5 = newRow.insertCell(4);
     const cell6 = newRow.insertCell(5);
 
-    cell1.innerHTML = `<div class='tableCell'>${taskIndex}</div>`;
-    cell2.innerHTML = "<input type='text' class='form-control tableCell'>";
-    cell3.innerHTML = "<input type='number' class='form-control tableCell'>";
-    cell4.innerHTML = "<input type='number' class='form-control tableCell'>";
-    cell5.innerHTML = "<input type='number' class='form-control tableCell'>";
-    cell6.innerHTML = "<input type='text' class='form-control tableCell'>";
+    cell1.innerHTML = `<input type="text" class="form-control tableCell" name='[${taskIndex}].Id' readonly value="${taskIndex}">`;
+    cell2.innerHTML = `<input type='text' class='form-control tableCell' name='[${taskIndex}].Name'>`;
+    cell3.innerHTML = `<input type='number' class='form-control tableCell' name='[${taskIndex}].PositiveFinishTime'>`;
+    cell4.innerHTML = `<input type='number' class='form-control tableCell' name='[${taskIndex}].AverageFinishTime'>`;
+    cell5.innerHTML = `<input type='number' class='form-control tableCell' name='[${taskIndex}].NegativeFinishTime'>`;
+    cell6.innerHTML = `<input type='text' class='form-control tableCell' placeholder='1, 2, 3...' name='[${taskIndex}].DependOnTasks'>`;
+
+    taskIndex++;
 }
 
 window.addEventListener("resize", () => {
