@@ -59,5 +59,19 @@ namespace PertPlan.WebUI.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Test()
+        {
+            // Przykładowe dane dla diagramu PERT
+            var tasks = new[]
+            {
+            new { Id = "A", Name = "Task A", Dependencies = new[] { "B" } },
+            new { Id = "B", Name = "Task B", Dependencies = new[] { "C" } },
+            new { Id = "C", Name = "Task C", Dependencies = new[] { "D" } },
+            new { Id = "D", Name = "Task D", Dependencies = Array.Empty<string>() }
+        };
+
+            return View(tasks);
+        }
     }
 }

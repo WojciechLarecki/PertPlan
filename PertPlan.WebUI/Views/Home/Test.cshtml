@@ -1,0 +1,117 @@
+﻿<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.css" />
+<script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"></script>
+
+<style>
+    .table {
+        display: flex;
+        flex-direction: column;
+        width: 150px;
+        border: 1px solid gray;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .cell {
+        width: 50px;
+        height: 40px;
+        background-color: lightblue;
+        border: 1px solid gray;
+    }
+
+    .action {
+        height: 40px;
+        background-color: lightblue;
+        border: 1px solid gray;
+    }
+</style>
+
+<h1>PERT Diagram</h1>
+
+<div class="mermaid">
+    graph TD
+    A[<div id="id1" class="table">
+        <div class="row">
+            <div class="cell">1</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+        <div class="action">Action A</div>
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+    </div>] --> B(Preview)
+    B --> C{decide}
+    C --> D[Keep]
+    C --> E[Edit Definition]
+    E --> B
+    D --> F[test]
+</div>
+
+@section scripts {
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', () => {
+            mermaid.initialize({ startOnLoad: true });
+        });
+    </script>
+}
+
+@*<style>
+    .mermaid .node rect {
+        fill: #3498db; /* Kolor wypełnienia prostokąta */
+        stroke: #2980b9; /* Kolor obramowania prostokąta */
+        stroke-width: 2; /* Grubość obramowania prostokąta */
+    }
+
+    .mermaid .node text {
+        fill: #fff; /* Kolor tekstu w prostokącie */
+    }
+
+    .mermaid .label-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+    }
+
+    .mermaid .label {
+        text-anchor: middle;
+        alignment-baseline: middle;
+        font-size: 12px; /* Rozmiar czcionki dla etykiet */
+        fill: #fff; /* Kolor tekstu w etykiecie */
+    }
+</style>*@
+
+@{
+    <div id="id1" class="table"><div class="row"><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;">1</div><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div></div><div style="width: 150px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div><div class="row"><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div></div></div>
+}
+
+
+<svg>
+    <g id="A" class="table" transform="translate(0, 0)">
+        <g transform="translate(0, 0)">
+            <rect x="0" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <rect x="50" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <rect x="100" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <text x="25" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">1</text>
+            <text x="75" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">2</text>
+            <text x="128" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">3</text>
+        </g>
+        <g transform="translate(0, 40)">
+            <rect x="0" width="150" height="40" fill="lightblue" stroke="gray"></rect>
+            <text x="75" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">Action A</text>
+        </g>
+        <g transform="translate(0, 80)">
+            <rect x="0" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <rect x="50" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <rect x="100" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+            <text x="25" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">1</text>
+            <text x="75" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">2</text>
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">3</text>
+        </g>
+    </g>
+</svg>
+
