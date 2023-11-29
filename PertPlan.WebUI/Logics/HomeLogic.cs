@@ -49,5 +49,12 @@ namespace PertPlan.WebUI.Logics
 
             return actions;
         }
+
+        public ActionsVM GetActionsVM(IEnumerable<ActionPERT> actions)
+        {
+            var viewModel = new ActionsVM();
+            viewModel.RootActions = actions.Where(a => a.PreviousActions == null).ToList();
+            return viewModel;
+        }
     }
 }

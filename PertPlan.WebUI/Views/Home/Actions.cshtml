@@ -1,7 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
 }
 
 <svg width="100%" height="400" id="pert-diagram">
@@ -12,24 +9,149 @@
     </defs>
 </svg>
 
-<svg width="100%" height="200" id="table-container"></svg>
+<script type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+    const tasks = [
+        { id: "A", name: "Action A", previousActions: [] },
+        { id: "B", name: "Action B", previousActions: ["A"] },
+        { id: "C", name: "Action C", previousActions: ["A"] },
+        { id: "D", name: "Action D", previousActions: ["B", "C"] },
+    ];
+
+    const svg = d3.select("#pert-diagram");
+
+    const links = tasks.flatMap(task =>
+        task.previousActions.map(prevActionId => ({ source: prevActionId, target: task.id }))
+    );
+
+    const simulation = d3.forceSimulation()
+        .nodes(tasks)
+        .force("link", d3.forceLink(links).id((d) => d.id).distance(300))
+        .force("charge", d3.forceManyBody().strength(-200))
+        .force("center", d3.forceCenter(400, 600));
+
+    const nodes = svg
+        .selectAll("g")
+        .data(tasks)
+        .enter()
+        .append("g")
+        .attr("id", d => d.id)
+        .attr("class", "table")
+        .attr("transform", (d, i) => `translate(0, ${i * 80})`);
+
+    nodes.append("g")
+        .attr("transform", "translate(0, 0)")
+        .selectAll("rect")
+        .data(d => Array.from({ length: 3 }, (_, i) => i + 1))
+        .enter()
+        .append("rect")
+        .attr("x", (d, i) => i * 50)
+        .attr("width", 50)
+        .attr("height", 40)
+        .attr("fill", "lightblue")
+        .attr("stroke", "gray");
+
+    nodes.select("g")
+        .selectAll("text")
+        .data(d => Array.from({ length: 3 }, (_, i) => i + 1))
+        .enter()
+        .append("text")
+        .attr("x", (d, i) => i * 50 + 25)
+        .attr("y", 20)
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
+        .attr("fill", "black")
+        .text(d => d);
+
+    nodes.append("g")
+        .attr("transform", "translate(0, 40)")
+        .append("rect")
+        .attr("x", 0)
+        .attr("width", 150)
+        .attr("height", 40)
+        .attr("fill", "lightblue")
+        .attr("stroke", "gray");
+
+    nodes.select("g:nth-child(2)")
+        .append("text")
+        .attr("x", 75)
+        .attr("y", 20)
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
+        .attr("fill", "black")
+        .text(d => d.name);
+
+    const linkElements = svg
+        .selectAll("line")
+        .data(links)
+        .enter()
+        .append("line")
+        .attr("stroke", "gray")
+        .attr("marker-end", "url(#arrow)");
+
+    simulation.on("tick", () => {
+        nodes.attr("transform", (d) => `translate(${d.x},${d.y})`);
+
+        linkElements
+            .attr("x1", (d) => d.source.x)
+            .attr("y1", (d) => d.source.y)
+            .attr("x2", (d) => d.target.x)
+            .attr("y2", (d) => d.target.y);
+    });
+
+    svg.append(
+        `
+        <g id="10" class="table" transform="translate(0, 0)">
+            <g transform="translate(0, 0)">
+                <rect x="0" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+                <rect x="50" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+                <rect x="100" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+                <text x="25" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">10</text>
+                <text x="75" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">20</text>
+                <text x="128" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">30</text>
+            </g>
+            <g transform="translate(0, 40)">
+                <rect x="0" width="150" height="40" fill="lightblue" stroke="gray"></rect>
+                <text x="75" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">lorem ipsum</text>
+            </g>
+            <g transform="translate(0, 80)">
+                <rect x="0" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+                <rect x="50" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+                <rect x="100" width="50" height="40" fill="lightblue" stroke="gray"></rect>
+                <text x="25" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">1</text>
+                <text x="75" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">2</text>
+                <text x="125" y="20" text-anchor="middle" alignment-baseline="middle" fill="black">3</text>
+            </g>
+        </g> 
+        `
+    )
+</script>
+
+
+
+@*<svg width="100%" height="400" id="pert-diagram">
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L10,5 L0,10 Z" fill="gray" />
+        </marker>
+    </defs>
+</svg>
+
 
 <script type="module">
     import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
     const tasks = [
-        { id: "A" },
-        { id: "B" },
-        { id: "C" },
-        { id: "D" },
+        { id: "A", name: "Action A", previousActions: [] },
+        { id: "B", name: "Action B", previousActions: ["A"] },
+        { id: "C", name: "Action C", previousActions: ["A"] },
+        { id: "D", name: "Action D", previousActions: ["B", "C"] },
     ];
 
-    const dependencies = [
-        { source: "A", target: "B" },
-        { source: "A", target: "C" },
-        { source: "B", target: "D" },
-        { source: "C", target: "D" },
-    ];
+    const dependencies = tasks.flatMap(task =>
+        task.previousActions.map(prevActionId => ({ source: prevActionId, target: task.id }))
+    );
 
     const svg = d3.select("#pert-diagram");
 
@@ -108,7 +230,10 @@
                 return y1;
             })
     });
-</script>
+</script>*@
+
+
+@*<svg width="100%" height="200" id="table-container"></svg>
 
 <script type="module">
     import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
@@ -154,7 +279,7 @@
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
         .attr("fill", "black");
-</script>
+</script>*@
 
 
 @*<svg width="300" height="300">

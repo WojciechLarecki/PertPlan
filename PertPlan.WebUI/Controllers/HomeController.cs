@@ -21,10 +21,11 @@ namespace PertPlan.WebUI.Controllers
             return View();
         }
 
-        public IActionResult Actions()
+        public IActionResult Actions(List<ActionPERT> actions)
         {
-            var actions = new List<ActionPERT>();
-            return View();
+            var logic = new HomeLogic();
+            var viewModel = logic.GetActionsVM(actions);
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
@@ -47,7 +48,7 @@ namespace PertPlan.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 var actions = logic.MapToActionsPERT(projectTasks);
-                return RedirectToAction(nameof(Actions));
+                return RedirectToAction(nameof(Actions), actions);
             }
 
             // Dane nie przeszły walidacji, zwróć widok z błędami
