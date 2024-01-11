@@ -48,7 +48,7 @@ namespace PertPlan.WebUI.Controllers
                 return View("Actions", viewModel);
             }
 
-            // Dane nie przeszły walidacji, zwróć widok z błędami
+            // Data is invalid, return empty view
             return View(projectTasks);
         }
 
