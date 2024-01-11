@@ -1,0 +1,17 @@
+﻿.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    background-color: transparent;
+    gap: 2px
+}
+
+.grid-item {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.span-three-columns {
+    grid-column: span 3;
+}

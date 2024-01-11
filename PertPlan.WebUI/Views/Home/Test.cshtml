@@ -46,9 +46,28 @@
     </div>] --> B(Preview)
     B --> C{decide}
     C --> D[Keep]
-    C --> E[Edit Definition]
+    C --> E[test]
     E --> B
-    D --> F[test]
+    D --> F
+    ["`12 1 13
+    test
+    7 10 17`"]
+</div>
+<div class="mermaid">
+    graph TD
+    A[First Line<br />of Node A] -->|Second Line| B(Second Line<br />of Node B)
+    B -->|Third Line| C[Third Line<br />of Node C]
+    C --> D(<div class="row">
+        <div class="cell">12</div>
+        <div class="cell">2</div>
+        <div class="cell">3</div>
+    </div>
+    <div class="action">Action A</div>
+    <div class="row">
+        <div class="cell">3</div>
+        <div class="cell">40</div>
+        <div class="cell">23</div>
+    </div>)
 </div>
 
 @section scripts {
@@ -58,32 +77,6 @@
         });
     </script>
 }
-
-@*<style>
-    .mermaid .node rect {
-        fill: #3498db; /* Kolor wypełnienia prostokąta */
-        stroke: #2980b9; /* Kolor obramowania prostokąta */
-        stroke-width: 2; /* Grubość obramowania prostokąta */
-    }
-
-    .mermaid .node text {
-        fill: #fff; /* Kolor tekstu w prostokącie */
-    }
-
-    .mermaid .label-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        height: 100%;
-    }
-
-    .mermaid .label {
-        text-anchor: middle;
-        alignment-baseline: middle;
-        font-size: 12px; /* Rozmiar czcionki dla etykiet */
-        fill: #fff; /* Kolor tekstu w etykiecie */
-    }
-</style>*@
 
 @{
     <div id="id1" class="table"><div class="row"><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;">1</div><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div></div><div style="width: 150px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div><div class="row"><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div><div style="width: 50px; height: 40px; background-color: lightblue; border: 1px solid gray;"></div></div></div>
