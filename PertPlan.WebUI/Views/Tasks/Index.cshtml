@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/css/Tasks.css" asp-append-version="true" />
 }
 
-<div class="d-md-none" style="border: 1px solid red; padding: 10px">
+<div class="d-md-none" style="padding: 10px">
     <p>N<sub>um</sub> - numer zadania</p>
     <p>N<sub>az</sub> - nazwa zadania</p>
     <p>T<sub>e</sub> - czas ukończenia zadania</p>
@@ -36,6 +36,7 @@
             </tr>
         </thead>
         <tbody>
+
             @foreach(var task in Model)
             {
                 <tr>
@@ -62,8 +63,11 @@
             }
         </tbody>
     </table>
-    <button class="btn btn-primary" id="addTaskButton" type="button">Dodaj wiersz</button>
-    <button class="btn btn-primary" type="submit">Stwórz diagram</button>
+    <div class="text-center">
+        <button class="btn btn-success" id="addTaskButton" type="button">Dodaj wiersz</button>
+        <button class="btn btn-danger" id="deleteTaskButton" type="button" disabled>Usuń wiersz</button>
+        <button class="btn btn-primary" type="submit">Stwórz diagram</button>
+    </div>
 </form>
 
 @section Scripts {

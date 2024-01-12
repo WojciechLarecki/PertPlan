@@ -39,29 +39,52 @@ window.addEventListener("resize", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const addButton = document.getElementById("addTaskButton");
+    const deleteButton = document.getElementById("deleteTaskButton");
 
     addButton.addEventListener("click", (event) => {
         const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
-
         addRow(table);
+        updateDependentTasksInputs(table);
+        updateDeleteButtonState(deleteButton, table.rows.length)
+    });
 
+    deleteButton.addEventListener("click", (event) => {
+        const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+        deleteRow(table);
+        updateDependentTasksInputs(table);
+        updateDeleteButtonState(deleteButton, table.rows.length)
+    });
+
+    function deleteRow(table) {
+        const rowCount = table.rows.length;
+        if (rowCount > 0) {
+            table.deleteRow(rowCount - 1);
+            taskIndex--; // Decrease the taskIndex when a row is deleted
+        }
+    }
+
+    function updateDependentTasksInputs(table) {
         const dependentTasksInputs = table.getElementsByClassName("taskDependentTasks");
 
         for (let input of dependentTasksInputs) {
             if (input.isSameNode(dependentTasksInputs[0])) {
                 input.setAttribute("disabled", "disabled");
                 input.setAttribute("title", "To pierwsze zadanie projektu.\nNie posiada zadań nadrzędnych.")
-            }
-            else {
+            } else {
                 input.removeAttribute("disabled");
                 input.setAttribute("placeholder", "1, 2, 3...");
             }
         }
-    });
+    }
 });
 
-
-
+function updateDeleteButtonState(button, rowCount) {
+    if (rowCount === 0) {
+        button.setAttribute("disabled", "disabled");
+    } else {
+        button.removeAttribute("disabled");
+    }
+}
 
 
 function changeText() {
