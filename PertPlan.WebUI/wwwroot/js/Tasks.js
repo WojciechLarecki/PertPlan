@@ -1,8 +1,7 @@
 let taskIndex = 0
 
 
-function addRow() {
-    const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+function addRow(table) {
     const newRow = table.insertRow(table.rows.length);
 
     const cell1 = newRow.insertCell(0);
@@ -12,12 +11,18 @@ function addRow() {
     const cell5 = newRow.insertCell(4);
     const cell6 = newRow.insertCell(5);
 
-    cell1.innerHTML = `<input type="text" class="form-control tableCell" name='[${taskIndex}].Id' readonly value="${taskIndex}">`;
-    cell2.innerHTML = `<input type='text' class='form-control tableCell' name='[${taskIndex}].Name'>`;
-    cell3.innerHTML = `<input type='number' class='form-control tableCell' name='[${taskIndex}].PositiveFinishTime'>`;
-    cell4.innerHTML = `<input type='number' class='form-control tableCell' name='[${taskIndex}].AverageFinishTime'>`;
-    cell5.innerHTML = `<input type='number' class='form-control tableCell' name='[${taskIndex}].NegativeFinishTime'>`;
-    cell6.innerHTML = `<input type='text' class='form-control tableCell' placeholder='1, 2, 3...' name='[${taskIndex}].DependOnTasks'>`;
+    cell1.innerHTML = `<input type="text" class='form-control tableCell taskNumberInput'
+                        name='[${taskIndex}].Id' readonly value="${taskIndex}">`;
+    cell2.innerHTML = `<input type='text' class='form-control tableCell taskNameInput'
+                        name='[${taskIndex}].Name'>`;
+    cell3.innerHTML = `<input type='number' class='form-control tableCell taskPositiveTimeInput'
+                        name='[${taskIndex}].PositiveFinishTime'>`;
+    cell4.innerHTML = `<input type='number' class='form-control tableCell taskAverageTimeInput'
+                        name='[${taskIndex}].AverageFinishTime'>`;
+    cell5.innerHTML = `<input type='number' class='form-control tableCell taskNegativeInput'
+                        name='[${taskIndex}].NegativeFinishTime'>`;
+    cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks'
+                        name='[${taskIndex}].DependOnTasks'>`;
 
     taskIndex++;
 }
@@ -31,6 +36,31 @@ window.addEventListener("resize", () => {
         changeText2();
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const addButton = document.getElementById("addTaskButton");
+
+    addButton.addEventListener("click", (event) => {
+        const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+
+        addRow(table);
+
+        const dependentTasksInputs = table.getElementsByClassName("taskDependentTasks");
+
+        for (let input of dependentTasksInputs) {
+            if (input.isSameNode(dependentTasksInputs[0])) {
+                input.setAttribute("disabled", "disabled");
+                input.setAttribute("title", "To pierwsze zadanie projektu.\nNie posiada zadań nadrzędnych.")
+            }
+            else {
+                input.removeAttribute("disabled");
+                input.setAttribute("placeholder", "1, 2, 3...");
+            }
+        }
+    });
+});
+
+
 
 
 
