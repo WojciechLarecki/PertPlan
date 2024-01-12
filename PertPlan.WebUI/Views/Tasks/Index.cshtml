@@ -63,10 +63,14 @@
             }
         </tbody>
     </table>
-    <div class="text-center">
-        <button class="btn btn-success" id="addTaskButton" type="button">Dodaj wiersz</button>
-        <button class="btn btn-danger" id="deleteTaskButton" type="button" disabled>Usuń wiersz</button>
-        <button class="btn btn-primary" type="submit">Stwórz diagram</button>
+    <div class="graphOptions text-center flex-column d-flex">
+        <div class="d-md-none">
+            <button class="btn btn-success" id="addTaskButton" type="button">Dodaj wiersz</button>
+            <button class="btn btn-danger" id="deleteTaskButton" type="button" disabled>Usuń wiersz</button>
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">Stwórz diagram</button>
+        </div>
     </div>
 </form>
 

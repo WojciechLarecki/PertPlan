@@ -28,6 +28,10 @@ th {
     width: 1em; /* way to make columns doesn't change sizes after adding row */
 }
 
+.graphOptions {
+    gap: 1rem;
+}
+
 /* bootstrap's md breakpoint */
 @media (min-width: 768px) {
 
