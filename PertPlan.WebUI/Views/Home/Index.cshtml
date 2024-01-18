@@ -2,9 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<style>
+    .menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+</style>
+
+<div class="menu">
     <h1 class="display-4">Witaj w PertPlan</h1>
-    <div class="d-inline-block card-header">Stwórz graf</div>
-    <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">Krok po kroku</a>
-    <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">Z pliku CSV</a>
-</div> 
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+            Stwórz graf
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">Krok po kroku</a>
+            <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">Z pliku CSV</a>
+        </div>
+    </div>
+</div>
