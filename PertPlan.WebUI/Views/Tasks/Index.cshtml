@@ -21,52 +21,60 @@
 </div>
 
 <form asp-action="Tasks" method="post">
-    <table id="myTable" class="table table-bordered">
-        <thead>
-            <tr>
-                <th id="number" rowspan="2">Numer</th>
-                <th id="name" rowspan="2">Nazwa</th>
-                <th id="finishTime" colspan="3">Czas ukończenia</th>
-                <th id="dependencies" rowspan="2" title="Numery poprzednich zadań">Poprzedzające zadania</th>
-            </tr>
-            <tr>
-                <th id="finishTimePositive">Pozytywny</th>
-                <th id="finishTimeAverage">Średni</th>
-                <th id="finishTimeNegative">Negatywny</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach(var task in Model)
-            {
+    <div class="table-responsive">
+        <table id="myTable" class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>
-                        <input type="text" class="form-control tableCell" asp-for=@task.Id readonly>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control tableCell" asp-for=@task.Name>
-                    </td>
-                    <td>
-                        <input type="number" class="form-control tableCell" asp-for=@task.PositiveFinishTime>
-                    </td>
-                    <td>
-                        <input type="number" class="form-control tableCell" asp-for=@task.AverageFinishTime>
-                    </td>
-                    <td>
-                        <input type="number" class="form-control tableCell" asp-for=@task.NegativeFinishTime>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control tableCell" placeholder="1, 2, 3..." asp-for=@task.DependOnTasks>
-                    </td>
+                    <th id="moveIcon" rowspan="2" class=""></th>
+                    <th id="number" rowspan="2" class="tableHeader-number">Numer</th>
+                    <th id="name" rowspan="2" class="tableHeader-text">Nazwa</th>
+                    <th id="finishTime" colspan="3">Czas ukończenia</th>
+                    <th id="dependencies" rowspan="2" title="Numery poprzednich zadań" class="tableHeader-text">Poprzedzające zadania</th>
                 </tr>
-                <!-- Rows will be dynamically added here -->
-            }
-        </tbody>
-    </table>
-    <div class="graphOptions text-center flex-column d-flex">
-        <div class="d-md-none">
+                <tr>
+                    <th id="finishTimePositive">Pozytywny</th>
+                    <th id="finishTimeAverage">Średni</th>
+                    <th id="finishTimeNegative">Negatywny</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var task in Model)
+                {
+                    <tr class="table-row">
+                        <td>
+                            <input type="text" class="form-control tableCell" asp-for=@task.Id readonly>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control tableCell" asp-for=@task.Name>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control tableCell" asp-for=@task.PositiveFinishTime>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control tableCell" asp-for=@task.AverageFinishTime>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control tableCell" asp-for=@task.NegativeFinishTime>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control tableCell" placeholder="1, 2, 3..." asp-for=@task.DependOnTasks>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="drpad dropZone"></td>
+                    </tr>
+                    <!-- Rows will be dynamically added here -->
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="border d-flex" style="justify-content: space-between; position: sticky; bottom: 40px; padding: 8px; background-color: white;">
+        <div>
             <button class="btn btn-success" id="addTaskButton" type="button">Dodaj wiersz</button>
-            <button class="btn btn-danger" id="deleteTaskButton" type="button" disabled>Usuń wiersz</button>
+            <button class="btn btn-success" id="addTaskButton" type="button">Wstaw wiersz</button>
+            <button class="btn btn-danger" id="deleteTaskButton" type="button" disabled>Usuń ostatni wiersz</button>
+            <button class="btn btn-danger" id="deleteSelectedTaskButton" type="button" disabled>Usuń zaznaczony wiersz</button>
         </div>
         <div>
             <button class="btn btn-primary" type="submit">Stwórz diagram</button>
@@ -75,5 +83,6 @@
 </form>
 
 @section Scripts {
-    <script src="~/js/Tasks.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/js/Tasks.js" type="module" charset="utf-8"></script>
+    <script src="~/js/TasksDND.js" type="module" charset="utf-8"></script>
 }

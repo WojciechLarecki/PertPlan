@@ -11,25 +11,54 @@ th {
 }
 
 /* Table headers */
-#number {
-    width: 10%;
+#moveIcon {
+    width: 3%;
 }
 
-#name, #dependencies {
-    width: 20%;
-
+#number {
+    width: 5%;
 }
 
 #dependencies {
     width: 15%;
 }
 
+#finishTime {
+    width: 30%;
+}
+
 #finishTimePositive, #finishTimeNegative, #finishTimeAverage {
-    width: 1em; /* way to make columns doesn't change sizes after adding row */
+    min-width: 80px;
+}
+
+.tableHeader-number {
+    min-width: 50px;
+}
+
+.tableHeader-text {
+    min-width: 110px;
 }
 
 .graphOptions {
     gap: 1rem;
+}
+
+.threeDotsIcon {
+    display: flex;
+    justify-content: center;
+}
+
+.drpad {
+    padding: 0 !important;
+}
+
+.oppacity05 {
+    opacity: 0.5;
+}
+
+.dndCell {
+    cursor: grab;
+    vertical-align: middle;
 }
 
 /* bootstrap's md breakpoint */

@@ -1,15 +1,36 @@
-let taskIndex = 0
-
-
+import * as dnd from "./TasksDND.js";
+let taskIndex = 0;
+const columnsNumber = 7;
 function addRow(table) {
     const newRow = table.insertRow(table.rows.length);
+    newRow.classList.add("table-row");
+    const addingFirstRow = taskIndex === 0;
 
-    const cell1 = newRow.insertCell(0);
-    const cell2 = newRow.insertCell(1);
-    const cell3 = newRow.insertCell(2);
-    const cell4 = newRow.insertCell(3);
-    const cell5 = newRow.insertCell(4);
-    const cell6 = newRow.insertCell(5);
+    if (addingFirstRow) 
+        newRow.setAttribute("draggable", false);
+    else
+        newRow.setAttribute("draggable", true);
+
+    newRow.id = (Math.random() * 1000000).toFixed();
+    newRow.addEventListener('dragstart', dnd.dragStart);
+    newRow.addEventListener('dragend', dnd.dragEnd);
+
+    const cell0 = newRow.insertCell(0);
+    const cell1 = newRow.insertCell(1);
+    const cell2 = newRow.insertCell(2);
+    const cell3 = newRow.insertCell(3);
+    const cell4 = newRow.insertCell(4);
+    const cell5 = newRow.insertCell(5);
+    const cell6 = newRow.insertCell(6);
+
+    if (!addingFirstRow) {
+        cell0.classList.add("dndCell");
+        cell0.innerHTML = `<div class="threeDotsIcon">
+                            <i class="bi bi-three-dots-vertical"></i>
+                       </div>`;
+        cell0.addEventListener("mouseenter", onMouseEnterThreeDots)
+        cell0.addEventListener("mouseleave", onMouseLeaveThreeDots)
+    }
 
     cell1.innerHTML = `<input type="text" class='form-control tableCell taskNumberInput'
                         name='[${taskIndex}].Id' readonly value="${taskIndex}">`;
@@ -25,6 +46,18 @@ function addRow(table) {
                         name='[${taskIndex}].DependOnTasks'>`;
 
     taskIndex++;
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.setAttribute("colspan", columnsNumber);
+    td.classList.add("drpad", "dropZone");
+    tr.appendChild(td);
+
+    td.addEventListener('dragenter', dnd.dragEnter)
+    td.addEventListener('dragover', dnd.dragOver);
+    td.addEventListener('dragleave', dnd.dragLeave);
+    td.addEventListener('drop', dnd.drop);
+
+    newRow.after(tr);
 }
 
 window.addEventListener("resize", () => {
@@ -122,3 +155,14 @@ function changeText2() {
     finishTimeAverage.innerHTML = "Średni";
     finishTimeNegative.innerHTML = "Negatywny";
 }
+
+function onMouseEnterThreeDots(e) {
+    const row = e.target.parentNode;
+    row.classList.add("table-active");
+}
+
+function onMouseLeaveThreeDots(e) {
+    const row = e.target.parentNode;
+    row.classList.remove("table-active");
+}
+
