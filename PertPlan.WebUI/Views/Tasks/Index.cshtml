@@ -1,4 +1,6 @@
 ﻿@using PertPlan.WebUI.Models.ViewModels;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Tasks";
 }
@@ -11,13 +13,13 @@
 }
 
 <div class="d-md-none" style="padding: 10px">
-    <p>N<sub>um</sub> - numer zadania</p>
-    <p>N<sub>az</sub> - nazwa zadania</p>
-    <p>T<sub>e</sub> - czas ukończenia zadania</p>
-    <p>T<sub>p</sub> - pozytywny czas ukończenia zadania</p>
-    <p>T<sub>śr</sub> - średni czas ukończenia zadania</p>
-    <p>T<sub>n</sub> - negatywny czas ukończenia zadania</p>
-    <p>D - poprzedające zadania</p>
+    <p>N<sub>um</sub> - @Localizer["task's number"]</p>
+    <p>N<sub>az</sub> - @Localizer["task's name"]</p>
+    <p>T<sub>e</sub> - @Localizer["time to finish task"]</p>
+    <p>T<sub>p</sub> - @Localizer["positive time to finish task"]</p>
+    <p>T<sub>sr</sub> - @Localizer["averate time to finish task"]</p>
+    <p>T<sub>n</sub> - @Localizer["negative time to finish task"]</p>
+    <p>D - @Localizer["previous tasks"]</p>
 </div>
 
 <form asp-action="Tasks" method="post">
@@ -26,15 +28,15 @@
             <thead>
                 <tr>
                     <th id="moveIcon" rowspan="2" class=""></th>
-                    <th id="number" rowspan="2" class="tableHeader-number">Numer</th>
-                    <th id="name" rowspan="2" class="tableHeader-text">Nazwa</th>
-                    <th id="finishTime" colspan="3">Czas ukończenia</th>
-                    <th id="dependencies" rowspan="2" title="Numery poprzednich zadań" class="tableHeader-text">Poprzedzające zadania</th>
+                    <th id="number" rowspan="2" class="tableHeader-number">@Localizer["Number"]</th>
+                    <th id="name" rowspan="2" class="tableHeader-text">@Localizer["Name"]</th>
+                    <th id="finishTime" colspan="3">@Localizer["Finish time"]</th>
+                    <th id="dependencies" rowspan="2" title=@Localizer["Numbers of previous tasks."] class="tableHeader-text">@Localizer["Previous tasks"]</th>
                 </tr>
                 <tr>
-                    <th id="finishTimePositive">Pozytywny</th>
-                    <th id="finishTimeAverage">Średni</th>
-                    <th id="finishTimeNegative">Negatywny</th>
+                    <th id="finishTimePositive">@Localizer["Positive"]</th>
+                    <th id="finishTimeAverage">@Localizer["Average"]</th>
+                    <th id="finishTimeNegative">@Localizer["Negative"]</th>
                 </tr>
             </thead>
             <tbody>
@@ -71,13 +73,13 @@
     </div>
     <div class="border d-flex" style="justify-content: space-between; position: sticky; bottom: 40px; padding: 8px; background-color: white;">
         <div>
-            <button class="btn btn-success" id="addTaskButton" type="button">Dodaj wiersz</button>
-            <button class="btn btn-success" id="addTaskButton" type="button">Wstaw wiersz</button>
-            <button class="btn btn-danger" id="deleteTaskButton" type="button" disabled>Usuń ostatni wiersz</button>
-            <button class="btn btn-danger" id="deleteSelectedTaskButton" type="button" disabled>Usuń zaznaczony wiersz</button>
+            <button class="btn btn-success" id="addTaskButton" type="button">@Localizer["Add row"]</button>
+            <button class="btn btn-success" id="addTaskButton" type="button">@Localizer["Insert row"]</button>
+            <button class="btn btn-danger" id="deleteTaskButton" type="button" disabled>@Localizer["Delete last row"]</button>
+            <button class="btn btn-danger" id="deleteSelectedTaskButton" type="button" disabled>@Localizer["Delete selected row"]</button>
         </div>
         <div>
-            <button class="btn btn-primary" type="submit">Stwórz diagram</button>
+            <button class="btn btn-primary" type="submit">@Localizer["Create diagram"]</button>
         </div>
     </div>
 </form>

@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 <style>
     .menu {
@@ -13,14 +15,15 @@
 </style>
 
 <div class="menu">
-    <h1 class="display-4">Witaj w PertPlan</h1>
+    <h1 class="display-4">@Localizer["Welcome to PertPlan"]</h1>
     <div class="card" style="width: 18rem;">
         <div class="card-header">
-            Stwórz graf
+            @Localizer["Create graph"]
         </div>
         <div class="card-body">
-            <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">Krok po kroku</a>
-            <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">Z pliku CSV</a>
+            <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">@Localizer["Step by step"]</a>
+            <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">@Localizer["From CSV file"]</a>
         </div>
     </div>
 </div>
+
