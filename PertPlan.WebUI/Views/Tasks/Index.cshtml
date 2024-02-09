@@ -24,7 +24,7 @@
 
 <form asp-action="Tasks" method="post">
     <div class="table-responsive">
-        <table id="myTable" class="table table-bordered">
+        <table id="myTable" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th id="moveIcon" rowspan="2" class=""></th>
@@ -71,7 +71,7 @@
             </tbody>
         </table>
     </div>
-    <div class="border d-flex" style="justify-content: space-between; position: sticky; bottom: 40px; padding: 8px; background-color: white;">
+    <div class="border tasksMenu">
         <div>
             <button class="btn btn-success" id="addTaskButton" type="button">@Localizer["Add row"]</button>
             <button class="btn btn-success" id="addTaskButton" type="button">@Localizer["Insert row"]</button>

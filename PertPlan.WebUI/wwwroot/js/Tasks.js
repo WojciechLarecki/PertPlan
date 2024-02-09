@@ -6,11 +6,6 @@ function addRow(table) {
     newRow.classList.add("table-row");
     const addingFirstRow = taskIndex === 0;
 
-    if (addingFirstRow) 
-        newRow.setAttribute("draggable", false);
-    else
-        newRow.setAttribute("draggable", true);
-
     newRow.id = (Math.random() * 1000000).toFixed();
     newRow.addEventListener('dragstart', dnd.dragStart);
     newRow.addEventListener('dragend', dnd.dragEnd);
@@ -24,10 +19,11 @@ function addRow(table) {
     const cell6 = newRow.insertCell(6);
 
     if (!addingFirstRow) {
+        cell0.setAttribute("draggable", true);
         cell0.classList.add("dndCell");
         cell0.innerHTML = `<div class="threeDotsIcon">
                             <i class="bi bi-three-dots-vertical"></i>
-                       </div>`;
+                           </div>`;
         cell0.addEventListener("mouseenter", onMouseEnterThreeDots)
         cell0.addEventListener("mouseleave", onMouseLeaveThreeDots)
     }
@@ -134,7 +130,7 @@ function changeText() {
     finishTime.innerHTML = "<p>T<sub>e</sub>";
     dependencies.innerHTML = "D";
     finishTimePositive.innerHTML = "<p>T<sub>p</sub>";
-    finishTimeAverage.innerHTML = "<p>T<sub>śr</sub>";
+    finishTimeAverage.innerHTML = "<p>T<sub>sr</sub>";
     finishTimeNegative.innerHTML = "<p>T<sub>n</sub>";
 }
 
@@ -157,12 +153,15 @@ function changeText2() {
 }
 
 function onMouseEnterThreeDots(e) {
-    const row = e.target.parentNode;
-    row.classList.add("table-active");
+    //const row = e.target.parentNode;
+    //row.classList.add("table-active");
+    //row.classList.add("table-active");
 }
 
 function onMouseLeaveThreeDots(e) {
-    const row = e.target.parentNode;
-    row.classList.remove("table-active");
+    //const row = e.target.parentNode;
+    //row.classList.remove("table-active");
+    //row.classList.remove("table-active");
+
 }
 

@@ -61,6 +61,20 @@ th {
     vertical-align: middle;
 }
 
+.drag-over {
+    border: 2px dashed green !important;
+}
+
+.tasksMenu {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    bottom: 40px;
+    padding: 8px;
+    background-color: white;
+    align-items: center;
+}
+
 /* bootstrap's md breakpoint */
 @media (min-width: 768px) {
 

@@ -1,22 +1,24 @@
 ﻿// handle the dragstart
 export function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.id);
+    const grabbedRow = e.target.parentNode;
+    e.dataTransfer.setData('text/plain', grabbedRow.id);
     const dropZones = document.getElementsByClassName("dropZone");
-    Array.from(dropZones).forEach(dr => {
-        dr.classList.remove("drpad");
+    Array.from(dropZones).forEach(dz => {
+        dz.classList.remove("drpad");
     });
     setTimeout(() => {
-        e.target.classList.add("oppacity05");
+        grabbedRow.classList.add("oppacity05");
     }, 0);
 }
 
 export function dragEnd(e) {
+    const grabbedRow = e.target.parentNode;
     const dropZones = document.getElementsByClassName("dropZone");
-    Array.from(dropZones).forEach(dr => {
-        dr.classList.add("drpad");
+    Array.from(dropZones).forEach(dz => {
+        dz.classList.add("drpad");
     });
     setTimeout(() => {
-        e.target.classList.remove("oppacity05");
+        grabbedRow.classList.remove("oppacity05");
     }, 0);
 }
 
