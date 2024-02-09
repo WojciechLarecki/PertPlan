@@ -14,6 +14,7 @@ namespace PertPlan.WebUI.Models.ViewModels
 
         public List<int>? CriticalPathIds { get; set; }
         public double CriticalPathVariation { get; set; }
+        public string CSV { get; set; }
 
         public override string ToString()
         {

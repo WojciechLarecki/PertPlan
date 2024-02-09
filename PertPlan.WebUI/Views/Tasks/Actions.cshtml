@@ -17,4 +17,8 @@
 
 @section Scripts {
     <script type="module" src="~/js/Actions.js"></script>
+    <script type="text/javascript">
+        const csvContent = @Json.Serialize(Model.CSV);
+        console.log(csvContent);
+    </script>
 }

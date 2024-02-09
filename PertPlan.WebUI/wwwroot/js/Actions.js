@@ -10,7 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function exportToCSV() {
-    console.log("CSV downloaded");
+    const blob = new Blob([csvContent], { type: "text" });
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'tasks.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
 }
 
 function exportToSVG() {
@@ -19,7 +27,7 @@ function exportToSVG() {
     var url = window.URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'moje_obrazek.svg';
+    a.download = 'graph.svg';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

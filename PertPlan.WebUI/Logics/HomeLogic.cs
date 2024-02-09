@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Text;
 
 namespace PertPlan.WebUI.Logics
 {
@@ -182,8 +183,22 @@ namespace PertPlan.WebUI.Logics
             //double criticalPathVariation = pdmNodesDictionary[criticalPathIds.Last()].LateEnd - pdmNodesDictionary[criticalPathIds.First()].EarlyEnd;
             var test = pdmNodesDictionary[0].ToHtmlString().Trim();
 
+            var viewModel = new TaskPostVM(pdmNodesDictionary);
+            viewModel.CSV = GenerateCSVContent(projectTasks);
+            return viewModel;
+        }
 
-            return new TaskPostVM(pdmNodesDictionary);
+        private string GenerateCSVContent(List<ProjectTask> projectTasks)
+        {
+            var strBuilder = new StringBuilder();
+            strBuilder.AppendLine("Number;Name;Positive finish time;Average finish time;Negative finish time;Depends on");
+            for (int i = 0; i < projectTasks.Count; i++)
+            {
+                strBuilder.AppendLine($"{i};{projectTasks[i].Name};{projectTasks[i].PositiveFinishTime};" +
+                    $"{projectTasks[i].AverageFinishTime};{projectTasks[i].NegativeFinishTime};{projectTasks[i].DependOnTasks}");
+            }
+
+            return strBuilder.ToString().TrimEnd();
         }
 
         // Rekurencyjna funkcja do ustawiania czasów dla każdego węzła
