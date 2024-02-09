@@ -27,7 +27,7 @@ namespace PertPlan.WebUI.Controllers
             }
 
             // Data is invalid, return empty view
-            return View(projectTasks);
+            return View(nameof(Index), projectTasks);
         }
     }
 }

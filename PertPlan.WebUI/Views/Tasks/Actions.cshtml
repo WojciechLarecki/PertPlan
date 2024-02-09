@@ -1,16 +1,20 @@
 ﻿@model PertPlan.WebUI.Models.ViewModels.TaskPostVM
+@using PertPlan.WebUI.Models.ViewModels;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @section Styles{
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.css" />
     <link rel="stylesheet" href="~/css/Actions.css" />
 }
-
+<div class="text-center">
+    <button class="btn btn-primary" id="exportToCSV" type="button">@Localizer["Export to CSV"]</button>
+    <button class="btn btn-primary" id="exportToSVG" type="button">@Localizer["Export to SVG"]</button>
+</div>
 <div class="mermaid text-center">
     @Html.Raw(Model.ToString())
 </div>
 
 
 @section Scripts {
-    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"></script>
-    <script type="module" src="./js/Actions.js"></script>
+    <script type="module" src="~/js/Actions.js"></script>
 }

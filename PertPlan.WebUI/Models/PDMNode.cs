@@ -78,15 +78,21 @@
 
         public string ToHtmlString()
         {
-            return $@"<div class=""grid-container"">" +
-                    $@"<div class=""grid-item"">{EarlyStart?.ToString("F2")}</div>" +
-                    $@"<div class=""grid-item"">{EstimatedTaskEndTime?.ToString("F2")}</div>" +
-                    $@"<div class=""grid-item"">{EarlyEnd?.ToString("F2")}</div>" +
-                    $@"<div class=""grid-item span-three-columns"">{Name}</div>" +
-                    $@"<div class=""grid-item"">{LateStart?.ToString("F2")}</div>" +
-                    $@"<div class=""grid-item"">{SlackTime?.ToString("F2")}</div>" +
-                    $@"<div class=""grid-item"">{LateEnd?.ToString("F2")}</div>" +
+            return $@"<div class=""grid-container"" style=""{gridContainerStyle}"">" +
+                    $@"<div class=""grid-item"" style=""{gridItemStyle}"">{EarlyStart?.ToString("F2")}</div>" +
+                    $@"<div class=""grid-item"" style=""{gridItemStyle}"">{EstimatedTaskEndTime?.ToString("F2")}</div>" +
+                    $@"<div class=""grid-item"" style=""{gridItemStyle}"">{EarlyEnd?.ToString("F2")}</div>" +
+                    $@"<div class=""grid-item span-three-columns"" style=""{gridItemStyle} {gridItem3ColumnsStyle}"">{Name}</div>" +
+                    $@"<div class=""grid-item"" style=""{gridItemStyle}"">{LateStart?.ToString("F2")}</div>" +
+                    $@"<div class=""grid-item"" style=""{gridItemStyle}"">{SlackTime?.ToString("F2")}</div>" +
+                    $@"<div class=""grid-item"" style=""{gridItemStyle}"">{LateEnd?.ToString("F2")}</div>" +
                 "</div>";
         }
+
+        const string gridContainerStyle = "display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto; background-color: transparent; gap: 2px";
+
+        const string gridItemStyle = "background-color: white; padding: 10px; text-align: center;";
+
+        const string gridItem3ColumnsStyle = "grid-column: span 3;";
     }
 }
