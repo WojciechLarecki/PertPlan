@@ -43,7 +43,6 @@ function appendRow(table) {
     cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks'
                         name='[${taskIndex}].DependOnTasks'>`;
 
-    taskIndex++;
     const tr = createDNDTableRow();
     newRow.after(tr);
 }
@@ -61,21 +60,21 @@ window.addEventListener("resize", () => {
 document.addEventListener("DOMContentLoaded", () => {
     const addButton = document.getElementById("addTaskButton");
     const insertBtn = document.getElementById("insertTaskButton");
-    const deleteLastBtn = document.getElementById("deleteTaskButton");
+    const deleteLastBtn = document.getElementById("deleteLastTaskButton");
     const deleteSelectedTaskBtn = document.getElementById("deleteSelectedTaskButton");
 
     addButton.addEventListener("click", (event) => {
         const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
         appendRow(table);
-        updateDependentTasksInputs(table);
-        updateDeleteButtonState(deleteLastBtn, table.rows.length)
+        adjustTableState();
+        taskIndex++;
     });
 
     deleteLastBtn.addEventListener("click", (event) => {
         const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
         deleteLastRow(table);
-        updateDependentTasksInputs(table);
-        updateDeleteButtonState(deleteLastBtn, table.rows.length)
+        adjustTableState();
+        taskIndex--;
     });
 
     deleteSelectedTaskBtn.addEventListener("click", (e) => {
@@ -84,6 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const dndRow = selectedRow.nextElementSibling;
         table.removeChild(selectedRow);
         table.removeChild(dndRow);
+        adjustTableState();
+        taskIndex--;
     })
 
     insertBtn.addEventListener("click", (e) => {
@@ -92,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const dndRow = createDNDTableRow();
         appendRow.after(newRow);
         newRow.after(dndRow);
+        adjustTableState();
         taskIndex++;
     });
 
@@ -103,27 +105,38 @@ document.addEventListener("DOMContentLoaded", () => {
             taskIndex--; // Decrease the taskIndex when a row is deleted
         }
     }
-
-    function updateDependentTasksInputs(table) {
-        const dependentTasksInputs = table.getElementsByClassName("taskDependentTasks");
-
-        for (let input of dependentTasksInputs) {
-            if (input.isSameNode(dependentTasksInputs[0])) {
-                input.setAttribute("disabled", "disabled");
-                input.setAttribute("title", "To pierwsze zadanie projektu.\nNie posiada zadań nadrzędnych.")
-            } else {
-                input.removeAttribute("disabled");
-                input.setAttribute("placeholder", "1, 2, 3...");
-            }
-        }
-    }
 });
 
-function updateDeleteButtonState(button, rowCount) {
-    if (rowCount === 0) {
-        button.setAttribute("disabled", "disabled");
+function resetDependentTasksInputs() {
+    const dependentTasksInputs = document.getElementsByClassName("taskDependentTasks");
+
+    if (dependentTasksInputs === undefined) {
+        throw new Error("Tasks inputs to reset not found.");
+    }
+
+    for (let input of dependentTasksInputs) {
+        if (input.isSameNode(dependentTasksInputs[0])) {
+            input.setAttribute("disabled", "disabled");
+            input.setAttribute("title", "To pierwsze zadanie projektu.\nNie posiada zadań nadrzędnych.")
+        } else {
+            input.removeAttribute("disabled");
+            input.setAttribute("placeholder", "1, 2, 3...");
+        }
+    }
+}
+
+function updateDeleteLastButtonState() {
+    const deleteLastBtn = document.getElementById("deleteLastTaskButton");
+    const rows = document.getElementsByClassName("table-row");
+
+    if (rows === undefined || deleteLastBtn === undefined) {
+        throw new Error("Elements has not been found.");
+    }
+
+    if (rows.length === 0) {
+        deleteLastBtn.setAttribute("disabled", "disabled");
     } else {
-        button.removeAttribute("disabled");
+        deleteLastBtn.removeAttribute("disabled");
     }
 }
 
@@ -228,7 +241,11 @@ function createDNDTableRow() {
     td.addEventListener('dragenter', dnd.dragEnter)
     td.addEventListener('dragover', dnd.dragOver);
     td.addEventListener('dragleave', dnd.dragLeave);
-    td.addEventListener('drop', dnd.drop);
+    td.addEventListener('drop', (e) => {
+        dnd.drop(e);
+        resetRowsNumbers();
+        resetDependentTasksInputs();
+    });
 
     return tr;
 }
@@ -241,7 +258,6 @@ function onClickRow(event, clickedRow) {
     // user unclicks row
     if (clickedRow.contains(event.target) && clickedRow.classList.contains("table-active")) {
         clickedRow.classList.remove("table-active");
-        deleteSelectedRowBtn.setAttribute("disabled", "true");
         return;
     }
 
@@ -252,5 +268,57 @@ function onClickRow(event, clickedRow) {
             row.classList.remove("table-active");
     }
     clickedRow.classList.add("table-active");
-    deleteSelectedRowBtn.removeAttribute("disabled");
+
+    updateDeleteSelectedButtonState();
+    updateInsertButtonState();
+}
+
+function resetRowsNumbers() {
+    const numericalValues = document.querySelectorAll(".taskNumberInput");
+
+    if (numericalValues === undefined) {
+        throw new Error("Numbers to reset not found.");
+    }
+
+    for (var i = 0; i < numericalValues.length; i++) {
+        numericalValues[i].value = i;
+    }
+}
+
+function adjustTableState() {
+    resetDependentTasksInputs();
+    resetRowsNumbers();
+    updateDeleteLastButtonState();
+    updateDeleteSelectedButtonState();
+    updateInsertButtonState();
+}
+
+function updateDeleteSelectedButtonState() {
+    const selectedRow = document.querySelector(".table-active");
+    const deleteSelectedBtn = document.getElementById("deleteSelectedTaskButton");
+
+    if (deleteSelectedBtn == null) {
+        throw Error("Element not found.");
+    }
+
+    if (selectedRow == null) {
+        deleteSelectedBtn.setAttribute("disabled", "true");
+    } else {
+        deleteSelectedBtn.removeAttribute("disabled");
+    }
+}
+
+function updateInsertButtonState() {
+    const selectedRow = document.querySelector(".table-active");
+    const insertBtn = document.getElementById("insertTaskButton");
+
+    if (insertBtn == null) {
+        throw Error("Element not found.");
+    }
+
+    if (selectedRow == null) {
+        insertBtn.setAttribute("disabled", "true");
+    } else {
+        insertBtn.removeAttribute("disabled");
+    }
 }
