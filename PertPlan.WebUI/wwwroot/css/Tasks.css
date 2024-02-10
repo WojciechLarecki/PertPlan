@@ -62,7 +62,7 @@ th {
 }
 
 .drag-over {
-    border: 2px dashed green !important;
+    background-color: lightgreen !important;
 }
 
 .tasksMenu {

@@ -1,9 +1,11 @@
 import * as dnd from "./TasksDND.js";
 let taskIndex = 0;
 const columnsNumber = 7;
-function addRow(table) {
+function appendRow(table) {
     const newRow = table.insertRow(table.rows.length);
     newRow.classList.add("table-row");
+    newRow.addEventListener("click", (e) => onClickRow(e, newRow));
+
     const addingFirstRow = taskIndex === 0;
 
     newRow.id = (Math.random() * 1000000).toFixed();
@@ -42,17 +44,7 @@ function addRow(table) {
                         name='[${taskIndex}].DependOnTasks'>`;
 
     taskIndex++;
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
-    td.setAttribute("colspan", columnsNumber);
-    td.classList.add("drpad", "dropZone");
-    tr.appendChild(td);
-
-    td.addEventListener('dragenter', dnd.dragEnter)
-    td.addEventListener('dragover', dnd.dragOver);
-    td.addEventListener('dragleave', dnd.dragLeave);
-    td.addEventListener('drop', dnd.drop);
-
+    const tr = createDNDTableRow();
     newRow.after(tr);
 }
 
@@ -68,26 +60,46 @@ window.addEventListener("resize", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const addButton = document.getElementById("addTaskButton");
-    const deleteButton = document.getElementById("deleteTaskButton");
+    const insertBtn = document.getElementById("insertTaskButton");
+    const deleteLastBtn = document.getElementById("deleteTaskButton");
+    const deleteSelectedTaskBtn = document.getElementById("deleteSelectedTaskButton");
 
     addButton.addEventListener("click", (event) => {
         const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
-        addRow(table);
+        appendRow(table);
         updateDependentTasksInputs(table);
-        updateDeleteButtonState(deleteButton, table.rows.length)
+        updateDeleteButtonState(deleteLastBtn, table.rows.length)
     });
 
-    deleteButton.addEventListener("click", (event) => {
+    deleteLastBtn.addEventListener("click", (event) => {
         const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
-        deleteRow(table);
+        deleteLastRow(table);
         updateDependentTasksInputs(table);
-        updateDeleteButtonState(deleteButton, table.rows.length)
+        updateDeleteButtonState(deleteLastBtn, table.rows.length)
     });
 
-    function deleteRow(table) {
+    deleteSelectedTaskBtn.addEventListener("click", (e) => {
+        const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+        const selectedRow = document.querySelector(".table-active");
+        const dndRow = selectedRow.nextElementSibling;
+        table.removeChild(selectedRow);
+        table.removeChild(dndRow);
+    })
+
+    insertBtn.addEventListener("click", (e) => {
+        const appendRow = document.querySelector(".table-active").nextElementSibling;
+        const newRow = createTableRow();
+        const dndRow = createDNDTableRow();
+        appendRow.after(newRow);
+        newRow.after(dndRow);
+        taskIndex++;
+    });
+
+    function deleteLastRow(table) {
         const rowCount = table.rows.length;
         if (rowCount > 0) {
-            table.deleteRow(rowCount - 1);
+            table.deleteRow(rowCount - 1); // delete place for DND
+            table.deleteRow(rowCount - 2); // delete actual row
             taskIndex--; // Decrease the taskIndex when a row is deleted
         }
     }
@@ -165,3 +177,80 @@ function onMouseLeaveThreeDots(e) {
 
 }
 
+function createTableRow() {
+    const newRow = document.createElement("tr");
+    newRow.classList.add("table-row");
+    newRow.addEventListener("click", (e) => onClickRow(e, newRow));
+
+    newRow.id = (Math.random() * 1000000).toFixed();
+    newRow.addEventListener('dragstart', dnd.dragStart);
+    newRow.addEventListener('dragend', dnd.dragEnd);
+
+    const cell0 = newRow.insertCell(0);
+    const cell1 = newRow.insertCell(1);
+    const cell2 = newRow.insertCell(2);
+    const cell3 = newRow.insertCell(3);
+    const cell4 = newRow.insertCell(4);
+    const cell5 = newRow.insertCell(5);
+    const cell6 = newRow.insertCell(6);
+
+    cell0.setAttribute("draggable", true);
+    cell0.classList.add("dndCell");
+    cell0.innerHTML = `<div class="threeDotsIcon">
+                            <i class="bi bi-three-dots-vertical"></i>
+                           </div>`;
+    cell0.addEventListener("mouseenter", onMouseEnterThreeDots)
+    cell0.addEventListener("mouseleave", onMouseLeaveThreeDots)
+
+    cell1.innerHTML = `<input type="text" class='form-control tableCell taskNumberInput'
+                        name='[${taskIndex}].Id' readonly value="${taskIndex}">`;
+    cell2.innerHTML = `<input type='text' class='form-control tableCell taskNameInput'
+                        name='[${taskIndex}].Name'>`;
+    cell3.innerHTML = `<input type='number' class='form-control tableCell taskPositiveTimeInput'
+                        name='[${taskIndex}].PositiveFinishTime'>`;
+    cell4.innerHTML = `<input type='number' class='form-control tableCell taskAverageTimeInput'
+                        name='[${taskIndex}].AverageFinishTime'>`;
+    cell5.innerHTML = `<input type='number' class='form-control tableCell taskNegativeInput'
+                        name='[${taskIndex}].NegativeFinishTime'>`;
+    cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks'
+                        name='[${taskIndex}].DependOnTasks'>`;
+
+    return newRow;
+}
+
+function createDNDTableRow() {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.setAttribute("colspan", columnsNumber);
+    td.classList.add("drpad", "dropZone");
+    tr.appendChild(td);
+
+    td.addEventListener('dragenter', dnd.dragEnter)
+    td.addEventListener('dragover', dnd.dragOver);
+    td.addEventListener('dragleave', dnd.dragLeave);
+    td.addEventListener('drop', dnd.drop);
+
+    return tr;
+}
+
+function onClickRow(event, clickedRow) {
+    const deleteSelectedRowBtn = document.getElementById("deleteSelectedTaskButton");
+    const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+
+
+    // user unclicks row
+    if (clickedRow.contains(event.target) && clickedRow.classList.contains("table-active")) {
+        clickedRow.classList.remove("table-active");
+        deleteSelectedRowBtn.setAttribute("disabled", "true");
+        return;
+    }
+
+    // user clicks new row
+    const rows = table.getElementsByClassName("table-row");
+    for (const row of rows) {
+        if (!row.isSameNode(event.target) && row.classList.contains("table-active"))
+            row.classList.remove("table-active");
+    }
+    clickedRow.classList.add("table-active");
+    deleteSelectedRowBtn.removeAttribute("disabled");
+}
