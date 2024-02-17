@@ -1,51 +1,6 @@
 import * as dnd from "./TasksDND.js";
 let taskIndex = 0;
 const columnsNumber = 7;
-function appendRow(table) {
-    const newRow = table.insertRow(table.rows.length);
-    newRow.classList.add("table-row");
-    newRow.addEventListener("click", (e) => onClickRow(e, newRow));
-
-    const addingFirstRow = taskIndex === 0;
-
-    newRow.id = (Math.random() * 1000000).toFixed();
-    newRow.addEventListener('dragstart', dnd.dragStart);
-    newRow.addEventListener('dragend', dnd.dragEnd);
-
-    const cell0 = newRow.insertCell(0);
-    const cell1 = newRow.insertCell(1);
-    const cell2 = newRow.insertCell(2);
-    const cell3 = newRow.insertCell(3);
-    const cell4 = newRow.insertCell(4);
-    const cell5 = newRow.insertCell(5);
-    const cell6 = newRow.insertCell(6);
-
-    if (!addingFirstRow) {
-        cell0.setAttribute("draggable", true);
-        cell0.classList.add("dndCell");
-        cell0.innerHTML = `<div class="threeDotsIcon">
-                            <i class="bi bi-three-dots-vertical"></i>
-                           </div>`;
-        cell0.addEventListener("mouseenter", onMouseEnterThreeDots)
-        cell0.addEventListener("mouseleave", onMouseLeaveThreeDots)
-    }
-
-    cell1.innerHTML = `<input type="text" class='form-control tableCell taskNumberInput'
-                        name='[${taskIndex}].Id' readonly value="${taskIndex}">`;
-    cell2.innerHTML = `<input type='text' class='form-control tableCell taskNameInput'
-                        name='[${taskIndex}].Name'>`;
-    cell3.innerHTML = `<input type='number' class='form-control tableCell taskPositiveTimeInput'
-                        name='[${taskIndex}].PositiveFinishTime'>`;
-    cell4.innerHTML = `<input type='number' class='form-control tableCell taskAverageTimeInput'
-                        name='[${taskIndex}].AverageFinishTime'>`;
-    cell5.innerHTML = `<input type='number' class='form-control tableCell taskNegativeInput'
-                        name='[${taskIndex}].NegativeFinishTime'>`;
-    cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks'
-                        name='[${taskIndex}].DependOnTasks'>`;
-
-    const tr = createDNDTableRow();
-    newRow.after(tr);
-}
 
 window.addEventListener("resize", () => {
     // outher width creates errors
@@ -62,10 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const insertBtn = document.getElementById("insertTaskButton");
     const deleteLastBtn = document.getElementById("deleteLastTaskButton");
     const deleteSelectedTaskBtn = document.getElementById("deleteSelectedTaskButton");
+    const form = document.getElementById("createGraphForm");
 
     addButton.addEventListener("click", (event) => {
         const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
-        appendRow(table);
+        const newRow = createTableRow();
+        const dndRow = createDNDTableRow();
+        table.appendChild(newRow);
+        table.appendChild(dndRow);
         adjustTableState();
         taskIndex++;
     });
@@ -97,33 +56,43 @@ document.addEventListener("DOMContentLoaded", () => {
         taskIndex++;
     });
 
-    function deleteLastRow(table) {
-        const rowCount = table.rows.length;
-        if (rowCount > 0) {
-            table.deleteRow(rowCount - 1); // delete place for DND
-            table.deleteRow(rowCount - 2); // delete actual row
-            taskIndex--; // Decrease the taskIndex when a row is deleted
+    // unselects row 
+    const body = document.getElementsByTagName("body")[0];
+    body.addEventListener("click", (e) => {
+        if (body.isSameNode(e.target)) {
+            const activeRow = document.querySelector(".table-active");
+            if (activeRow != null) {
+                activeRow.classList.remove("table-active");
+            }
         }
-    }
+    });
 });
 
-function resetDependentTasksInputs() {
-    const dependentTasksInputs = document.getElementsByClassName("taskDependentTasks");
-
-    if (dependentTasksInputs === undefined) {
-        throw new Error("Tasks inputs to reset not found.");
-    }
-
-    for (let input of dependentTasksInputs) {
-        if (input.isSameNode(dependentTasksInputs[0])) {
-            input.setAttribute("disabled", "disabled");
-            input.setAttribute("title", "To pierwsze zadanie projektu.\nNie posiada zadań nadrzędnych.")
-        } else {
-            input.removeAttribute("disabled");
-            input.setAttribute("placeholder", "1, 2, 3...");
-        }
+function deleteLastRow(table) {
+    const rowCount = table.rows.length;
+    if (rowCount > 0) {
+        table.deleteRow(rowCount - 1); // delete place for DND
+        table.deleteRow(rowCount - 2); // delete actual row
     }
 }
+
+//function resetDependentTasksInputs() {
+//    const dependentTasksInputs = document.getElementsByClassName("taskDependentTasks");
+
+//    if (dependentTasksInputs === undefined) {
+//        throw new Error("Tasks inputs to reset not found.");
+//    }
+
+//    for (let input of dependentTasksInputs) {
+//        if (input.isSameNode(dependentTasksInputs[0])) {
+//            input.setAttribute("disabled", "");
+//            input.setAttribute("title", "To pierwsze zadanie projektu.\nNie posiada zadań nadrzędnych.")
+//        } else {
+//            input.removeAttribute("disabled");
+//            input.setAttribute("placeholder", "1, 2, 3...");
+//        }
+//    }
+//}
 
 function updateDeleteLastButtonState() {
     const deleteLastBtn = document.getElementById("deleteLastTaskButton");
@@ -177,19 +146,6 @@ function changeText2() {
     finishTimeNegative.innerHTML = "Negatywny";
 }
 
-function onMouseEnterThreeDots(e) {
-    //const row = e.target.parentNode;
-    //row.classList.add("table-active");
-    //row.classList.add("table-active");
-}
-
-function onMouseLeaveThreeDots(e) {
-    //const row = e.target.parentNode;
-    //row.classList.remove("table-active");
-    //row.classList.remove("table-active");
-
-}
-
 function createTableRow() {
     const newRow = document.createElement("tr");
     newRow.classList.add("table-row");
@@ -212,21 +168,29 @@ function createTableRow() {
     cell0.innerHTML = `<div class="threeDotsIcon">
                             <i class="bi bi-three-dots-vertical"></i>
                            </div>`;
-    cell0.addEventListener("mouseenter", onMouseEnterThreeDots)
-    cell0.addEventListener("mouseleave", onMouseLeaveThreeDots)
 
-    cell1.innerHTML = `<input type="text" class='form-control tableCell taskNumberInput'
-                        name='[${taskIndex}].Id' readonly value="${taskIndex}">`;
-    cell2.innerHTML = `<input type='text' class='form-control tableCell taskNameInput'
-                        name='[${taskIndex}].Name'>`;
-    cell3.innerHTML = `<input type='number' class='form-control tableCell taskPositiveTimeInput'
-                        name='[${taskIndex}].PositiveFinishTime'>`;
-    cell4.innerHTML = `<input type='number' class='form-control tableCell taskAverageTimeInput'
-                        name='[${taskIndex}].AverageFinishTime'>`;
-    cell5.innerHTML = `<input type='number' class='form-control tableCell taskNegativeInput'
-                        name='[${taskIndex}].NegativeFinishTime'>`;
-    cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks'
-                        name='[${taskIndex}].DependOnTasks'>`;
+    cell1.innerHTML = `<div type="text" class="form-control tableCell taskNumberInput" readonly>${taskIndex}</div>`;
+    cell2.innerHTML = `<input type='text' class='form-control tableCell taskNameInput' name='[${taskIndex}].Name' required maxlength='100'>`;
+    cell3.innerHTML = `<input type='number' class='form-control tableCell taskPositiveTimeInput' name='[${taskIndex}].PositiveFinishTime' step="0.5" min="0.5" max="999">`;
+    cell4.innerHTML = `<input type='number' class='form-control tableCell taskAverageTimeInput' name='[${taskIndex}].AverageFinishTime' step="0.5" min="0.5" max="999">`;
+    cell5.innerHTML = `<input type='number' class='form-control tableCell taskNegativeTimeInput' name='[${taskIndex}].NegativeFinishTime' step="0.5" min="0.5" max='999'>`;
+    cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks' name='[${taskIndex}].DependOnTasks' placeholder="1, 2, 3...">`;
+
+    cell2.firstElementChild.addEventListener("focusout", (e) => {
+        validateNameInput(e);
+    });
+
+    cell4.firstElementChild.addEventListener("focusout", (e) => {
+        validateAverageTimeInput(e);
+    });
+
+    cell5.firstElementChild.addEventListener("focusout", (e) => {
+        validateNegativeTimeInput(e);
+    });
+
+    cell6.firstElementChild.addEventListener("focusout", (e) => {
+        validateDependentTasksInput(e);
+    });
 
     return newRow;
 }
@@ -244,20 +208,18 @@ function createDNDTableRow() {
     td.addEventListener('drop', (e) => {
         dnd.drop(e);
         resetRowsNumbers();
-        resetDependentTasksInputs();
+        updateRowsFormAttributes();
     });
 
     return tr;
 }
 
 function onClickRow(event, clickedRow) {
-    const deleteSelectedRowBtn = document.getElementById("deleteSelectedTaskButton");
     const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
 
 
-    // user unclicks row
+    // user clicks the same row
     if (clickedRow.contains(event.target) && clickedRow.classList.contains("table-active")) {
-        clickedRow.classList.remove("table-active");
         return;
     }
 
@@ -281,13 +243,14 @@ function resetRowsNumbers() {
     }
 
     for (var i = 0; i < numericalValues.length; i++) {
-        numericalValues[i].value = i;
+        numericalValues[i].textContent = i;
     }
 }
 
 function adjustTableState() {
-    resetDependentTasksInputs();
+    // resetDependentTasksInputs();
     resetRowsNumbers();
+    updateRowsFormAttributes();
     updateDeleteLastButtonState();
     updateDeleteSelectedButtonState();
     updateInsertButtonState();
@@ -320,5 +283,101 @@ function updateInsertButtonState() {
         insertBtn.setAttribute("disabled", "true");
     } else {
         insertBtn.removeAttribute("disabled");
+    }
+}
+
+function updateRowsFormAttributes() {
+    const rows = document.getElementsByClassName("table-row");
+
+    if (rows == null) {
+        throw Error("Elements not found.");
+    }
+
+    const rowsArray = Array.from(rows);
+
+    for (var i = 0; i < rowsArray.length; i++) {
+        const row = rows[i];
+        const taskName = row.querySelector(".taskNameInput");
+        const taskPositiveFinishTime = row.querySelector(".taskPositiveTimeInput");
+        const taskAverageFinishTime = row.querySelector(".taskAverageTimeInput");
+        const taskNegativeFinishTime = row.querySelector(".taskNegativeTimeInput");
+        const taskDependOnTasks = row.querySelector(".taskDependentTasks");
+
+        if (taskName == null || taskPositiveFinishTime == null ||
+            taskAverageFinishTime == null || taskNegativeFinishTime == null ||
+            taskDependOnTasks == null) {
+            throw Error(`Element not found in row ${i}`);
+        }
+
+        taskName.setAttribute("name", `[${i}].Name`);
+        taskPositiveFinishTime.setAttribute("name", `[${i}].PositiveFinishTime`);
+        taskAverageFinishTime.setAttribute("name", `[${i}].AverageFinishTime`);
+        taskNegativeFinishTime.setAttribute("name", `[${i}].NeagtiveFinishTime`);
+        taskDependOnTasks.setAttribute("name", `[${i}].DependOnTasks`);
+    }
+}
+
+function isNumber(str) {
+    return !isNaN(str);
+}
+
+function validateNameInput(e) {
+    if (e.target.value.trim() === '') {
+        e.target.setCustomValidity("Nazwa zadania nie może zawierac samych spacji.");
+    } else {
+        e.target.setCustomValidity("");
+    }
+}
+
+function validateAverageTimeInput(e) {
+    const clickedRow = e.target.parentElement.parentElement;
+    const taskPositiveFinishTime = clickedRow.querySelector(".taskPositiveTimeInput");
+    const taskNegativeFinishTime = clickedRow.querySelector(".taskNegativeTimeInput");
+
+    if (e.target.value < taskPositiveFinishTime.value) {
+        e.target.setCustomValidity("Średni czas wykonania zadania nie może być krótszy niż pozytywny.");
+    } else if (e.target.value > taskNegativeFinishTime.value) {
+        e.target.setCustomValidity("Średni czas wykonania zadania nie może być dłuższy niż negatywny.");
+    } else {
+        e.target.setCustomValidity("");
+    }
+}
+
+function validateNegativeTimeInput(e) {
+    const clickedRow = e.target.parentElement.parentElement;
+    const taskAverageFinishTime = clickedRow.querySelector(".taskAverageTimeInput");
+
+    if (e.target.value < taskAverageFinishTime.value) {
+        e.target.setCustomValidity("Negatywny czas wykonania zadania nie może być krótszy niż średni.")
+        e.preventDefault();
+    } else {
+        e.target.setCustomValidity("");
+    }
+}
+
+function validateDependentTasksInput(e) {
+    const tasksNumbers = e.target.value.split(',');
+    const clickedRow = e.target.parentElement.parentElement;
+    const taskNumber = clickedRow.querySelector(".taskNumberInput").textContent;
+
+    for (let numberStr of tasksNumbers) {
+        const number = numberStr.trim();
+
+        if (!isNumber(number)) {
+            e.target.setCustomValidity("Ciąg zadań ma niepoprawą strukturę.");
+            e.preventDefault();
+            break;
+        } else if (number < 0) {
+            e.target.setCustomValidity("Zadania nie mają ujemnych numerów.");
+            e.preventDefault();
+            break;
+        } else if (number > taskNumber) {
+            e.target.setCustomValidity("Zadanie nie może polegać na jeszcze niezdefiniowanym zadaniu.");
+            e.preventDefault();
+            break;
+        } else {
+            e.target.setCustomValidity("");
+            e.preventDefault();
+        }
     }
 }

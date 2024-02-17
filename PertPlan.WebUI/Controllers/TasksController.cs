@@ -10,15 +10,13 @@ namespace PertPlan.WebUI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var projectTasks = new List<ProjectTask>();
-            return View(projectTasks);
+            return View();
         }
 
 
         [HttpPost]
-        public IActionResult Tasks(List<ProjectTask> projectTasks)
+        public IActionResult Index(List<ProjectTask> projectTasks)
         {
-
             if (ModelState.IsValid)
             {
                 var logic = new HomeLogic();
@@ -27,7 +25,7 @@ namespace PertPlan.WebUI.Controllers
             }
 
             // Data is invalid, return empty view
-            return View(nameof(Index), projectTasks);
+            return View(projectTasks);
         }
     }
 }

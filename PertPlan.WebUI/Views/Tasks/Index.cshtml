@@ -22,7 +22,7 @@
     <p>D - @Localizer["previous tasks"]</p>
 </div>
 
-<form asp-action="Tasks" method="post">
+<form asp-action="Index" method="post" id="createGraphForm">
     <div class="table-responsive">
         <table id="myTable" class="table table-bordered table-hover">
             <thead>
@@ -40,27 +40,31 @@
                 </tr>
             </thead>
             <tbody>
-
-                @foreach (var task in Model)
+                @for (int i = 0; i < Model?.Count; i++)
                 {
                     <tr class="table-row">
-                        <td>
-                            <input type="text" class="form-control tableCell" asp-for=@task.Id readonly>
+                        <td class="dndCell" draggable="true">
+                            <div class="threeDotsIcon">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </div>
                         </td>
                         <td>
-                            <input type="text" class="form-control tableCell" asp-for=@task.Name>
+                            <div type="text" class="form-control tableCell taskNumberInput" readonly>@i</div>
                         </td>
                         <td>
-                            <input type="number" class="form-control tableCell" asp-for=@task.PositiveFinishTime>
+                            <input type="text" class="form-control tableCell taskNameInput" name="[@i].Name" required maxlength="100" onfocusout="validateNameInput()">
                         </td>
                         <td>
-                            <input type="number" class="form-control tableCell" asp-for=@task.AverageFinishTime>
+                            <input type="number" class="form-control tableCell taskPositiveTimeInput" name="[@i].PositiveFinishTime" required step="0.5" min="0.5" max="999" focusout="">
                         </td>
                         <td>
-                            <input type="number" class="form-control tableCell" asp-for=@task.NegativeFinishTime>
+                            <input type="number" class="form-control tableCell taskAverageTimeInput" name="[@i].AverageFinishTime" required step="0.5" min="0.5" max="999">
                         </td>
                         <td>
-                            <input type="text" class="form-control tableCell" placeholder="1, 2, 3..." asp-for=@task.DependOnTasks>
+                            <input type="number" class="form-control tableCell taskNegativeInput" name="[@i].NeagtiveFinishTime" required step="0.5" min="0.5" max="999">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control tableCell taskDependentTasks" placeholder="1, 2, 3..." name="[@i].DependOnTasks">
                         </td>
                     </tr>
                     <tr>
