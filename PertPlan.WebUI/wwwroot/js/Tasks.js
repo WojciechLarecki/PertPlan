@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const deleteLastBtn = document.getElementById("deleteLastTaskButton");
     const deleteSelectedTaskBtn = document.getElementById("deleteSelectedTaskButton");
     const form = document.getElementById("createGraphForm");
+    const submitButton = document.getElementById("submitButton");
 
     addButton.addEventListener("click", (event) => {
         const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
@@ -54,6 +55,24 @@ document.addEventListener("DOMContentLoaded", () => {
         newRow.after(dndRow);
         adjustTableState();
         taskIndex++;
+    });
+
+    submitButton.addEventListener("click", (e) => {
+        const rows = document.getElementsByClassName("table-row");
+
+        for (const row of rows) {
+            const taskNumberInput = row.querySelector(".taskNumberInput");
+            const taskNameInput = row.querySelector(".taskNameInput");
+            const taskPositiveTimeInput = row.querySelector(".taskPositiveTimeInput");
+            const taskAverageTimeInput = row.querySelector(".taskAverageTimeInput");
+            const taskNegativeTimeInput = row.querySelector(".taskNegativeTimeInput");
+            const taskDependOnInput = row.querySelector(".taskDependentTasks");
+
+            validateNameInput(taskNameInput);
+            validateAverageTimeInput(taskPositiveTimeInput, taskAverageTimeInput, taskNegativeTimeInput);
+            validateNegativeTimeInput(taskNegativeTimeInput, taskAverageTimeInput);
+            validateDependentTasksInput(taskDependOnInput, taskNumberInput.textContent);
+        }
     });
 
     // unselects row 
@@ -176,21 +195,21 @@ function createTableRow() {
     cell5.innerHTML = `<input type='number' class='form-control tableCell taskNegativeTimeInput' name='[${taskIndex}].NegativeFinishTime' step="0.5" min="0.5" max='999'>`;
     cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks' name='[${taskIndex}].DependOnTasks' placeholder="1, 2, 3...">`;
 
-    cell2.firstElementChild.addEventListener("focusout", (e) => {
-        validateNameInput(e);
-    });
+    //cell2.firstElementChild.addEventListener("input", (e) => {
+    //    validateNameInput(e);
+    //});
 
-    cell4.firstElementChild.addEventListener("focusout", (e) => {
-        validateAverageTimeInput(e);
-    });
+    //cell4.firstElementChild.addEventListener("input", (e) => {
+    //    validateAverageTimeInput(e);
+    //});
 
-    cell5.firstElementChild.addEventListener("focusout", (e) => {
-        validateNegativeTimeInput(e);
-    });
+    //cell5.firstElementChild.addEventListener("input", (e) => {
+    //    validateNegativeTimeInput(e);
+    //});
 
-    cell6.firstElementChild.addEventListener("focusout", (e) => {
-        validateDependentTasksInput(e);
-    });
+    //cell6.firstElementChild.addEventListener("input", (e) => {
+    //    validateDependentTasksInput(e);
+    //});
 
     return newRow;
 }
@@ -321,63 +340,49 @@ function isNumber(str) {
     return !isNaN(str);
 }
 
-function validateNameInput(e) {
-    if (e.target.value.trim() === '') {
-        e.target.setCustomValidity("Nazwa zadania nie może zawierac samych spacji.");
+function validateNameInput(nameInput) {
+    if (nameInput.value.trim() === '') {
+        nameInput.setCustomValidity("Nazwa zadania nie może zawierac samych spacji.");
     } else {
-        e.target.setCustomValidity("");
+        nameInput.setCustomValidity("");
     }
 }
 
-function validateAverageTimeInput(e) {
-    const clickedRow = e.target.parentElement.parentElement;
-    const taskPositiveFinishTime = clickedRow.querySelector(".taskPositiveTimeInput");
-    const taskNegativeFinishTime = clickedRow.querySelector(".taskNegativeTimeInput");
-
-    if (e.target.value < taskPositiveFinishTime.value) {
-        e.target.setCustomValidity("Średni czas wykonania zadania nie może być krótszy niż pozytywny.");
-    } else if (e.target.value > taskNegativeFinishTime.value) {
-        e.target.setCustomValidity("Średni czas wykonania zadania nie może być dłuższy niż negatywny.");
+function validateAverageTimeInput(positiveTimeInput, averageTimeInput, negativeTimeInput) {
+    if (averageTimeInput.value < positiveTimeInput.value) {
+        averageTimeInput.setCustomValidity("Średni czas wykonania zadania nie może być krótszy niż pozytywny.");
+    } else if (averageTimeInput.value > negativeTimeInput.value) {
+        averageTimeInput.setCustomValidity("Średni czas wykonania zadania nie może być dłuższy niż negatywny.");
     } else {
-        e.target.setCustomValidity("");
+        averageTimeInput.setCustomValidity("");
     }
 }
 
-function validateNegativeTimeInput(e) {
-    const clickedRow = e.target.parentElement.parentElement;
-    const taskAverageFinishTime = clickedRow.querySelector(".taskAverageTimeInput");
-
-    if (e.target.value < taskAverageFinishTime.value) {
-        e.target.setCustomValidity("Negatywny czas wykonania zadania nie może być krótszy niż średni.")
-        e.preventDefault();
+function validateNegativeTimeInput(negativeTimeInput, averageTimeInput) {
+    if (negativeTimeInput.value < averageTimeInput.value) {
+        negativeTimeInput.setCustomValidity("Negatywny czas wykonania zadania nie może być krótszy niż średni.")
     } else {
-        e.target.setCustomValidity("");
+        negativeTimeInput.setCustomValidity("");
     }
 }
 
-function validateDependentTasksInput(e) {
-    const tasksNumbers = e.target.value.split(',');
-    const clickedRow = e.target.parentElement.parentElement;
-    const taskNumber = clickedRow.querySelector(".taskNumberInput").textContent;
+function validateDependentTasksInput(dependentTasksInput, taskNumber) {
+    const tasksNumbers = dependentTasksInput.value.split(',');
 
     for (let numberStr of tasksNumbers) {
         const number = numberStr.trim();
 
         if (!isNumber(number)) {
-            e.target.setCustomValidity("Ciąg zadań ma niepoprawą strukturę.");
-            e.preventDefault();
+            dependentTasksInput.setCustomValidity("Ciąg zadań ma niepoprawą strukturę.");
             break;
         } else if (number < 0) {
-            e.target.setCustomValidity("Zadania nie mają ujemnych numerów.");
-            e.preventDefault();
+            dependentTasksInput.setCustomValidity("Zadania nie mają ujemnych numerów.");
             break;
         } else if (number > taskNumber) {
-            e.target.setCustomValidity("Zadanie nie może polegać na jeszcze niezdefiniowanym zadaniu.");
-            e.preventDefault();
+            dependentTasksInput.setCustomValidity("Zadanie nie może polegać na jeszcze niezdefiniowanym zadaniu.");
             break;
         } else {
-            e.target.setCustomValidity("");
-            e.preventDefault();
+            dependentTasksInput.setCustomValidity("");
         }
     }
 }
