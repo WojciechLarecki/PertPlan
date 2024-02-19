@@ -52,19 +52,19 @@
                             <div type="text" class="form-control tableCell taskNumberInput" readonly>@i</div>
                         </td>
                         <td>
-                            <input type="text" class="form-control tableCell taskNameInput" name="[@i].Name" required maxlength="100" onfocusout="validateNameInput()">
+                            <input type="text" class="form-control tableCell taskNameInput" name="[@i].Name" required maxlength="100" value="@Model[i].Name">
                         </td>
                         <td>
-                            <input type="number" class="form-control tableCell taskPositiveTimeInput" name="[@i].PositiveFinishTime" required step="0.5" min="0.5" max="999" focusout="">
+                            <input type="number" class="form-control tableCell taskPositiveTimeInput" name="[@i].PositiveFinishTime" required step="0.5" min="0.5" max="999" value="@Model[i].PositiveFinishTime">
                         </td>
                         <td>
-                            <input type="number" class="form-control tableCell taskAverageTimeInput" name="[@i].AverageFinishTime" required step="0.5" min="0.5" max="999">
+                            <input type="number" class="form-control tableCell taskAverageTimeInput" name="[@i].AverageFinishTime" required step="0.5" min="0.5" max="999" value="@Model[i].AverageFinishTime">
                         </td>
                         <td>
-                            <input type="number" class="form-control tableCell taskNegativeInput" name="[@i].NeagtiveFinishTime" required step="0.5" min="0.5" max="999">
+                            <input type="number" class="form-control tableCell taskNegativeInput" name="[@i].NeagtiveFinishTime" required step="0.5" min="0.5" max="999" value="@Model[i].NegativeFinishTime">
                         </td>
                         <td>
-                            <input type="text" class="form-control tableCell taskDependentTasks" placeholder="1, 2, 3..." name="[@i].DependOnTasks">
+                            <input type="text" class="form-control tableCell taskDependentTasks" placeholder="1, 2, 3..." name="[@i].DependOnTasks" value="@Model[i].DependOnTasks">
                         </td>
                     </tr>
                     <tr>

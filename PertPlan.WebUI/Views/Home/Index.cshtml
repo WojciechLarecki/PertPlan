@@ -22,7 +22,19 @@
         </div>
         <div class="card-body">
             <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">@Localizer["Step by step"]</a>
-            <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">@Localizer["From CSV file"]</a>
+            <form method="post" asp-controller="Tasks" asp-action="UploadFile" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="file" name="csvFile" class="form-control" />
+                <button type="submit" name="Upload" class="btn btn-primary">@Localizer["From CSV file"]</button>
+            </form>
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
         </div>
     </div>
 </div>
