@@ -6,11 +6,42 @@
 @section Styles{
     <link rel="stylesheet" href="~/css/Actions.css" />
 }
-<div class="text-center">
-    <button class="btn btn-primary" id="exportToCSV" type="button">@Localizer["Export to CSV"]</button>
-    <button class="btn btn-primary" id="exportToSVG" type="button">@Localizer["Export to SVG"]</button>
+<div class="options">
+    <div class="card" style="width: 24rem;">
+        <div class="card-header">@Localizer["Additional options"]</div>
+        <div class="card-body">
+            <div class="menu align-items-center">
+                <button class="btn btn-primary" id="exportToCSV" type="button">@Localizer["Export to CSV"]</button>
+                <button class="btn btn-primary" id="exportToSVG" type="button">@Localizer["Export to SVG"]</button>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" checked="checked" id="showCriticalPath">
+                    <label class="form-check-label" for="showCriticalPath">@Localizer["Display critical path"]</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="width: 24rem;">
+        <div class="card-header">@Localizer["Chance for project success"]</div>
+        <div class="card-body">
+            <div class="menu">
+                <input id="projectDuration" type="number" class="form-control" required step="0.5" min="0.5" max="999" placeholder="@Localizer["Duration of project"]">
+                <div id="projectSuccessStatus" class="noData">Brak danych</div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
 <div class="mermaid text-center">
+    @*    graph LR
+    A[Square Rect] -- Link text --> B((Circle))
+    A --> C(Round Rect)
+    B --> D{Rhombus}
+    C --> D*@
     @Html.Raw(Model.ToString())
 </div>
 
@@ -19,6 +50,7 @@
     <script type="module" src="~/js/Actions.js"></script>
     <script type="text/javascript">
         const csvContent = @Json.Serialize(Model.CSV);
-        console.log(csvContent);
+        const criticalPathLength = @Json.Serialize(Model.CriticalPathLenght);
+        const projectStandardDeviation = @Json.Serialize(Model.ProjectStandardDeviation);
     </script>
-}
+    }

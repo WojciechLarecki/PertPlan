@@ -1,18 +1,26 @@
-﻿/*.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    background-color: transparent;
-    gap: 2px
+﻿.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+}
+/*
+.alignItems {
+    align-items: center;
+}*/
+
+.options {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
-.grid-item {
-    background-color: white;
-    padding: 10px;
-    text-align: center;
+#projectSuccessStatus {
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
 }
-
-.span-three-columns {
-    grid-column: span 3;
+.noData {
+    color: black;
+    background-color: gray;
 }
-*/

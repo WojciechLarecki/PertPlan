@@ -331,7 +331,7 @@ function updateRowsFormAttributes() {
         taskName.setAttribute("name", `[${i}].Name`);
         taskPositiveFinishTime.setAttribute("name", `[${i}].PositiveFinishTime`);
         taskAverageFinishTime.setAttribute("name", `[${i}].AverageFinishTime`);
-        taskNegativeFinishTime.setAttribute("name", `[${i}].NeagtiveFinishTime`);
+        taskNegativeFinishTime.setAttribute("name", `[${i}].NegativeFinishTime`);
         taskDependOnTasks.setAttribute("name", `[${i}].DependOnTasks`);
     }
 }
@@ -349,9 +349,9 @@ function validateNameInput(nameInput) {
 }
 
 function validateAverageTimeInput(positiveTimeInput, averageTimeInput, negativeTimeInput) {
-    if (averageTimeInput.value < positiveTimeInput.value) {
+    if (Number(averageTimeInput.value) < Number(positiveTimeInput.value)) {
         averageTimeInput.setCustomValidity("Średni czas wykonania zadania nie może być krótszy niż pozytywny.");
-    } else if (averageTimeInput.value > negativeTimeInput.value) {
+    } else if (Number(averageTimeInput.value) > Number(negativeTimeInput.value)) {
         averageTimeInput.setCustomValidity("Średni czas wykonania zadania nie może być dłuższy niż negatywny.");
     } else {
         averageTimeInput.setCustomValidity("");
@@ -359,7 +359,7 @@ function validateAverageTimeInput(positiveTimeInput, averageTimeInput, negativeT
 }
 
 function validateNegativeTimeInput(negativeTimeInput, averageTimeInput) {
-    if (negativeTimeInput.value < averageTimeInput.value) {
+    if (Number(negativeTimeInput.value) < Number(averageTimeInput.value)) {
         negativeTimeInput.setCustomValidity("Negatywny czas wykonania zadania nie może być krótszy niż średni.")
     } else {
         negativeTimeInput.setCustomValidity("");

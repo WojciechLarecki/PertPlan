@@ -66,22 +66,29 @@ namespace PertPlan.WebUI.Logics
 
             if (projectTasks.Count == 0)
                 throw new ArgumentException("There aren't any project tasks");
+            
+            // ustaw randomowe Id dla projectTasks
+            for (var i = 0; i < projectTasks.Count; i++)
+            {
+                projectTasks[i].Id = i;
+            }
 
-            var actions = MapToActionsPERT(projectTasks);
+            List<ActionPERT> actions = MapToActionsPERT(projectTasks);
 
             // Tworzenie słownika, gdzie kluczem jest ID zadania, a wartością jest odpowiadający mu obiekt PDMNode
             Dictionary<int, PDMNode> pdmNodesDictionary = new Dictionary<int, PDMNode>();
-
+            
             // Tworzenie obiektów PDMNode na podstawie ProjectTask
             foreach (var task in actions)
             {
-                PDMNode pdmNode = new PDMNode(task.Id)
-                {
-                    Name = task.Name,
-                    EstimatedTaskEndTime = task.Estimated
-                };
+                PDMNode pdmNode = new PDMNode(task);
+                //PDMNode pdmNode = new PDMNode(task.Id)
+                //{
+                //    Name = task.Name,
+                //    EstimatedTaskEndTime = task.Estimated
+                //};
 
-                pdmNodesDictionary.Add(task.Id, pdmNode);
+                pdmNodesDictionary.Add(pdmNode.Id, pdmNode);
             }
 
             // set next and previous nodes

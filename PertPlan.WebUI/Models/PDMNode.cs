@@ -2,16 +2,27 @@
 {
     public class PDMNode
     {
-        public PDMNode(int id)
+        //public PDMNode(int id)
+        //{
+        //    Id = id;
+        //}
+
+        public PDMNode(ActionPERT task)
         {
-            Id = id;
+            Id = task.Id;
+            this.task = task;
+            EstimatedTaskEndTime = task.Estimated;
         }
 
         public int Id { get; private set; }
-        public string? Name { get; set; }
+        //public string? Name { get; set; }
+        public string Name => task.Name!; 
         public double? EarlyEnd { get => _earlyEnd; private set => _earlyEnd = value; }
 
         public double? SlackTime { get => _slackTime; private set => _slackTime = value; }
+
+        public double StandardDeviation => (task.Negative + task.Positive) / 6;
+        public double Variation => Math.Pow(StandardDeviation, 2);
 
         public List<PDMNode>? NextNode { get; set; }
         public List<PDMNode>? PreviousNode { get; set; }
@@ -21,6 +32,7 @@
         private double? _lateStart;
         private double? _lateEnd;
         private double? _slackTime;
+        private ActionPERT task;
 
         public double? EarlyStart
         {
@@ -41,7 +53,7 @@
         public double? EstimatedTaskEndTime 
         { 
             get => _estimatedTaskEndTime;
-            set 
+            private set 
             {
                 _estimatedTaskEndTime = value;
 
@@ -88,6 +100,8 @@
                     $@"<div class=""grid-item"" style=""{gridItemStyle}"">{LateEnd?.ToString("F2")}</div>" +
                 "</div>";
         }
+
+        public bool IsCritical { get => SlackTime == 0; }
 
         const string gridContainerStyle = "display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto; background-color: transparent; gap: 2px";
 
