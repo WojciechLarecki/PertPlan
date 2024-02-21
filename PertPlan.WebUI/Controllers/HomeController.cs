@@ -1,14 +1,7 @@
 ﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using PertPlan.WebUI.Logics;
 using PertPlan.WebUI.Models;
-using PertPlan.WebUI.Models.ViewModels;
 using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace PertPlan.WebUI.Controllers
 {
