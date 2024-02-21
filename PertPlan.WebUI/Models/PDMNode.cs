@@ -21,9 +21,9 @@
 
         public double Variation => Math.Pow(StandardDeviation, 2);
 
-        public List<PDMNode>? NextNode { get; set; }
+        public List<PDMNode>? NextNodes { get; set; }
 
-        public List<PDMNode>? PreviousNode { get; set; }
+        public List<PDMNode>? PreviousNodes { get; set; }
         private double? _earlyStart;
         private double? _estimatedTaskEndTime;
         private double? _earlyEnd;

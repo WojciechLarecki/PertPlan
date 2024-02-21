@@ -12,8 +12,6 @@ namespace PertPlan.WebUI.Models.ViewModels
             Nodes = nodes;
         }
 
-        //public List<int>? CriticalPathIds { get; set; }
-        //public double CriticalPathVariation { get; set; }
         public string CSV { get; set; }
 
         public double CriticalPathLenght
@@ -58,18 +56,18 @@ namespace PertPlan.WebUI.Models.ViewModels
 
             foreach (var node in Nodes)
             {
-                if (node.Value.NextNode == null && node.Value.IsCritical)
+                if (node.Value.NextNodes == null && node.Value.IsCritical)
                 {
                     output += chars[node.Value.Id] + $"[{node.Value.ToHtmlString()}]:::critical\n";
                     continue;
                 }
-                else if (node.Value.NextNode == null)
+                else if (node.Value.NextNodes == null)
                 {
                     output += chars[node.Value.Id] + $"\n";
                     continue;
                 }
 
-                foreach (var nextNode in node.Value.NextNode)
+                foreach (var nextNode in node.Value.NextNodes)
                 {
                     if (node.Value.IsCritical && nextNode.IsCritical)
                     {

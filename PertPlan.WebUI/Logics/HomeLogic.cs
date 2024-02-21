@@ -79,21 +79,21 @@ namespace PertPlan.WebUI.Logics
             {
                 if (action.PreviousActions != null) 
                 {
-                    pdmNodesDictionary[action.Id].PreviousNode = new List<PDMNode>();
+                    pdmNodesDictionary[action.Id].PreviousNodes = new List<PDMNode>();
 
                     foreach (var previousAction in action.PreviousActions)
                     {
-                        pdmNodesDictionary[action.Id].PreviousNode.Add(pdmNodesDictionary[previousAction.Id]);
+                        pdmNodesDictionary[action.Id].PreviousNodes.Add(pdmNodesDictionary[previousAction.Id]);
                     }
                 }
 
                 if (action.NextActions != null)
                 {
-                    pdmNodesDictionary[action.Id].NextNode = new List<PDMNode>();
+                    pdmNodesDictionary[action.Id].NextNodes = new List<PDMNode>();
 
                     foreach (var nextAction in action.NextActions)
                     {
-                        pdmNodesDictionary[action.Id].NextNode.Add(pdmNodesDictionary[nextAction.Id]);
+                        pdmNodesDictionary[action.Id].NextNodes.Add(pdmNodesDictionary[nextAction.Id]);
                     }
                 }
             }
@@ -101,15 +101,15 @@ namespace PertPlan.WebUI.Logics
             foreach(var nodeKVP in pdmNodesDictionary)
             {
                 var node = pdmNodesDictionary[nodeKVP.Key];
-                if (node.PreviousNode == null) node.EarlyStart = 0;
-                else node.EarlyStart = node.PreviousNode.Max(prevNode => prevNode.EarlyEnd);
+                if (node.PreviousNodes == null) node.EarlyStart = 0;
+                else node.EarlyStart = node.PreviousNodes.Max(prevNode => prevNode.EarlyEnd);
             }
 
             for (int i = pdmNodesDictionary.Count - 1; i >= 0; --i)
             {
                 var node = pdmNodesDictionary[i];
-                if (node.NextNode == null) node.LateEnd = node.EarlyEnd;
-                else node.LateEnd = node.NextNode.Min(prevNode => prevNode.LateStart);
+                if (node.NextNodes == null) node.LateEnd = node.EarlyEnd;
+                else node.LateEnd = node.NextNodes.Min(prevNode => prevNode.LateStart);
             }
 
             var test = pdmNodesDictionary[0].ToHtmlString().Trim();

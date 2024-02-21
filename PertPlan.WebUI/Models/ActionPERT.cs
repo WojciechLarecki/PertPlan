@@ -9,7 +9,6 @@
         public double Negative { get; set; }
         public double Average { get; set; }
         public double Positive { get; set; }
-
         public double Estimated { get => (Negative + 4 * Average + Positive) / 6; }
     }
 }
