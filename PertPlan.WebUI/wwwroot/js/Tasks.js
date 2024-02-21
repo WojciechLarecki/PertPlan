@@ -195,22 +195,6 @@ function createTableRow() {
     cell5.innerHTML = `<input type='number' class='form-control tableCell taskNegativeTimeInput' name='[${taskIndex}].NegativeFinishTime' step="0.5" min="0.5" max='999'>`;
     cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks' name='[${taskIndex}].DependOnTasks' placeholder="1, 2, 3...">`;
 
-    //cell2.firstElementChild.addEventListener("input", (e) => {
-    //    validateNameInput(e);
-    //});
-
-    //cell4.firstElementChild.addEventListener("input", (e) => {
-    //    validateAverageTimeInput(e);
-    //});
-
-    //cell5.firstElementChild.addEventListener("input", (e) => {
-    //    validateNegativeTimeInput(e);
-    //});
-
-    //cell6.firstElementChild.addEventListener("input", (e) => {
-    //    validateDependentTasksInput(e);
-    //});
-
     return newRow;
 }
 

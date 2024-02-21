@@ -16,8 +16,8 @@ namespace PertPlan.WebUI.Models.ViewModels
         //public double CriticalPathVariation { get; set; }
         public string CSV { get; set; }
 
-        public double CriticalPathLenght 
-        { 
+        public double CriticalPathLenght
+        {
             get
             {
                 double result = 0;
@@ -41,9 +41,12 @@ namespace PertPlan.WebUI.Models.ViewModels
                 double result = 0;
                 foreach (var node in Nodes.Values)
                 {
-                    result += node.Variation;
+                    if (node.IsCritical)
+                    {
+                        result += node.Variation;
+                    }
                 }
-                
+
                 return Math.Sqrt(result);
             }
         }
@@ -71,7 +74,7 @@ namespace PertPlan.WebUI.Models.ViewModels
                     if (node.Value.IsCritical && nextNode.IsCritical)
                     {
                         output += chars[node.Value.Id] + $"[{node.Value.ToHtmlString()}]:::critical" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToHtmlString()}]:::critical\n";
-                    } 
+                    }
                     else if (node.Value.IsCritical)
                     {
                         output += chars[node.Value.Id] + $"[{node.Value.ToHtmlString()}]:::critical" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToHtmlString()}]\n";
@@ -87,7 +90,7 @@ namespace PertPlan.WebUI.Models.ViewModels
                     //output += chars[node.Value.Id] + " --> " + chars[nextNode.Id] + "\n";
                 }
             }
-            output += "classDef critical stroke:#f00\n";
+            output += "classDef critical stroke:#f00,stroke-width: 3px\n";
             output += "classDef critical-disabled stroke:#9370DB\n";
             return output;
         }

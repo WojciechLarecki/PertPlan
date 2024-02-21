@@ -2,11 +2,6 @@
 {
     public class PDMNode
     {
-        //public PDMNode(int id)
-        //{
-        //    Id = id;
-        //}
-
         public PDMNode(ActionPERT task)
         {
             Id = task.Id;
@@ -15,16 +10,19 @@
         }
 
         public int Id { get; private set; }
-        //public string? Name { get; set; }
-        public string Name => task.Name!; 
+
+        public string Name => task.Name!;
+
         public double? EarlyEnd { get => _earlyEnd; private set => _earlyEnd = value; }
 
         public double? SlackTime { get => _slackTime; private set => _slackTime = value; }
 
         public double StandardDeviation => (task.Negative + task.Positive) / 6;
+
         public double Variation => Math.Pow(StandardDeviation, 2);
 
         public List<PDMNode>? NextNode { get; set; }
+
         public List<PDMNode>? PreviousNode { get; set; }
         private double? _earlyStart;
         private double? _estimatedTaskEndTime;
@@ -50,10 +48,10 @@
             }
         }
 
-        public double? EstimatedTaskEndTime 
-        { 
+        public double? EstimatedTaskEndTime
+        {
             get => _estimatedTaskEndTime;
-            private set 
+            private set
             {
                 _estimatedTaskEndTime = value;
 
@@ -62,30 +60,30 @@
 
                 if (LateEnd != null)
                     LateStart = LateEnd - _estimatedTaskEndTime;
-            } 
+            }
         }
-        public double? LateEnd 
-        { 
+        public double? LateEnd
+        {
             get => _lateEnd;
             set
-            { 
-                _lateEnd = value; 
+            {
+                _lateEnd = value;
 
-                if (EstimatedTaskEndTime != null) 
+                if (EstimatedTaskEndTime != null)
                     LateStart = _lateEnd - EstimatedTaskEndTime;
-            } 
+            }
         }
 
-        public double? LateStart 
+        public double? LateStart
         {
             get => _lateStart;
-            private set 
+            private set
             {
                 _lateStart = value;
 
                 if (EarlyStart != null)
                     SlackTime = _lateStart - EarlyStart;
-            } 
+            }
         }
 
         public string ToHtmlString()

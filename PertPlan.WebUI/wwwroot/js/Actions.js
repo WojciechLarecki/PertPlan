@@ -46,14 +46,15 @@ function exportToSVG() {
 
 function toggleCriticalPathClasses(event) {
     if (event.target.checked) {
-        const nodes = document.getElementsByClassName("critical-disabled");
-        for (const node of nodes) {
+        const nodes = document.querySelectorAll("g.critical-disabled");
+        for (const node of nodes) {zegar
+
             node.classList.remove("critical-disabled");
             node.classList.add("critical");
         }
     }
     else {
-        const nodes = document.getElementsByClassName("critical");
+        const nodes = document.querySelectorAll("g.critical");
         for (const node of nodes) {
             node.classList.add("critical-disabled");
             node.classList.remove("critical");
@@ -81,9 +82,9 @@ function updateProjectChance(expectedProjectDuationInput) {
         status.textContent = "Prawdopodobne.";
     } else if (result > -0.8) {
         status.classList.add("bg-warning", "text-black");
-        status.textContent = "Ma≥o prawdopodobne.";
+        status.textContent = "Ma≈Ço prawdopodobne.";
     } else {
         status.classList.add("bg-danger", "text-white");
-        status.textContent = "Bardzo ma≥o prawdopodobne.";
+        status.textContent = "Bardzo ma≈Ço prawdopodobne.";
     }
 }
