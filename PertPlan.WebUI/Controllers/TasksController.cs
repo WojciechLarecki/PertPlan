@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PertPlan.WebUI.Logics;
-using PertPlan.WebUI.Models;
+using PertPlan.WebUI.Models.Helpers;
 using PertPlan.WebUI.Models.ViewModels;
 
 namespace PertPlan.WebUI.Controllers
@@ -85,9 +85,9 @@ namespace PertPlan.WebUI.Controllers
 
                         try
                         {
-                            Helper.ValidateTaskName(properties[1]);
-                            Helper.ValidateTaskAverageTime(taskPositiveFinishTime, taskAverageFinishTime, taskNegativeFinishTime);
-                            Helper.ValidateNegativeTimeInput(taskAverageFinishTime, taskNegativeFinishTime);
+                            Validator.ValidateTaskName(properties[1]);
+                            Validator.ValidateTaskAverageTime(taskPositiveFinishTime, taskAverageFinishTime, taskNegativeFinishTime);
+                            Validator.ValidateNegativeTimeInput(taskAverageFinishTime, taskNegativeFinishTime);
                         }
                         catch(ArgumentException e)
                         {
@@ -104,7 +104,7 @@ namespace PertPlan.WebUI.Controllers
 
                         if (!string.IsNullOrEmpty(properties[5]))
                         {
-                            Helper.ValidateDependentTasksInput(properties[5], taskNumber);
+                            Validator.ValidateDependentTasksInput(properties[5], taskNumber);
                             task.DependOnTasks = properties[5];
                         }
 

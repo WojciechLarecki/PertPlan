@@ -1,6 +1,6 @@
-﻿namespace PertPlan.WebUI.Models
+﻿namespace PertPlan.WebUI.Models.Helpers
 {
-    public static class Helper
+    public static class Validator
     {
         public static void ValidateTaskName(string name)
         {
