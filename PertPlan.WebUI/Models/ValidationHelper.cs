@@ -53,6 +53,10 @@
                 {
                     throw new ArgumentException("Zadanie nie może polegać na jeszcze niezdefiniowanym zadaniu.");
                 }
+                else if (number == taskNumber)
+                {
+                    throw new ArgumentException("Zadanie nie może polegać na samym sobie.");
+                }
             }
         }
     }

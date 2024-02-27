@@ -365,6 +365,9 @@ function validateDependentTasksInput(dependentTasksInput, taskNumber) {
         } else if (number > taskNumber) {
             dependentTasksInput.setCustomValidity("Zadanie nie może polegać na jeszcze niezdefiniowanym zadaniu.");
             break;
+        } else if (number === taskNumber) {
+            dependentTasksInput.setCustomValidity("Zadanie nie może polegać na samym sobie.");
+            break;
         } else {
             dependentTasksInput.setCustomValidity("");
         }
