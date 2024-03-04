@@ -5,6 +5,7 @@ namespace PertPlan.WebUI.Models.ViewModels
 {
     public class TaskPostVM
     {
+        public TaskPostTableVM TableVM { get; set; }
         public Dictionary<int, PDMNode> Nodes { get; private set; }
 
         public TaskPostVM(Dictionary<int, PDMNode> nodes)

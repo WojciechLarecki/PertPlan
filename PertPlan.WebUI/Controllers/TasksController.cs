@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using PertPlan.WebUI.Logics;
 using PertPlan.WebUI.Models.Helpers;
 using PertPlan.WebUI.Models.ViewModels;
@@ -20,8 +21,22 @@ namespace PertPlan.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (projectTasks is null)
+                    throw new ArgumentNullException("ProjectTasks are null");
+
+                if (projectTasks.Count == 0)
+                    throw new ArgumentException("There aren't any project tasks");
+
+                for (int i = 0; i < projectTasks.Count; i++)
+                {
+                    projectTasks[i].Id = i;
+                }
+
+                var projectTasksCopy = projectTasks.Select(pt => pt.Copy()).ToList();
+                var actionsCopy = Mapper.MapToActionsPERT(projectTasksCopy);
                 var logic = new HomeLogic();
                 var viewModel = logic.GetTaskPostVM(projectTasks);
+                viewModel.TableVM = new TaskPostTableVM(actionsCopy);
                 return View("Actions", viewModel);
             }
 

@@ -9,18 +9,6 @@ namespace PertPlan.WebUI.Logics
     {
         public TaskPostVM GetTaskPostVM(List<ProjectTask> projectTasks)
         {            
-            if (projectTasks is null)
-                throw new ArgumentNullException("ProjectTasks are null");
-
-            if (projectTasks.Count == 0)
-                throw new ArgumentException("There aren't any project tasks");
-            
-            // ustaw randomowe Id dla projectTasks
-            for (var i = 0; i < projectTasks.Count; i++)
-            {
-                projectTasks[i].Id = i;
-            }
-
             List<ActionPERT> actions = Mapper.MapToActionsPERT(projectTasks);
 
             // Tworzenie słownika, gdzie kluczem jest ID zadania, a wartością jest odpowiadający mu obiekt PDMNode

@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
-@section Styles{
+@section Styles {
     <link rel="stylesheet" href="~/css/Actions.css" />
 }
 <div class="options">
@@ -32,7 +32,69 @@
     </div>
 </div>
 
+<div>
+    <table id="table1" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                @foreach (var item in Model.TableVM.Nodes)
+                {
+                    if (item.Name == null) continue;
 
+                    <th>@item.Name</th>
+                }
+                <th>@Localizer["Time"]</th>
+                <th>@Localizer["Probability"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.TableVM.Rows)
+            {
+                <tr>
+                    @foreach (var number in row.Sequence!)
+                    {
+                        if (number == 0) continue;
+                        <td>@number</td>
+                    }
+                    <td>@row.Time</td>
+                    <td>@row.Probability</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <table id="table2" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>@Localizer["Time"]</th>
+                <th>@Localizer["Probability"]</th>
+                <th>@Localizer["Iloczyn"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var sum = 0d; var sumaKontrolna = 0d; }
+            @foreach (var row in Model.TableVM.RowsForTable2)
+            {
+                <tr>
+                    <td>@row.Key</td>
+                    <td>@row.Value</td>
+                    @{
+                        var iloczyn = row.Key * row.Value;
+                        sumaKontrolna += row.Value;
+                        sum += iloczyn;
+                    }
+                    <td>@iloczyn</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="3">Suma: @sum</td>
+            </tr>
+            <tr>
+                <td colspan="3">Suma kontrolna: @sumaKontrolna</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -53,4 +115,4 @@
         const criticalPathLength = @Json.Serialize(Model.CriticalPathLenght);
         const projectStandardDeviation = @Json.Serialize(Model.ProjectStandardDeviation);
     </script>
-    }
+}
