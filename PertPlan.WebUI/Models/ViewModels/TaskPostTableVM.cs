@@ -145,6 +145,20 @@
                 }
             }
         }
+
+        public string ToBarChart()
+        {
+            double maxValue = RowsForTable2.Values.Max();
+            double roundedValue = Math.Ceiling(maxValue * 10) / 10;
+
+            var str = "xychart-beta\n" +
+                        "title \"Rozkład prawdopodobieństwa\"\n" +
+                        $"x-axis [{string.Join(", ", RowsForTable2.Keys)}]\n" +
+                        $"y-axis 0 --> {roundedValue}\n" +
+                        $"bar [{string.Join(", ", RowsForTable2.Values)}]\n" +
+                        $"line [{string.Join(", ", RowsForTable2.Values)}]\n";
+            return str;
+        }
     }
 
     public class Table1VM

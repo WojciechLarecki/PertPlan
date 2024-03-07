@@ -6,7 +6,7 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/Actions.css" />
 }
-<div class="options">
+<div class="options mb-3">
     <div class="card" style="width: 24rem;">
         <div class="card-header">@Localizer["Additional options"]</div>
         <div class="card-body">
@@ -56,7 +56,7 @@
                         <td>@number</td>
                     }
                     <td>@row.Time</td>
-                    <td>@row.Probability</td>
+                    <td>@row.Probability.ToString("F6")</td>
                 </tr>
             }
         </tbody>
@@ -68,42 +68,41 @@
             <tr>
                 <th>@Localizer["Time"]</th>
                 <th>@Localizer["Probability"]</th>
-                <th>@Localizer["Iloczyn"]</th>
+                <th>@Localizer["Product"]</th>
             </tr>
         </thead>
         <tbody>
-            @{ var sum = 0d; var sumaKontrolna = 0d; }
+            @{ var sum = 0d; var contolSum = 0d; }
             @foreach (var row in Model.TableVM.RowsForTable2)
             {
                 <tr>
                     <td>@row.Key</td>
-                    <td>@row.Value</td>
+                    <td>@row.Value.ToString("F6")</td>
                     @{
-                        var iloczyn = row.Key * row.Value;
-                        sumaKontrolna += row.Value;
-                        sum += iloczyn;
+                        var product = row.Key * row.Value;
+                        contolSum += row.Value;
+                        sum += product;
                     }
-                    <td>@iloczyn</td>
+                    <td>@product.ToString("F6")</td>
                 </tr>
             }
             <tr>
-                <td colspan="3">Suma: @sum</td>
+                <td colspan="3">@Localizer["Expected time of project realisation"]: @Math.Ceiling(sum)</td>
             </tr>
-            <tr>
-                <td colspan="3">Suma kontrolna: @sumaKontrolna</td>
+            <tr class="d-none">
+                <td colspan="3">@Localizer["Control sum"]: @contolSum</td>
             </tr>
         </tbody>
     </table>
 </div>
 
+<div class="mermaid text-center mb-4" id="table3">
+    @Model.TableVM.ToBarChart();
+</div>
+
 
 
 <div class="mermaid text-center">
-    @*    graph LR
-    A[Square Rect] -- Link text --> B((Circle))
-    A --> C(Round Rect)
-    B --> D{Rhombus}
-    C --> D*@
     @Html.Raw(Model.ToString())
 </div>
 
