@@ -42,8 +42,8 @@
                 if (EstimatedTaskEndTime != null)
                     EarlyEnd = _earlyStart + EstimatedTaskEndTime;
 
-                if (LateStart != null)
-                    SlackTime = LateStart - LateEnd;
+                if (LateStart != null && LateEnd != null)
+                    SlackTime = Math.Round(LateStart.Value - LateEnd.Value, 8);
 
             }
         }
@@ -81,8 +81,8 @@
             {
                 _lateStart = value;
 
-                if (EarlyStart != null)
-                    SlackTime = _lateStart - EarlyStart;
+                if (EarlyStart != null && LateStart != null)
+                    SlackTime = Math.Round(LateStart.Value - EarlyStart.Value, 8);
             }
         }
 

@@ -9,6 +9,6 @@
         public double Negative { get; set; }
         public double Average { get; set; }
         public double Positive { get; set; }
-        public double Estimated { get => (Negative + 4 * Average + Positive) / 6; }
+        public double Estimated { get => Math.Round((Negative + 4 * Average + Positive) / 6, 8); }
     }
 }

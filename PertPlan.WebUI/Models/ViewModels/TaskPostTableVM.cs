@@ -65,7 +65,7 @@
         public (double, double) FindLongestPath(ActionPERT start, ActionPERT target, byte[] sequence)
         {
             Dictionary<ActionPERT, double> distance = new Dictionary<ActionPERT, double>();
-            double chance = 1;
+            double chance = GetNodesChance(sequence);
 
             foreach (var node in nodes)
             {
@@ -87,12 +87,11 @@
                 var neighbors = current.NextActions ?? Enumerable.Empty<ActionPERT>();
                 foreach (var neighbor in neighbors)
                 {
-                    (double, double) data = GetDistance(neighbor, sequence);
-                    double newLength = distance[current] + data.Item1; //neighbor.id.Estimated;
+                    var newDistance = GetDistance(neighbor, sequence);
+                    var newLength = distance[current] + newDistance;
                     if (newLength > distance[neighbor])
                     {
                         distance[neighbor] = newLength;
-                        chance *= data.Item2;
                         queue.Enqueue(neighbor);
                     }
                 }
@@ -101,26 +100,43 @@
             return (-1d, -1d); // Jeśli nie istnieje ścieżka od A do B
         }
 
-        private (double,double) GetDistance(ActionPERT neighbor, byte[] sequence)
+        private double GetDistance(ActionPERT neighbor, byte[] sequence)
         {
             var number = sequence[neighbor.Id];
 
             if (neighbor.Id == 0 || neighbor.Id == sequence.Length - 1)
-                return (0, 1);
+                return 0;
 
             if (number == 1)
             {
-                return (neighbor.Positive, 1d/6);
+                return neighbor.Positive;
             }
             else if (number == 2)
             {
-                return (neighbor.Average, 4d/6);
+                return neighbor.Average;
             }
             else
             {
-                return (neighbor.Negative, 1d/6);
+                return neighbor.Negative;
             }
         }
+
+        private double GetNodesChance(byte[] sequence)
+        {
+            var chance = 1d;
+
+            foreach (var number in sequence)
+            {
+                if (number == 2)
+                {
+                    chance *= 4;
+                } 
+            }
+
+            chance /= Math.Pow(6, nodes.Count - 2);
+            return chance;
+        }
+        
 
 
         /*

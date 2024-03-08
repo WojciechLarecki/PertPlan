@@ -52,8 +52,9 @@
                 <tr>
                     @foreach (var number in row.Sequence!)
                     {
+                        var symbol = number == 1 ? Localizer["O"] : number == 2 ? Localizer["Avg"] : Localizer["N"];
                         if (number == 0) continue;
-                        <td>@number</td>
+                        <td>@symbol</td>
                     }
                     <td>@row.Time</td>
                     <td>@row.Probability.ToString("F6")</td>
