@@ -17,8 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const insertBtn = document.getElementById("insertTaskButton");
     const deleteLastBtn = document.getElementById("deleteLastTaskButton");
     const deleteSelectedTaskBtn = document.getElementById("deleteSelectedTaskButton");
-    const form = document.getElementById("createGraphForm");
+    //const form = document.getElementById("createGraphForm");
     const submitButton = document.getElementById("submitButton");
+
+    applyMissingEvents();
 
     addButton.addEventListener("click", (event) => {
         const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
@@ -385,5 +387,27 @@ function validateDependentTasksInput(dependentTasksInput, strTaskNumber) {
         } else {
             dependentTasksInput.setCustomValidity("");
         }
+    }
+}
+
+function applyMissingEvents() {
+    const tableRows = document.getElementsByClassName("table-row");
+    const tds = document.getElementsByClassName("dropZone"); // table data elements of DND rows
+
+    for (const row of tableRows) {
+        row.addEventListener("click", (e) => onClickRow(e, row));
+        row.addEventListener('dragstart', dnd.dragStart);
+        row.addEventListener('dragend', dnd.dragEnd);
+    }
+
+    for (const td of tds) {
+        td.addEventListener('dragenter', dnd.dragEnter)
+        td.addEventListener('dragover', dnd.dragOver);
+        td.addEventListener('dragleave', dnd.dragLeave);
+        td.addEventListener('drop', (e) => {
+            dnd.drop(e);
+            resetRowsNumbers();
+            updateRowsFormAttributes();
+        });
     }
 }

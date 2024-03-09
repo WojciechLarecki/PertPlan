@@ -63,6 +63,7 @@ namespace PertPlan.WebUI.Controllers
                 var lineIndex = 1;
                 try
                 {
+                    var random = new Random();
                     do
                     {
                         line = reader.ReadLine();
@@ -111,6 +112,7 @@ namespace PertPlan.WebUI.Controllers
 
                         var task = new ProjectTask
                         {
+                            Id = random.Next(0, 1000000),
                             Name = properties[1],
                             PositiveFinishTime = taskPositiveFinishTime,
                             AverageFinishTime = taskAverageFinishTime,
