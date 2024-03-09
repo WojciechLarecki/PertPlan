@@ -53,14 +53,19 @@ namespace PertPlan.WebUI.Logics
                 else node.EarlyStart = node.PreviousNodes.Max(prevNode => prevNode.EarlyEnd);
             }
 
+            var lastNodes = pdmNodesDictionary.Values.Where(n => n.NextNodes == null).ToList();
+            var max = lastNodes.Select(n => n.EarlyEnd).Max();
+            foreach (var node in lastNodes)
+            {
+                node.LateEnd = max;
+            }
+
             for (int i = pdmNodesDictionary.Count - 1; i >= 0; --i)
             {
                 var node = pdmNodesDictionary[i];
-                if (node.NextNodes == null) node.LateEnd = node.EarlyEnd;
+                if (node.NextNodes == null) continue;
                 else node.LateEnd = node.NextNodes.Min(prevNode => prevNode.LateStart);
             }
-
-            var test = pdmNodesDictionary[0].ToHtmlString().Trim();
 
             var viewModel = new TaskPostVM(pdmNodesDictionary);
             viewModel.CSV = GenerateCSVContent(projectTasks);
