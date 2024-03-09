@@ -1,15 +1,5 @@
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 
-//const x = document.getElementById("table3");
-//const str =
-//    '%%{init: {"xyChart": {"width": 400, "height": 400, "xAxis": {"tickLength": 20}}}}%%\n' +
-//    'xychart-beta\n' +
-//    'title "Sales Revenue"\n' +
-//    'x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]\n' +
-//    'y-axis 1 --> 10\n' +
-//    'bar [1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10]\n' +
-//    'line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]\n';
-//x.textContent = str;
 mermaid.initialize({ startOnLoad: true });
 
 document.addEventListener('DOMContentLoaded', () => {
