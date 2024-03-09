@@ -4,38 +4,39 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
-<style>
-    .menu {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-    }
-</style>
-
-<div class="menu">
-    <h1 class="display-4">@Localizer["Welcome to PertPlan"]</h1>
-    <div class="card" style="width: 18rem;">
-        <div class="card-header">
-            @Localizer["Create graph"]
+<div class="container">
+    <div class="row pb-3">
+        <div class="col text-center">
+            <h1 class="display-4">@Localizer["Welcome to PertPlan"]</h1>
         </div>
-        <div class="card-body">
-            <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">@Localizer["Step by step"]</a>
-            <form method="post" asp-controller="Tasks" asp-action="UploadFile" enctype="multipart/form-data">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <input type="file" name="csvFile" class="form-control" />
-                <button type="submit" name="Upload" class="btn btn-primary">@Localizer["From CSV file"]</button>
-            </form>
-            @if (TempData["ErrorMessage"] != null)
-            {
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    @TempData["ErrorMessage"]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    @Localizer["Create graph"]
                 </div>
-            }
+                <div class="card-body">
+                    <a class="btn btn-primary" asp-controller="Tasks" asp-action="Index">@Localizer["Step by step"]</a>
+                    <hr />
+                    <form method="post" asp-controller="Tasks" asp-action="UploadFile" enctype="multipart/form-data">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="file" name="csvFile" class="form-control mb-1" />
+                        <button type="submit" name="Upload" class="btn btn-primary">@Localizer["From CSV file"]</button>
+                    </form>
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
 
+                </div>
+            </div>
         </div>
+        <div class="col-2"></div>
     </div>
 </div>
 
