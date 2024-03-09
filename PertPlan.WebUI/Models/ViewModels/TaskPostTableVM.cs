@@ -1,4 +1,6 @@
-﻿namespace PertPlan.WebUI.Models.ViewModels
+﻿using System.Text;
+
+namespace PertPlan.WebUI.Models.ViewModels
 {
     public class TaskPostTableVM
     {
@@ -166,14 +168,22 @@
         {
             double maxValue = RowsForTable2.Values.Max();
             double roundedValue = Math.Ceiling(maxValue * 10) / 10;
+            StringBuilder strBuilder = new StringBuilder();
 
-            var str = "xychart-beta\n" +
-                        "title \"Rozkład prawdopodobieństwa\"\n" +
-                        $"x-axis [{string.Join(", ", RowsForTable2.Keys)}]\n" +
-                        $"y-axis 0 --> {roundedValue}\n" +
-                        $"bar [{string.Join(", ", RowsForTable2.Values)}]\n" +
-                        $"line [{string.Join(", ", RowsForTable2.Values)}]\n";
-            return str;
+            strBuilder.AppendLine("xychart-beta");
+            strBuilder.AppendLine("title \"Rozkład prawdopodobieństwa\"");
+            strBuilder.Append("x-axis [");
+            strBuilder.AppendJoin(", ", RowsForTable2.Keys);
+            strBuilder.AppendLine("]");
+            strBuilder.AppendLine($"y-axis 0 --> {roundedValue}");
+            strBuilder.Append("bar [");
+            strBuilder.AppendJoin(", ", RowsForTable2.Values);
+            strBuilder.AppendLine("]");
+            strBuilder.Append("line [");
+            strBuilder.AppendJoin(", ", RowsForTable2.Values);
+            strBuilder.AppendLine("]");
+
+            return strBuilder.ToString();
         }
     }
 
