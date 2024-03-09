@@ -170,6 +170,9 @@ namespace PertPlan.WebUI.Models.ViewModels
             double roundedValue = Math.Ceiling(maxValue * 10) / 10;
             StringBuilder strBuilder = new StringBuilder();
 
+            List<string> keysToDisaply = RowsForTable2.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
+            List<string> valuesToDisaply = RowsForTable2.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
+
             strBuilder.AppendLine("xychart-beta");
             strBuilder.AppendLine("title \"Rozkład prawdopodobieństwa\"");
             strBuilder.Append("x-axis [");
