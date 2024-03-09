@@ -32,8 +32,8 @@
     </div>
 </div>
 
-<div>
-    <table id="table1" class="table table-bordered table-hover">
+<div class="tableContainer">
+    <table id="table1" class="table table-bordered table-hover table-responsive table-sm">
         <thead>
             <tr>
                 @foreach (var item in Model.TableVM.Nodes)
@@ -63,8 +63,8 @@
         </tbody>
     </table>
 </div>
-<div>
-    <table id="table2" class="table table-bordered table-hover">
+<div class="tableContainer">
+    <table id="table2" class="table table-bordered table-hover table-responsive table-sm">
         <thead>
             <tr>
                 <th>@Localizer["Time"]</th>
@@ -87,13 +87,19 @@
                     <td>@product.ToString("F6")</td>
                 </tr>
             }
+        </tbody>
+        <tfoot>
+            @{
+                sum = Math.Round(sum, 6);
+                sum = Math.Ceiling(sum);
+            }
             <tr>
-                <td colspan="3">@Localizer["Expected time of project realisation"]: @Math.Ceiling(sum)</td>
+                <td colspan="3">@Localizer["Expected time of project realisation"]: @sum</td>
             </tr>
             <tr class="d-none">
                 <td colspan="3">@Localizer["Control sum"]: @contolSum</td>
             </tr>
-        </tbody>
+        </tfoot>
     </table>
 </div>
 

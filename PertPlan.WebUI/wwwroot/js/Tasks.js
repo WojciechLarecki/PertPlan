@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const insertBtn = document.getElementById("insertTaskButton");
     const deleteLastBtn = document.getElementById("deleteLastTaskButton");
     const deleteSelectedTaskBtn = document.getElementById("deleteSelectedTaskButton");
-    //const form = document.getElementById("createGraphForm");
     const submitButton = document.getElementById("submitButton");
 
     applyMissingEvents();
+    adjustTableState();
 
     addButton.addEventListener("click", (event) => {
         const table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
@@ -84,6 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const activeRow = document.querySelector(".table-active");
             if (activeRow != null) {
                 activeRow.classList.remove("table-active");
+                updateDeleteSelectedButtonState();
+                updateInsertButtonState();
             }
         }
     });
@@ -96,24 +98,6 @@ function deleteLastRow(table) {
         table.deleteRow(rowCount - 2); // delete actual row
     }
 }
-
-//function resetDependentTasksInputs() {
-//    const dependentTasksInputs = document.getElementsByClassName("taskDependentTasks");
-
-//    if (dependentTasksInputs === undefined) {
-//        throw new Error("Tasks inputs to reset not found.");
-//    }
-
-//    for (let input of dependentTasksInputs) {
-//        if (input.isSameNode(dependentTasksInputs[0])) {
-//            input.setAttribute("disabled", "");
-//            input.setAttribute("title", "To pierwsze zadanie projektu.\nNie posiada zadań nadrzędnych.")
-//        } else {
-//            input.removeAttribute("disabled");
-//            input.setAttribute("placeholder", "1, 2, 3...");
-//        }
-//    }
-//}
 
 function updateDeleteLastButtonState() {
     const deleteLastBtn = document.getElementById("deleteLastTaskButton");
@@ -253,7 +237,6 @@ function resetRowsNumbers() {
 }
 
 function adjustTableState() {
-    // resetDependentTasksInputs();
     resetRowsNumbers();
     updateRowsFormAttributes();
     updateDeleteLastButtonState();

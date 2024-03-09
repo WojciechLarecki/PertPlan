@@ -24,3 +24,8 @@
     color: black;
     background-color: gray;
 }
+
+.tableContainer {
+    max-height: 15rem;
+    overflow-x: scroll;
+}
