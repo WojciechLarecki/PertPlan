@@ -350,16 +350,30 @@ function validateNegativeTimeInput(negativeTimeInput, averageTimeInput) {
     }
 }
 
-function validateDependentTasksInput(dependentTasksInput, taskNumber) {
-    const tasksNumbers = dependentTasksInput.value.split(',');
+function validateDependentTasksInput(dependentTasksInput, strTaskNumber) {
+    const dependTasksNumbers = dependentTasksInput.value.split(',');
 
-    for (let numberStr of tasksNumbers) {
-        const number = numberStr.trim();
+    if (!isNumber(strTaskNumber)) {
+        throw Error(`Given task number is not a number.`);
+    }
 
-        if (!isNumber(number)) {
+    const taskNumber = Number(strTaskNumber);
+
+    for (let numberStr of dependTasksNumbers) {
+        numberStr = numberStr.trim();
+
+        if (numberStr === "") break;
+
+        const strIsNumber = isNumber(numberStr);
+        
+        if (!strIsNumber) {
             dependentTasksInput.setCustomValidity("Ciąg zadań ma niepoprawą strukturę.");
             break;
-        } else if (number < 0) {
+        }
+
+        const number = Number(numberStr);
+
+        if (number < 0) {
             dependentTasksInput.setCustomValidity("Zadania nie mają ujemnych numerów.");
             break;
         } else if (number > taskNumber) {
