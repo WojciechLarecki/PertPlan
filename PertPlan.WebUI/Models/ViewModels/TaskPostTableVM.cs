@@ -171,19 +171,19 @@ namespace PertPlan.WebUI.Models.ViewModels
             StringBuilder strBuilder = new StringBuilder();
 
             List<string> keysToDisaply = RowsForTable2.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
-            List<string> valuesToDisaply = RowsForTable2.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
+            List<string> valuesToDisaply = RowsForTable2.Values.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
 
             strBuilder.AppendLine("xychart-beta");
             strBuilder.AppendLine("title \"Rozkład prawdopodobieństwa\"");
             strBuilder.Append("x-axis [");
-            strBuilder.AppendJoin(", ", RowsForTable2.Keys);
+            strBuilder.AppendJoin(", ", keysToDisaply);
             strBuilder.AppendLine("]");
             strBuilder.AppendLine($"y-axis 0 --> {roundedValue}");
             strBuilder.Append("bar [");
-            strBuilder.AppendJoin(", ", RowsForTable2.Values);
+            strBuilder.AppendJoin(", ", valuesToDisaply);
             strBuilder.AppendLine("]");
             strBuilder.Append("line [");
-            strBuilder.AppendJoin(", ", RowsForTable2.Values);
+            strBuilder.AppendJoin(", ", valuesToDisaply);
             strBuilder.AppendLine("]");
 
             return strBuilder.ToString();
