@@ -142,8 +142,8 @@ namespace PertPlan.WebUI.Models.ViewModels
 
 
         /*
-            Złożoność czasowa: O(3^n)
-            Złożoność pamięciowa: O(3^n)
+            Time complexity: O(3^n)
+            Memory complexity: O(3^n)
         */
 
         private void GenerateCombinationsHelper(int n, byte[] sequence)

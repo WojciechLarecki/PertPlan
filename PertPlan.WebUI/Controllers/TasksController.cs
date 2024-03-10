@@ -51,7 +51,6 @@ namespace PertPlan.WebUI.Controllers
 
             if (csvFile == null || csvFile.Length == 0)
             {
-                // ModelState.AddModelError("csvFile", "Nie wybrano pliku lub plik jest pusty.");
                 TempData["ErrorMessage"] = "Nie wybrano pliku lub plik jest pusty.";
                 return RedirectToAction("Index", "Home");
             }

@@ -1,5 +1,4 @@
-﻿using PertPlan.WebUI.Models;
-using PertPlan.WebUI.Models.ViewModels;
+﻿using PertPlan.WebUI.Models.ViewModels;
 
 namespace PertPlan.WebUI.Models.Helpers
 {

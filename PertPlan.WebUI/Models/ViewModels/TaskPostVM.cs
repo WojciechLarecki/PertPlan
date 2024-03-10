@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Xml.Linq;
-
-namespace PertPlan.WebUI.Models.ViewModels
+﻿namespace PertPlan.WebUI.Models.ViewModels
 {
     public class TaskPostVM
     {
@@ -86,7 +83,6 @@ namespace PertPlan.WebUI.Models.ViewModels
                     {
                         output += chars[node.Value.Id] + $"[{node.Value.ToHtmlString()}]" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToHtmlString()}]\n";
                     }
-                    //output += chars[node.Value.Id] + " --> " + chars[nextNode.Id] + "\n";
                 }
             }
             output += "classDef critical stroke:#f00,stroke-width: 3px\n";
