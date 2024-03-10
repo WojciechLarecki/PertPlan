@@ -124,13 +124,13 @@ function changeText() {
     const finishTimeAverage = document.getElementById("finishTimeAverage");
     const finishTimeNegative = document.getElementById("finishTimeNegative");
 
-    number.innerHTML = "<p>N<sub>um</sub>";
-    name.innerHTML = "<p>N<sub>az</sub>";
-    finishTime.innerHTML = "<p>T<sub>e</sub>";
-    dependencies.innerHTML = "D";
-    finishTimePositive.innerHTML = "<p>T<sub>p</sub>";
-    finishTimeAverage.innerHTML = "<p>T<sub>sr</sub>";
-    finishTimeNegative.innerHTML = "<p>T<sub>n</sub>";
+    number.innerHTML = localizer.numberIndex;
+    name.innerHTML = localizer.nameIndex;
+    finishTime.innerHTML = localizer.finishTimeIndex;
+    dependencies.innerHTML = localizer.previousTasksIndex;
+    finishTimePositive.innerHTML = localizer.positiveTimeIndex;
+    finishTimeAverage.innerHTML = localizer.averageTimeIndex;
+    finishTimeNegative.innerHTML = localizer.negativeTimeIndex;
 }
 
 function changeText2() {
@@ -142,13 +142,13 @@ function changeText2() {
     const finishTimeAverage = document.getElementById("finishTimeAverage");
     const finishTimeNegative = document.getElementById("finishTimeNegative");
 
-    number.innerHTML = "Numer";
-    name.innerHTML = "Nazwa";
-    finishTime.innerHTML = "Czas ukończenia";
-    dependencies.innerHTML = "Poprzedzające zadania";
-    finishTimePositive.innerHTML = "Pozytywny";
-    finishTimeAverage.innerHTML = "Średni";
-    finishTimeNegative.innerHTML = "Negatywny";
+    number.innerHTML = localizer.number;
+    name.innerHTML = localizer.name;
+    finishTime.innerHTML = localizer.finishTime;
+    dependencies.innerHTML = localizer.procedingTasks;
+    finishTimePositive.innerHTML = localizer.positive;
+    finishTimeAverage.innerHTML = localizer.average;
+    finishTimeNegative.innerHTML = localizer.negative;
 }
 
 function createTableRow() {
@@ -311,7 +311,7 @@ function isNumber(str) {
 
 function validateNameInput(nameInput) {
     if (nameInput.value.trim() === '') {
-        nameInput.setCustomValidity("Nazwa zadania nie może zawierac samych spacji.");
+        nameInput.setCustomValidity(localizer.blankSpacesError);
     } else {
         nameInput.setCustomValidity("");
     }
@@ -319,9 +319,9 @@ function validateNameInput(nameInput) {
 
 function validateAverageTimeInput(positiveTimeInput, averageTimeInput, negativeTimeInput) {
     if (Number(averageTimeInput.value) < Number(positiveTimeInput.value)) {
-        averageTimeInput.setCustomValidity("Średni czas wykonania zadania nie może być krótszy niż pozytywny.");
+        averageTimeInput.setCustomValidity(localizer.averageTimeTooShortError);
     } else if (Number(averageTimeInput.value) > Number(negativeTimeInput.value)) {
-        averageTimeInput.setCustomValidity("Średni czas wykonania zadania nie może być dłuższy niż negatywny.");
+        averageTimeInput.setCustomValidity(localizer.averageTimeTooLongError);
     } else {
         averageTimeInput.setCustomValidity("");
     }
@@ -329,7 +329,7 @@ function validateAverageTimeInput(positiveTimeInput, averageTimeInput, negativeT
 
 function validateNegativeTimeInput(negativeTimeInput, averageTimeInput) {
     if (Number(negativeTimeInput.value) < Number(averageTimeInput.value)) {
-        negativeTimeInput.setCustomValidity("Negatywny czas wykonania zadania nie może być krótszy niż średni.")
+        negativeTimeInput.setCustomValidity(localizer.negativeTimeError);
     } else {
         negativeTimeInput.setCustomValidity("");
     }
@@ -352,20 +352,20 @@ function validateDependentTasksInput(dependentTasksInput, strTaskNumber) {
         const strIsNumber = isNumber(numberStr);
         
         if (!strIsNumber) {
-            dependentTasksInput.setCustomValidity("Ciąg zadań ma niepoprawą strukturę.");
+            dependentTasksInput.setCustomValidity(localizer.dependencyFormatError);
             break;
         }
 
         const number = Number(numberStr);
 
         if (number < 0) {
-            dependentTasksInput.setCustomValidity("Zadania nie mają ujemnych numerów.");
+            dependentTasksInput.setCustomValidity(localizer.negativeNumberError);
             break;
         } else if (number > taskNumber) {
-            dependentTasksInput.setCustomValidity("Zadanie nie może polegać na jeszcze niezdefiniowanym zadaniu.");
+            dependentTasksInput.setCustomValidity(localizer.undefinedTaskError);
             break;
         } else if (number === taskNumber) {
-            dependentTasksInput.setCustomValidity("Zadanie nie może polegać na samym sobie.");
+            dependentTasksInput.setCustomValidity(localizer.selfDependencyError);
             break;
         } else {
             dependentTasksInput.setCustomValidity("");

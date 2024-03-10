@@ -123,6 +123,15 @@
   <data name="Average" xml:space="preserve">
     <value>Średni</value>
   </data>
+  <data name="Average finish time can not be longer than negative." xml:space="preserve">
+    <value>Średni czas wykonania zadania nie może być dłuższy niż negatywny.</value>
+  </data>
+  <data name="Average finish time can not be shorter than positive." xml:space="preserve">
+    <value>Średni czas wykonania zadania nie może być krótszy niż pozytywny.</value>
+  </data>
+  <data name="averageTimeIndex" xml:space="preserve">
+    <value>Cz&lt;sub&gt;sr&lt;/sub&gt;</value>
+  </data>
   <data name="averate time to finish task" xml:space="preserve">
     <value>średni czas ukończenia zadania</value>
   </data>
@@ -135,8 +144,14 @@
   <data name="Delete selected row" xml:space="preserve">
     <value>Usuń zaznaczony wiersz</value>
   </data>
+  <data name="Field contains incorrect data." xml:space="preserve">
+    <value>Ciąg zadań ma niepoprawą strukturę.</value>
+  </data>
   <data name="Finish time" xml:space="preserve">
     <value>Czas ukończenia</value>
+  </data>
+  <data name="finishTimeIndex" xml:space="preserve">
+    <value>Cz&lt;sub&gt;uk&lt;/sub&gt;</value>
   </data>
   <data name="Insert row" xml:space="preserve">
     <value>Wstaw wiersz</value>
@@ -144,14 +159,26 @@
   <data name="Name" xml:space="preserve">
     <value>Nazwa</value>
   </data>
+  <data name="nameIndex" xml:space="preserve">
+    <value>N&lt;sub&gt;az&lt;/sub&gt;</value>
+  </data>
   <data name="Negative" xml:space="preserve">
     <value>Negatywny</value>
+  </data>
+  <data name="Negative finish time can not be shorter than average." xml:space="preserve">
+    <value>Negatywny czas wykonania zadania nie może być krótszy niż średni.</value>
   </data>
   <data name="negative time to finish task" xml:space="preserve">
     <value>negatywny czas ukończenia zadania</value>
   </data>
+  <data name="negativeTimeIndex" xml:space="preserve">
+    <value>Cz&lt;sub&gt;n&lt;/sub&gt;</value>
+  </data>
   <data name="Number" xml:space="preserve">
     <value>Numer</value>
+  </data>
+  <data name="numberIndex" xml:space="preserve">
+    <value>N&lt;sub&gt;um&lt;/sub&gt;</value>
   </data>
   <data name="Numbers of previous tasks." xml:space="preserve">
     <value>Liczba poprzednich zadań</value>
@@ -162,8 +189,29 @@
   <data name="positive time to finish task" xml:space="preserve">
     <value>pozytywny czas ukończenia zadania</value>
   </data>
-  <data name="previous tasks" xml:space="preserve">
+  <data name="positiveTimeIndex" xml:space="preserve">
+    <value>Cz&lt;sub&gt;p&lt;/sub&gt;</value>
+  </data>
+  <data name="Previous tasks" xml:space="preserve">
+    <value>Poprzednie zadania</value>
+  </data>
+  <data name="previous tasks small" xml:space="preserve">
     <value>poprzednie zadania</value>
+  </data>
+  <data name="previousTasksIndex" xml:space="preserve">
+    <value>P&lt;sub&gt;zad&lt;/sub&gt;</value>
+  </data>
+  <data name="Task can not depend on itself." xml:space="preserve">
+    <value>Zadanie nie może polegać na samym sobie.</value>
+  </data>
+  <data name="Task can not depend on undefined task." xml:space="preserve">
+    <value>Zadanie nie może polegać na jeszcze niezdefiniowanym zadaniu.</value>
+  </data>
+  <data name="Task can not have negative number." xml:space="preserve">
+    <value>Zadania nie mają ujemnych numerów.</value>
+  </data>
+  <data name="Task name can not contain only spaces." xml:space="preserve">
+    <value>Nazwa zadania nie może zawierac samych spacji.</value>
   </data>
   <data name="task's name" xml:space="preserve">
     <value>nazwa zadania</value>

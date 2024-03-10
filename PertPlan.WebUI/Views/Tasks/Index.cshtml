@@ -13,13 +13,13 @@
 }
 
 <div class="d-md-none" style="padding: 10px">
-    <p>N<sub>um</sub> - @Localizer["task's number"]</p>
-    <p>N<sub>az</sub> - @Localizer["task's name"]</p>
-    <p>T<sub>e</sub> - @Localizer["time to finish task"]</p>
-    <p>T<sub>p</sub> - @Localizer["positive time to finish task"]</p>
-    <p>T<sub>sr</sub> - @Localizer["averate time to finish task"]</p>
-    <p>T<sub>n</sub> - @Localizer["negative time to finish task"]</p>
-    <p>D - @Localizer["previous tasks"]</p>
+    <p>@Localizer["numberIndex"] - @Localizer["task's number"]</p>
+    <p>@Localizer["nameIndex"] - @Localizer["task's name"]</p>
+    <p>@Localizer["finishTimeIndex"] - @Localizer["time to finish task"]</p>
+    <p>@Localizer["positiveTimeIndex"] - @Localizer["positive time to finish task"]</p>
+    <p>@Localizer["averageTimeIndex"] - @Localizer["averate time to finish task"]</p>
+    <p>@Localizer["negativeTimeIndex"] - @Localizer["negative time to finish task"]</p>
+    <p>@Localizer["previousTasksIndex"] - @Localizer["previous tasks small"]</p>
 </div>
 
 <form asp-action="Index" method="post" id="createGraphForm">
@@ -91,4 +91,33 @@
 @section Scripts {
     <script src="~/js/Tasks.js" type="module" charset="utf-8"></script>
     <script src="~/js/TasksDND.js" type="module" charset="utf-8"></script>
+    <script>
+        const localizer = {
+            selfDependencyError: @Json.Serialize(Localizer["Task can not depend on itself."].Value),
+            undefinedTaskError: @Json.Serialize(Localizer["Task can not depend on undefined task."].Value),
+            negativeNumberError: @Json.Serialize(Localizer["Task can not have negative number."].Value),
+            dependencyFormatError: @Json.Serialize(Localizer["Field contains incorrect data."].Value),
+            negativeTimeError: @Json.Serialize(Localizer["Negative finish time can not be shorter than average."].Value),
+            averageTimeTooShortError: @Json.Serialize(Localizer["Average finish time can not be shorter than positive."].Value),
+            averageTimeTooLongError: @Json.Serialize(Localizer["Average finish time can not be longer than negative."].Value),
+            blankSpacesError: @Json.Serialize(Localizer["Task name can not contain only spaces."].Value),
+            number: @Json.Serialize(Localizer["Number"].Value),
+            name: @Json.Serialize(Localizer["Name"].Value),
+            finishTime: @Json.Serialize(Localizer["Finish time"].Value),
+            procedingTasks: @Json.Serialize(Localizer["Previous tasks"].Value),
+            positive: @Json.Serialize(Localizer["Positive"].Value),
+            average: @Json.Serialize(Localizer["Average"].Value),
+            negative: @Json.Serialize(Localizer["Negative"].Value),
+            
+            // indexes for smaller screens
+            numberIndex: @Json.Serialize(Localizer["numberIndex"].Value),
+            nameIndex: @Json.Serialize(Localizer["nameIndex"].Value),
+            finishTimeIndex: @Json.Serialize(Localizer["finishTimeIndex"].Value),
+            previousTasksIndex: @Json.Serialize(Localizer["previousTasksIndex"].Value),
+            positiveTimeIndex: @Json.Serialize(Localizer["positiveTimeIndex"].Value),
+            averageTimeIndex: @Json.Serialize(Localizer["averageTimeIndex"].Value),
+            negativeTimeIndex: @Json.Serialize(Localizer["negativeTimeIndex"].Value),
+            
+        }
+    </script>
 }

@@ -120,5 +120,14 @@
         const csvContent = @Json.Serialize(Model.CSV);
         const criticalPathLength = @Json.Serialize(Model.CriticalPathLenght);
         const projectStandardDeviation = @Json.Serialize(Model.ProjectStandardDeviation);
+        const localizer = {
+            noData: @Json.Serialize(Localizer["No data"].Value),
+            veryLikely: @Json.Serialize(Localizer["Very likely"].Value),
+            likely: @Json.Serialize(Localizer["Likely"].Value),
+            unlikely: @Json.Serialize(Localizer["Unlikely"].Value),
+            veryUnlikey: @Json.Serialize(Localizer["Very unlikely"].Value),
+            graph: @Json.Serialize(Localizer["graph"].Value),
+            tasks: @Json.Serialize(Localizer["tasks"].Value),
+        }
     </script>
 }

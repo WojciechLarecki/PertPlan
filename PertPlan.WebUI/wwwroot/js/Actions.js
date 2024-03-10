@@ -24,7 +24,7 @@ function exportToCSV() {
     var url = window.URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'tasks.csv';
+    a.download = localizer.tasks + '.csv';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -32,12 +32,12 @@ function exportToCSV() {
 }
 
 function exportToSVG() {
-    const svg = document.querySelector("svg[id|=mermaid]");
+    const svg = document.querySelector('[aria-roledescription*="flowchart"]');
     const blob = new Blob([svg.outerHTML], { type: "image/svg+xml" });
     var url = window.URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'graph.svg';
+    a.download = localizer.graph + '.svg';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -48,8 +48,6 @@ function toggleCriticalPathClasses(event) {
     if (event.target.checked) {
         const nodes = document.querySelectorAll("g.critical-disabled");
         for (const node of nodes) {
-            zegar
-
             node.classList.remove("critical-disabled");
             node.classList.add("critical");
         }
@@ -74,18 +72,18 @@ function updateProjectChance(expectedProjectDuationInput) {
     // set new status
     if (expectedProjectDuationInput.value.trim() == '') {
         status.classList.add("noData", "text-black");
-        status.textContent = "Brak danych.";
+        status.textContent = localizer.noData;
     } else if (result > 0.8) {
         status.classList.add("bg-success", "text-white");
-        status.textContent = "Bardzo prawdopodobne.";
+        status.textContent = localizer.veryLikely;
     } else if (result > 0) {
         status.classList.add("bg-primary", "text-white");
-        status.textContent = "Prawdopodobne.";
+        status.textContent = localizer.likely;
     } else if (result > -0.8) {
         status.classList.add("bg-warning", "text-black");
-        status.textContent = "Mało prawdopodobne.";
+        status.textContent = localizer.unlikely;
     } else {
         status.classList.add("bg-danger", "text-white");
-        status.textContent = "Bardzo mało prawdopodobne.";
+        status.textContent = localizer.veryUnlikey;
     }
 }

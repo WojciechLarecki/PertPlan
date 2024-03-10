@@ -117,109 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add row" xml:space="preserve">
-    <value>Add row</value>
+  <data name="Additional options" xml:space="preserve">
+    <value>Dodatkowe opcje</value>
   </data>
-  <data name="Average" xml:space="preserve">
-    <value>Average</value>
+  <data name="Avg" xml:space="preserve">
+    <value>Śr</value>
   </data>
-  <data name="Average finish time can not be longer than negative." xml:space="preserve">
-    <value>Average finish time can not be longer than negative.</value>
+  <data name="Chance for project success" xml:space="preserve">
+    <value>Szanse na powodzenie projektu</value>
   </data>
-  <data name="Average finish time can not be shorter than positive." xml:space="preserve">
-    <value>Average finish time can not be shorter than positive.</value>
+  <data name="Control sum" xml:space="preserve">
+    <value>Suma kontrolna</value>
   </data>
-  <data name="averageTimeIndex" xml:space="preserve">
-    <value>T&lt;sub&gt;avg&lt;/sub&gt;</value>
+  <data name="Display critical path" xml:space="preserve">
+    <value>Pokaż ścieżkę krytyczną</value>
   </data>
-  <data name="averate time to finish task" xml:space="preserve">
-    <value>averate time to finish task</value>
+  <data name="Duration of project" xml:space="preserve">
+    <value>Czas trwania projektu</value>
   </data>
-  <data name="Create diagram" xml:space="preserve">
-    <value>Create diagram</value>
+  <data name="Expected time of project realisation" xml:space="preserve">
+    <value>Przewidywany czas realizacji</value>
   </data>
-  <data name="Delete last row" xml:space="preserve">
-    <value>Delete last row</value>
+  <data name="Export to CSV" xml:space="preserve">
+    <value>Eksportój do CSV</value>
   </data>
-  <data name="Delete selected row" xml:space="preserve">
-    <value>Delete selected row</value>
+  <data name="Export to SVG" xml:space="preserve">
+    <value>Eksportój od SVG</value>
   </data>
-  <data name="Field contains incorrect data." xml:space="preserve">
-    <value>Field contains incorrect data.</value>
+  <data name="N" xml:space="preserve">
+    <value>N</value>
   </data>
-  <data name="Finish time" xml:space="preserve">
-    <value>Finish time</value>
+  <data name="No data" xml:space="preserve">
+    <value>Brak danych1</value>
   </data>
-  <data name="finishTimeIndex" xml:space="preserve">
-    <value>T&lt;sub&gt;fin&lt;/sub&gt;</value>
+  <data name="O" xml:space="preserve">
+    <value>P</value>
   </data>
-  <data name="Insert row" xml:space="preserve">
-    <value>Insert row</value>
+  <data name="Probability" xml:space="preserve">
+    <value>Prawdopodobieństwo</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="Product" xml:space="preserve">
+    <value>Iloczyn</value>
   </data>
-  <data name="nameIndex" xml:space="preserve">
-    <value>N&lt;sub&gt;am&lt;/sub&gt;</value>
-  </data>
-  <data name="Negative" xml:space="preserve">
-    <value>Negative</value>
-  </data>
-  <data name="Negative finish time can not be shorter than average." xml:space="preserve">
-    <value>Negative finish time can not be shorter than average.</value>
-  </data>
-  <data name="negative time to finish task" xml:space="preserve">
-    <value>negative time to finish task</value>
-  </data>
-  <data name="negativeTimeIndex" xml:space="preserve">
-    <value>T&lt;sub&gt;n&lt;/sub&gt;</value>
-  </data>
-  <data name="Number" xml:space="preserve">
-    <value>Number</value>
-  </data>
-  <data name="numberIndex" xml:space="preserve">
-    <value>N&lt;sub&gt;um&lt;/sub&gt;</value>
-  </data>
-  <data name="Numbers of previous tasks." xml:space="preserve">
-    <value>Numbers of previous tasks.</value>
-  </data>
-  <data name="Positive" xml:space="preserve">
-    <value>Positive</value>
-  </data>
-  <data name="positive time to finish task" xml:space="preserve">
-    <value>positive time to finish task</value>
-  </data>
-  <data name="positiveTimeIndex" xml:space="preserve">
-    <value>T&lt;sub&gt;p&lt;/sub&gt;</value>
-  </data>
-  <data name="Previous tasks" xml:space="preserve">
-    <value>Previous tasks</value>
-  </data>
-  <data name="previous tasks small" xml:space="preserve">
-    <value>previous tasks</value>
-  </data>
-  <data name="previousTasksIndex" xml:space="preserve">
-    <value>Pr&lt;sub&gt;tasks&lt;/sub&gt;</value>
-  </data>
-  <data name="Task can not depend on itself." xml:space="preserve">
-    <value>Task can not depend on itself.</value>
-  </data>
-  <data name="Task can not depend on undefined task." xml:space="preserve">
-    <value>Task can not depend on undefined task.</value>
-  </data>
-  <data name="Task can not have negative number." xml:space="preserve">
-    <value>Task can not have negative number.</value>
-  </data>
-  <data name="Task name can not contain only spaces." xml:space="preserve">
-    <value>Task name can not contain only spaces.</value>
-  </data>
-  <data name="task's name" xml:space="preserve">
-    <value>task's name</value>
-  </data>
-  <data name="task's number" xml:space="preserve">
-    <value>task's number</value>
-  </data>
-  <data name="time to finish task" xml:space="preserve">
-    <value>time to finish task</value>
+  <data name="Time" xml:space="preserve">
+    <value>Czas</value>
   </data>
 </root>
