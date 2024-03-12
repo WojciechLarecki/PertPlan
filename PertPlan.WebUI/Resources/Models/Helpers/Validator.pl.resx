@@ -117,52 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Additional options" xml:space="preserve">
-    <value>Dodatkowe opcje</value>
+  <data name="Average finish time can not be longer than negative." xml:space="preserve">
+    <value>Średni czas wykonania zadania nie może być dłuższy niż negatywny.</value>
   </data>
-  <data name="Avg" xml:space="preserve">
-    <value>Śr</value>
+  <data name="Average finish time can not be shorter than positive." xml:space="preserve">
+    <value>Średni czas wykonania zadania nie może być krótszy niż pozytywny.</value>
   </data>
-  <data name="Chance for project success" xml:space="preserve">
-    <value>Szanse na powodzenie projektu</value>
+  <data name="Field contains incorrect data." xml:space="preserve">
+    <value>Ciąg zadań ma niepoprawą strukturę.</value>
   </data>
-  <data name="Control sum" xml:space="preserve">
-    <value>Suma kontrolna</value>
+  <data name="Name is empty or has only spaces in it." xml:space="preserve">
+    <value>Nazwa jest pusta albo zawiera same spacje.</value>
   </data>
-  <data name="Display critical path" xml:space="preserve">
-    <value>Pokaż ścieżkę krytyczną</value>
+  <data name="Name is too long. Max size is {0} characters." xml:space="preserve">
+    <value>Nazwa jest za długa. Maksymalna długość to {0} znaków.</value>
   </data>
-  <data name="Duration of project" xml:space="preserve">
-    <value>Czas trwania projektu</value>
+  <data name="Negative finish time can not be shorter than average." xml:space="preserve">
+    <value>Negatywny czas wykonania zadania nie może być krótszy niż średni.</value>
   </data>
-  <data name="Expected time of project realisation" xml:space="preserve">
-    <value>Przewidywany czas realizacji</value>
+  <data name="Task can not depend on itself." xml:space="preserve">
+    <value>Zadanie nie może polegać na samym sobie.</value>
   </data>
-  <data name="Export to CSV" xml:space="preserve">
-    <value>Eksportój do CSV</value>
+  <data name="Task can not depend on undefined task." xml:space="preserve">
+    <value>Zadanie nie może polegać na jeszcze niezdefiniowanym zadaniu.</value>
   </data>
-  <data name="Export to SVG" xml:space="preserve">
-    <value>Eksportój od SVG</value>
-  </data>
-  <data name="N" xml:space="preserve">
-    <value>N</value>
-  </data>
-  <data name="No data" xml:space="preserve">
-    <value>Brak danych</value>
-  </data>
-  <data name="O" xml:space="preserve">
-    <value>P</value>
-  </data>
-  <data name="Probability" xml:space="preserve">
-    <value>Prawdopodobieństwo</value>
-  </data>
-  <data name="Probability distribution" xml:space="preserve">
-    <value>Rozkład prawdopodobieństwa</value>
-  </data>
-  <data name="Product" xml:space="preserve">
-    <value>Iloczyn</value>
-  </data>
-  <data name="Time" xml:space="preserve">
-    <value>Czas</value>
+  <data name="Task can not have negative number." xml:space="preserve">
+    <value>Zadania nie mają ujemnych numerów.</value>
   </data>
 </root>

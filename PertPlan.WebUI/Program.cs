@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Localization;
+using PertPlan.WebUI.Models.Helpers;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +29,14 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+    var localizer = services.GetRequiredService<IStringLocalizerFactory>()
+                        .Create(typeof(Validator));
+    Validator.SetLocalizer(localizer);
 }
 
 app.UseHttpsRedirection();

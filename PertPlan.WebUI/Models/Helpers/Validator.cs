@@ -1,17 +1,27 @@
-﻿namespace PertPlan.WebUI.Models.Helpers
+﻿using Microsoft.Extensions.Localization;
+
+namespace PertPlan.WebUI.Models.Helpers
 {
     public static class Validator
     {
+        private static IStringLocalizer _localizer;
+        private const int _NAME_LENGTH = 100;
+
+        public static void SetLocalizer(IStringLocalizer localizer)
+        {
+            _localizer = localizer;
+        }
+
         public static void ValidateTaskName(string name)
         {
             string trimmedName = name.Trim();
             if (string.IsNullOrEmpty(trimmedName))
             {
-                throw new ArgumentException("Name is empty or has only spaces in it.");
+                throw new ArgumentException(_localizer["Name is empty or has only spaces in it."]);
             }
-            if (trimmedName.Length > 100)
+            if (trimmedName.Length > _NAME_LENGTH)
             {
-                throw new ArgumentException("Name is too long. Max size is 100 characters.");
+                throw new ArgumentException(_localizer["Name is too long. Max size is {0} characters.", _NAME_LENGTH]);
             }
         }
 
@@ -19,11 +29,11 @@
         {
             if (averageTime < positiveTime)
             {
-                throw new ArgumentException("Średni czas wykonania zadania nie może być krótszy niż pozytywny.");
+                throw new ArgumentException(_localizer["Average finish time can not be shorter than positive."]);
             }
             else if (averageTime > negativeTime)
             {
-                throw new ArgumentException("Średni czas wykonania zadania nie może być dłuższy niż negatywny.");
+                throw new ArgumentException(_localizer["Average finish time can not be longer than negative."]);
             }
         }
 
@@ -31,7 +41,7 @@
         {
             if (negativeTime < averageTime)
             {
-                throw new ArgumentException("Negatywny czas wykonania zadania nie może być krótszy niż średni.");
+                throw new ArgumentException(_localizer["Negative finish time can not be shorter than average."]);
             }
         }
 
@@ -43,19 +53,19 @@
             {
                 if (!int.TryParse(numberStr.Trim(), out var number))
                 {
-                    throw new ArgumentException("Ciąg zadań ma niepoprawną strukturę.");
+                    throw new ArgumentException(_localizer["Field contains incorrect data."]);
                 }
                 else if (number < 0)
                 {
-                    throw new ArgumentException("Zadania nie mają ujemnych numerów.");
+                    throw new ArgumentException(_localizer["Task can not have negative number."]);
                 }
                 else if (number > taskNumber)
                 {
-                    throw new ArgumentException("Zadanie nie może polegać na jeszcze niezdefiniowanym zadaniu.");
+                    throw new ArgumentException(_localizer["Task can not depend on undefined task."]);
                 }
                 else if (number == taskNumber)
                 {
-                    throw new ArgumentException("Zadanie nie może polegać na samym sobie.");
+                    throw new ArgumentException(_localizer["Task can not depend on itself."]);
                 }
             }
         }

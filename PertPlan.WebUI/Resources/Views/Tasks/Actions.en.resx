@@ -153,6 +153,9 @@
   <data name="Probability" xml:space="preserve">
     <value>Probability</value>
   </data>
+  <data name="Probability distribution" xml:space="preserve">
+    <value>Probability distribution</value>
+  </data>
   <data name="Product" xml:space="preserve">
     <value>Product</value>
   </data>

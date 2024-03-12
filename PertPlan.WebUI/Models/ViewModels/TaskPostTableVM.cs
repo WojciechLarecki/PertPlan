@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.AspNetCore.Mvc.Localization;
+using System.Text;
 
 namespace PertPlan.WebUI.Models.ViewModels
 {
@@ -164,7 +165,7 @@ namespace PertPlan.WebUI.Models.ViewModels
             }
         }
 
-        public string ToBarChart()
+        public string ToBarChart(string chartTitle)
         {
             double maxValue = RowsForTable2.Values.Max();
             double roundedValue = Math.Ceiling(maxValue * 10) / 10;
@@ -174,7 +175,7 @@ namespace PertPlan.WebUI.Models.ViewModels
             List<string> valuesToDisaply = RowsForTable2.Values.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
 
             strBuilder.AppendLine("xychart-beta");
-            strBuilder.AppendLine("title \"Rozkład prawdopodobieństwa\"");
+            strBuilder.AppendLine($"title \"{chartTitle}\"");
             strBuilder.Append("x-axis [");
             strBuilder.AppendJoin(", ", keysToDisaply);
             strBuilder.AppendLine("]");
