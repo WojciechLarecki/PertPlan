@@ -117,49 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Additional options" xml:space="preserve">
-    <value>Dodatkowe opcje</value>
+  <data name="Line {0}: Average time is not a number." xml:space="preserve">
+    <value>Linia {0}: Średni czas nie jest numerem.</value>
   </data>
-  <data name="Avg" xml:space="preserve">
-    <value>Śr</value>
+  <data name="Line {0}: File has wrong structure." xml:space="preserve">
+    <value>Linia {0}: Plik ma złą strukturę.</value>
   </data>
-  <data name="Chance for project success" xml:space="preserve">
-    <value>Szanse na powodzenie projektu</value>
+  <data name="Line {0}: Negative time is not a number." xml:space="preserve">
+    <value>Linia {0}: Negatywny czas nie jest numerem.</value>
   </data>
-  <data name="Control sum" xml:space="preserve">
-    <value>Suma kontrolna</value>
+  <data name="Line {0}: Positive time is not a number." xml:space="preserve">
+    <value>Linia {0}: Pozytywny czas nie jest numerem.</value>
   </data>
-  <data name="Display critical path" xml:space="preserve">
-    <value>Pokaż ścieżkę krytyczną</value>
+  <data name="Line {0}: Task number is not a number." xml:space="preserve">
+    <value>Linia {0}: Numer zadania nie jest numerem.</value>
   </data>
-  <data name="Duration of project" xml:space="preserve">
-    <value>Czas trwania projektu</value>
+  <data name="Line {0}: {1}" xml:space="preserve">
+    <value>Linia {0}: {1}</value>
   </data>
-  <data name="Expected time of project realisation" xml:space="preserve">
-    <value>Przewidywany czas realizacji</value>
-  </data>
-  <data name="Export to CSV" xml:space="preserve">
-    <value>Eksportój do CSV</value>
-  </data>
-  <data name="Export to SVG" xml:space="preserve">
-    <value>Eksportój od SVG</value>
-  </data>
-  <data name="N" xml:space="preserve">
-    <value>N</value>
-  </data>
-  <data name="No data" xml:space="preserve">
-    <value>Brak danych</value>
-  </data>
-  <data name="O" xml:space="preserve">
-    <value>P</value>
-  </data>
-  <data name="Probability" xml:space="preserve">
-    <value>Prawdopodobieństwo</value>
-  </data>
-  <data name="Product" xml:space="preserve">
-    <value>Iloczyn</value>
-  </data>
-  <data name="Time" xml:space="preserve">
-    <value>Czas</value>
+  <data name="The file is not uploaded or is empty." xml:space="preserve">
+    <value>Nie wybrano pliku lub plik jest pusty.1</value>
   </data>
 </root>

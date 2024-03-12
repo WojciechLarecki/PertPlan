@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using PertPlan.WebUI.Logics;
 using PertPlan.WebUI.Models.Helpers;
 using PertPlan.WebUI.Models.ViewModels;
@@ -8,6 +9,13 @@ namespace PertPlan.WebUI.Controllers
 {
     public class TasksController : Controller
     {
+        private readonly IStringLocalizer<TasksController> _localizer;
+
+        public TasksController(IStringLocalizer<TasksController> localizer)
+        {
+            _localizer = localizer;
+        }
+
         // endpoint for task creation
         [HttpGet]
         public IActionResult Index()
@@ -51,7 +59,7 @@ namespace PertPlan.WebUI.Controllers
 
             if (csvFile == null || csvFile.Length == 0)
             {
-                TempData["ErrorMessage"] = "Nie wybrano pliku lub plik jest pusty.";
+                TempData["ErrorMessage"] = _localizer["The file is not uploaded or is empty."].Value;
                 return RedirectToAction("Index", "Home");
             }
 
@@ -79,23 +87,23 @@ namespace PertPlan.WebUI.Controllers
 
                         if (properties.Length != 6)
                         {
-                            throw new Exception($"Line {lineIndex}: File has wrong structure.");
+                            throw new Exception(_localizer["Line {0}: File has wrong structure.", lineIndex]);
                         }
                         else if (!int.TryParse(properties[0], out taskNumber))
                         {
-                            throw new Exception($"Line {lineIndex}: Task number is not a number.");
+                            throw new Exception(_localizer["Line {0}: Task number is not a number.", lineIndex]);
                         }
                         else if (!double.TryParse(properties[2], out taskPositiveFinishTime))
                         {
-                            throw new Exception($"Line {lineIndex}: Positive time is not a number.");
+                            throw new Exception(_localizer["Line {0}: Positive time is not a number.", lineIndex]);
                         }
                         else if (!double.TryParse(properties[3], out taskAverageFinishTime))
                         {
-                            throw new Exception($"Line {lineIndex}: Average time is not a number.");
+                            throw new Exception(_localizer["Line {0}: Average time is not a number.", lineIndex]);
                         }
                         else if (!double.TryParse(properties[4], out taskNegativeFinishTime))
                         {
-                            throw new Exception($"Line {lineIndex}: Negative time is not a number.");
+                            throw new Exception(_localizer["Line {0}: Negative time is not a number.", lineIndex]);
                         }
 
                         try
@@ -106,7 +114,7 @@ namespace PertPlan.WebUI.Controllers
                         }
                         catch(ArgumentException e)
                         {
-                            throw new Exception($"Line {lineIndex}: {e.Message}");
+                            throw new Exception(_localizer["Line {0}: {1}", lineIndex, e.Message]);
                         }
 
                         var task = new ProjectTask
