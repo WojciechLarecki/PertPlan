@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-2"></div>
+        <div class="col-md-2"></div>
         <div class="col">
             <div class="card">
                 <div class="card-header">
@@ -23,7 +23,7 @@
                     <form method="post" asp-controller="Tasks" asp-action="UploadFile" enctype="multipart/form-data">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <input type="file" name="csvFile" class="form-control mb-1" />
-                        <button type="submit" name="Upload" class="btn btn-primary">@Localizer["From CSV file"]</button>
+                        <button type="submit" name="Upload" class="btn btn-primary mb-1">@Localizer["From CSV file"]</button>
                     </form>
                     @if (TempData["ErrorMessage"] != null)
                     {
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2"></div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 
