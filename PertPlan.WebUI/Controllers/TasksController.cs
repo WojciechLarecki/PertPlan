@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using PertPlan.WebUI.Logics;
@@ -20,7 +20,14 @@ namespace PertPlan.WebUI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            List<ProjectTask>? projectTasks = null;
+            string? json = TempData["ProjectTasks"] as string;
+            if (json != null)
+            {
+                projectTasks = JsonSerializer.Deserialize<List<ProjectTask>>(json);
+            }
+
+            return View(projectTasks);
         }
 
 
@@ -143,7 +150,8 @@ namespace PertPlan.WebUI.Controllers
                 
             }
 
-            return View("Index", projectTasks);
+            TempData["ProjectTasks"] = JsonSerializer.Serialize(projectTasks);
+            return RedirectToAction("Index", "Tasks");
         }
     }
 }
