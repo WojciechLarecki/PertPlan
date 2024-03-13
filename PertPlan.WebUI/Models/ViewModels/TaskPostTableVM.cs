@@ -10,11 +10,11 @@ namespace PertPlan.WebUI.Models.ViewModels
 
         public List<ActionPERT> Nodes { get => _nodes; }
         public List<CombinationRow> Rows { get; private set; }
-        public Dictionary<double, double> RowsForTable2 { get; private set; }
+        public Dictionary<double, double> SummaryTableRows { get; private set; }
         public TaskPostTableVM(IEnumerable<ActionPERT> actions)
         {
             Rows = new List<CombinationRow>();
-            RowsForTable2 = new Dictionary<double, double>();
+            SummaryTableRows = new Dictionary<double, double>();
             _nodes = actions.ToList();
             _combinations = new List<byte[]>();
             GenerateCombinationsHelper(_nodes.Count, new byte[_nodes.Count]);
@@ -51,13 +51,13 @@ namespace PertPlan.WebUI.Models.ViewModels
                 row.Time = sol.Item1;
                 row.Probability = sol.Item2;
 
-                if (RowsForTable2.ContainsKey(row.Time))
+                if (SummaryTableRows.ContainsKey(row.Time))
                 {
-                    RowsForTable2[row.Time] += row.Probability;
+                    SummaryTableRows[row.Time] += row.Probability;
                 }
                 else
                 {
-                    RowsForTable2.Add(row.Time, row.Probability);
+                    SummaryTableRows.Add(row.Time, row.Probability);
                 }
             }
         }
@@ -98,7 +98,7 @@ namespace PertPlan.WebUI.Models.ViewModels
                 }
             }
 
-            return (-1d, -1d); // Jeśli nie istnieje ścieżka od A do B
+            return (-1d, -1d); // If the path does not exist
         }
 
         private double GetDistance(ActionPERT neighbor, byte[] sequence)
@@ -165,12 +165,12 @@ namespace PertPlan.WebUI.Models.ViewModels
 
         public string ToBarChart(string chartTitle)
         {
-            double maxValue = RowsForTable2.Values.Max();
+            double maxValue = SummaryTableRows.Values.Max();
             double roundedValue = Math.Ceiling(maxValue * 10) / 10;
             StringBuilder strBuilder = new StringBuilder();
 
-            List<string> keysToDisaply = RowsForTable2.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
-            List<string> valuesToDisaply = RowsForTable2.Values.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
+            List<string> keysToDisaply = SummaryTableRows.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
+            List<string> valuesToDisaply = SummaryTableRows.Values.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToList();
 
             strBuilder.AppendLine("xychart-beta");
             strBuilder.AppendLine($"title \"{chartTitle}\"");
