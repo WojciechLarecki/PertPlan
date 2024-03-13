@@ -6,30 +6,28 @@ namespace PertPlan.WebUI.Models.ViewModels
     public class TaskPostTableVM
     {
         private List<byte[]> _combinations;
-        private List<ActionPERT> nodes;
+        private List<ActionPERT> _nodes;
 
-        public List<ActionPERT> Nodes { get => nodes; }
-        public List<Table1VM> Rows { get; private set; }
+        public List<ActionPERT> Nodes { get => _nodes; }
+        public List<CombinationRow> Rows { get; private set; }
         public Dictionary<double, double> RowsForTable2 { get; private set; }
         public TaskPostTableVM(IEnumerable<ActionPERT> actions)
         {
-            Rows = new List<Table1VM>();
+            Rows = new List<CombinationRow>();
             RowsForTable2 = new Dictionary<double, double>();
-
-            int n = actions.Count();
+            _nodes = actions.ToList();
             _combinations = new List<byte[]>();
-            GenerateCombinationsHelper(n, new byte[n]);
-            nodes = actions.ToList();
+            GenerateCombinationsHelper(_nodes.Count, new byte[_nodes.Count]);
             var falseBegin = new ActionPERT();
             var falseEnd = new ActionPERT();
 
             for (int i = 0; i < _combinations.Count; i++)
             {
-                byte[] bytes = new byte[n + 2];
-                Array.Copy(_combinations[i], 0, bytes, 1, n);
+                byte[] bytes = new byte[_nodes.Count + 2];
+                Array.Copy(_combinations[i], 0, bytes, 1, _nodes.Count);
 
                 _combinations[i] = bytes;
-                var row = new Table1VM();
+                var row = new CombinationRow();
                 row.Sequence = bytes;
                 Rows.Add(row);
             }
@@ -40,11 +38,11 @@ namespace PertPlan.WebUI.Models.ViewModels
             falseEnd.PreviousActions = endActions;
             startActions.ForEach(x => { x.PreviousActions = new List<ActionPERT> { falseBegin }; });
             endActions.ForEach(x => { x.NextActions = new List<ActionPERT> { falseEnd }; });
-            nodes.Insert(0, falseBegin);
-            nodes.Add(falseEnd);
-            for (int i = 0; i < nodes.Count; i++) 
+            _nodes.Insert(0, falseBegin);
+            _nodes.Add(falseEnd);
+            for (int i = 0; i < _nodes.Count; i++) 
             {
-                nodes[i].Id = i;
+                _nodes[i].Id = i;
             }
 
             foreach (var row in Rows)
@@ -70,7 +68,7 @@ namespace PertPlan.WebUI.Models.ViewModels
             Dictionary<ActionPERT, double> distance = new Dictionary<ActionPERT, double>();
             double chance = GetNodesChance(sequence);
 
-            foreach (var node in nodes)
+            foreach (var node in _nodes)
             {
                 distance[node] = double.MinValue;
             }
@@ -136,7 +134,7 @@ namespace PertPlan.WebUI.Models.ViewModels
                 } 
             }
 
-            chance /= Math.Pow(6, nodes.Count - 2);
+            chance /= Math.Pow(6, _nodes.Count - 2);
             return chance;
         }
         
@@ -191,7 +189,7 @@ namespace PertPlan.WebUI.Models.ViewModels
         }
     }
 
-    public class Table1VM
+    public class CombinationRow
     {
         public byte[]? Sequence { get; set; }
         public double Time { get; set; }

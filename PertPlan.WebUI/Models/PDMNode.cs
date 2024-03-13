@@ -4,19 +4,19 @@
     {
         public PDMNode(ActionPERT task)
         {
-            this.task = task;
+            _task = task;
             EstimatedTaskEndTime = task.Estimated;
         }
 
-        public int Id => task.Id;
+        public int Id => _task.Id;
 
-        public string Name => task.Name!;
+        public string Name => _task.Name!;
 
         public double? EarlyEnd { get => _earlyEnd; private set => _earlyEnd = value; }
 
         public double? SlackTime { get => _slackTime; private set => _slackTime = value; }
 
-        public double StandardDeviation => (task.Negative + task.Positive) / 6;
+        public double StandardDeviation => (_task.Negative + _task.Positive) / 6;
 
         public double Variation => Math.Pow(StandardDeviation, 2);
 
@@ -29,7 +29,7 @@
         private double? _lateStart;
         private double? _lateEnd;
         private double? _slackTime;
-        private ActionPERT task;
+        private readonly ActionPERT _task;
 
         public double? EarlyStart
         {
