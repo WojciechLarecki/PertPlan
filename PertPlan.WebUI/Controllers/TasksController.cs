@@ -1,7 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using PertPlan.WebUI.Logics;
 using PertPlan.WebUI.Models.Helpers;
 using PertPlan.WebUI.Models.ViewModels;
 
@@ -22,6 +21,7 @@ namespace PertPlan.WebUI.Controllers
         {
             List<ProjectTask>? projectTasks = null;
             string? json = TempData["ProjectTasks"] as string;
+
             if (json != null)
             {
                 projectTasks = JsonSerializer.Deserialize<List<ProjectTask>>(json);
@@ -47,11 +47,8 @@ namespace PertPlan.WebUI.Controllers
                     projectTasks[i].Id = i;
                 }
 
-                var projectTasksCopy = projectTasks.Select(pt => pt.Copy()).ToList();
-                var actionsCopy = Mapper.MapToActionsPERT(projectTasksCopy);
-                var logic = new HomeLogic();
-                var viewModel = logic.GetTaskPostVM(projectTasks);
-                viewModel.TableVM = new TaskPostTableVM(actionsCopy);
+                var actions = Mapper.MapToActionsPERT(projectTasks);
+                var viewModel = new TaskPostVM(actions);
                 return View("Actions", viewModel);
             }
 

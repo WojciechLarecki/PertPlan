@@ -4,12 +4,11 @@
     {
         public PDMNode(ActionPERT task)
         {
-            Id = task.Id;
             this.task = task;
             EstimatedTaskEndTime = task.Estimated;
         }
 
-        public int Id { get; private set; }
+        public int Id => task.Id;
 
         public string Name => task.Name!;
 
