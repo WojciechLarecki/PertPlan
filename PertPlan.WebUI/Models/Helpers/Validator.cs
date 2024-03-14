@@ -2,16 +2,28 @@
 
 namespace PertPlan.WebUI.Models.Helpers
 {
+    /// <summary>
+    /// Klasa pomocnicza zawierająca metody do walidacji danych związanych z zadaniami projektowymi.
+    /// </summary>
     public static class Validator
     {
         private static IStringLocalizer _localizer;
         private const int _NAME_LENGTH = 100;
 
+
+        /// <summary>
+        /// Ustawia lokalizator tekstu dla walidatora.
+        /// </summary>
+        /// <param name="localizer">Lokalizator tekstu.</param>
         public static void SetLocalizer(IStringLocalizer localizer)
         {
             _localizer = localizer;
         }
 
+        /// <summary>
+        /// Waliduje nazwę zadania.
+        /// </summary>
+        /// <param name="name">Nazwa zadania.</param>
         public static void ValidateTaskName(string name)
         {
             string trimmedName = name.Trim();
@@ -25,6 +37,12 @@ namespace PertPlan.WebUI.Models.Helpers
             }
         }
 
+        /// <summary>
+        /// Waliduje czas trwania zadania.
+        /// </summary>
+        /// <param name="positiveTime">Czas pozytywny.</param>
+        /// <param name="averageTime">Czas średni.</param>
+        /// <param name="negativeTime">Czas negatywny.</param>
         public static void ValidateTaskAverageTime(double positiveTime, double averageTime, double negativeTime)
         {
             if (averageTime < positiveTime)
@@ -36,7 +54,12 @@ namespace PertPlan.WebUI.Models.Helpers
                 throw new ArgumentException(_localizer["Average finish time can not be longer than negative."]);
             }
         }
-
+        
+        /// <summary>
+        /// Waliduje wprowadzone dane dotyczące czasu ukończenia zadania w trybie negatywnym.
+        /// </summary>
+        /// <param name="averageTime">Czas średni.</param>
+        /// <param name="negativeTime">Czas negatywny.</param>
         public static void ValidateNegativeTimeInput(double averageTime, double negativeTime)
         {
             if (negativeTime < averageTime)
@@ -44,7 +67,12 @@ namespace PertPlan.WebUI.Models.Helpers
                 throw new ArgumentException(_localizer["Negative finish time can not be shorter than average."]);
             }
         }
-
+        
+        /// <summary>
+        /// Waliduje wprowadzone dane dotyczące poprzednich zadań.
+        /// </summary>
+        /// <param name="dependentTasks">Poprzednie zadania.</param>
+        /// <param name="taskNumber">Numer sprawdzanego zadania.</param>
         public static void ValidateDependentTasksInput(string dependentTasks, int taskNumber)
         {
             var tasksNumbers = dependentTasks.Split(',');

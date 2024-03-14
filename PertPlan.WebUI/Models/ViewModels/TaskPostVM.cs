@@ -2,11 +2,25 @@
 
 namespace PertPlan.WebUI.Models.ViewModels
 {
+    /// <summary>
+    /// Widok modelu reprezentujący diagram PERT oraz tabele danych.
+    /// </summary>
     public class TaskPostVM
     {
+        /// <summary>
+        /// Widok modelu tabeli.
+        /// </summary>
         public TaskPostTableVM TableVM { get; private set; }
+
+        /// <summary>
+        /// Słownik zadań diagramu PERT.
+        /// </summary>
         public Dictionary<int, PDMNode> Nodes { get; private set; }
 
+        /// <summary>
+        /// Inicjalizuje nową instancję widoku modelu.
+        /// </summary>
+        /// <param name="actions">Dostępne zdania.</param>
         public TaskPostVM(List<ActionPERT> actions)
         {
             Nodes = new Dictionary<int, PDMNode>();
@@ -72,8 +86,14 @@ namespace PertPlan.WebUI.Models.ViewModels
             TableVM = new TaskPostTableVM(actions);
         }
 
+        /// <summary>
+        /// Zawartość CSV generowana na podstawie dostępnych działań.
+        /// </summary>
         public string CSV { get; set; }
 
+        /// <summary>
+        /// Długość ścieżki krytycznej projektu.
+        /// </summary>
         public double CriticalPathLenght
         {
             get
@@ -92,6 +112,9 @@ namespace PertPlan.WebUI.Models.ViewModels
             }
         }
 
+        /// <summary>
+        /// Odchylenie standardowe projektu.
+        /// </summary>
         public double ProjectStandardDeviation
         {
             get
@@ -109,6 +132,10 @@ namespace PertPlan.WebUI.Models.ViewModels
             }
         }
 
+        /// <summary>
+        /// Konwertuje obiekt na tekstową reprezentację diagramu.
+        /// </summary>
+        /// <returns>Reprezentacja diagramu w postaci tekstu.</returns>
         public override string ToString()
         {
             var chars = "ABCDEFGHIJKLMNOPERSTUWXYZ";
@@ -152,6 +179,11 @@ namespace PertPlan.WebUI.Models.ViewModels
             return output;
         }
 
+        /// <summary>
+        /// Generuje zawartość CSV na podstawie dostępnych zadań projektowych.
+        /// </summary>
+        /// <param name="projectTasks">Dostępne zadania projektowe.</param>
+        /// <returns>Reprezentacja zawartości CSV w postaci tekstu.</returns>
         private string GenerateCSVContent(List<ActionPERT> projectTasks)
         {
             var strBuilder = new StringBuilder();

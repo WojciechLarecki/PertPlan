@@ -2,9 +2,16 @@
 
 namespace PertPlan.WebUI.Models.Helpers
 {
+    /// <summary>
+    /// Klasa pomocnicza zawierająca metody mapowania obiektów z jednego typu na drugi.
+    /// </summary>
     public static class Mapper
     {
-
+        /// <summary>
+        /// Mapuje listę zadań projektowych na listę działań PERT.
+        /// </summary>
+        /// <param name="tasks">Lista zadań projektowych do zmapowania.</param>
+        /// <returns>Lista działań PERT zmapowanych z zadań projektowych.</returns>
         public static List<ActionPERT> MapToActionsPERT(IEnumerable<ProjectTask> tasks)
         {
             var actions = tasks.Select(task => MapToActionPERT(task)).ToList();
@@ -33,6 +40,12 @@ namespace PertPlan.WebUI.Models.Helpers
 
             return actions;
         }
+
+        /// <summary>
+        /// Mapuje pojedyncze zadanie projektowe na działanie PERT.
+        /// </summary>
+        /// <param name="task">Zadanie projektowe do zmapowania.</param>
+        /// <returns>Działanie PERT zmapowane z zadania projektowego.</returns>
         private static ActionPERT MapToActionPERT(ProjectTask task)
         {
             return new ActionPERT()

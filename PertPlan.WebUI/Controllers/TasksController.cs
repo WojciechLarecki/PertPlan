@@ -6,16 +6,26 @@ using PertPlan.WebUI.Models.ViewModels;
 
 namespace PertPlan.WebUI.Controllers
 {
+    /// <summary>
+    /// Kontroler obsługujący operacje związane z zarządzaniem zadaniami w projekcie.
+    /// </summary>
     public class TasksController : Controller
     {
         private readonly IStringLocalizer<TasksController> _localizer;
-
+        
+        /// <summary>
+        /// Inicjalizuje nową instancję kontrolera z lokalizatorem tekstu.
+        /// </summary>
+        /// <param name="localizer">Lokalizator tekstu dla kontrolera zadań.</param>
         public TasksController(IStringLocalizer<TasksController> localizer)
         {
             _localizer = localizer;
         }
 
-        // endpoint for task creation
+        /// <summary>
+        /// Akcja HTTP GET do wyświetlania strony tworzenia zadań.
+        /// </summary>
+        /// <returns>Widok strony do tworzenia zadań.</returns>
         [HttpGet]
         public IActionResult Index()
         {
@@ -30,7 +40,11 @@ namespace PertPlan.WebUI.Controllers
             return View(projectTasks);
         }
 
-
+        /// <summary>
+        /// Akcja HTTP POST do przetwarzania danych przesłanych z formularza na stronie głównej.
+        /// </summary>
+        /// <param name="projectTasks">Lista zadań projektowych przesłanych z formularza.</param>
+        /// <returns>Widok z diagramem PERT dla przetworzonych zadań lub widok tworzenia zadań w przypadku błędnych danych.</returns>
         [HttpPost]
         public IActionResult Index(List<ProjectTask> projectTasks)
         {
@@ -56,6 +70,11 @@ namespace PertPlan.WebUI.Controllers
             return View(projectTasks);
         }
 
+        /// <summary>
+        /// Akcja HTTP POST do przetwarzania przesłanego pliku CSV zawierającego informacje o zadaniach projektowych.
+        /// </summary>
+        /// <param name="csvFile">Przesłany plik CSV.</param>
+        /// <returns>Przekierowanie do widoku tworzenia zadań w przypadku sukcesu lub błędu przetwarzania pliku.</returns>
         [HttpPost]
         public IActionResult UploadFile(IFormFile csvFile)
         {

@@ -1,28 +1,60 @@
 ﻿namespace PertPlan.WebUI.Models
 {
+    /// <summary>
+    /// Klasa reprezentująca węzeł diagramu sieciowego PERT.
+    /// </summary>
     public class PDMNode
     {
+        /// <summary>
+        /// Inicjalizuje nową instancję węzła diagramu sieciowego PERT.
+        /// </summary>
+        /// <param name="task">Działanie PERT przypisane do węzła.</param>
         public PDMNode(ActionPERT task)
         {
             _task = task;
             EstimatedTaskEndTime = task.Estimated;
         }
 
+        /// <summary>
+        /// Identyfikator węzła.
+        /// </summary>
         public int Id => _task.Id;
 
+        /// <summary>
+        /// Nazwa węzła.
+        /// </summary>
         public string Name => _task.Name!;
 
+        /// <summary>
+        /// Najwcześniejszy moment, kiedy zadanie powinno się zakończyć.
+        /// </summary>
         public double? EarlyEnd { get => _earlyEnd; private set => _earlyEnd = value; }
 
+        /// <summary>
+        /// Czas w którym zadanie może nie zostać zaczęte.
+        /// </summary>
         public double? SlackTime { get => _slackTime; private set => _slackTime = value; }
 
+        /// <summary>
+        /// Odchylenie standardowe.
+        /// </summary>
         public double StandardDeviation => (_task.Negative + _task.Positive) / 6;
 
+        /// <summary>
+        /// Wariacja.
+        /// </summary>
         public double Variation => Math.Pow(StandardDeviation, 2);
 
+        /// <summary>
+        /// Wcześniejsze węzły.
+        /// </summary>
         public List<PDMNode>? NextNodes { get; set; }
 
+        /// <summary>
+        /// Następne węzły.
+        /// </summary>
         public List<PDMNode>? PreviousNodes { get; set; }
+
         private double? _earlyStart;
         private double? _estimatedTaskEndTime;
         private double? _earlyEnd;
@@ -31,6 +63,9 @@
         private double? _slackTime;
         private readonly ActionPERT _task;
 
+        /// <summary>
+        /// Najwcześniejszy moment, kiedy zadanie powinno się rozpocząć.
+        /// </summary>
         public double? EarlyStart
         {
             get => _earlyStart;
@@ -47,6 +82,10 @@
             }
         }
 
+
+        /// <summary>
+        /// Szacowany czas zakończenia zadania.
+        /// </summary>
         public double? EstimatedTaskEndTime
         {
             get => _estimatedTaskEndTime;
@@ -61,6 +100,10 @@
                     LateStart = LateEnd - _estimatedTaskEndTime;
             }
         }
+
+        /// <summary>
+        /// Najpóźniejszy moment, kiedy zadanie powinno się zakończyć.
+        /// </summary>
         public double? LateEnd
         {
             get => _lateEnd;
@@ -73,6 +116,9 @@
             }
         }
 
+        /// <summary>
+        /// Najpóźniejszy moment, kiedy zadanie powinno się rozpocząć.
+        /// </summary>
         public double? LateStart
         {
             get => _lateStart;
@@ -85,6 +131,10 @@
             }
         }
 
+        /// <summary>
+        /// Tworzy reprezentację węzła w formie kodu HTML.
+        /// </summary>
+        /// <returns>Reprezentacja węzła w postaci kodu HTML.</returns>
         public string ToHtmlString()
         {
             return $@"<div class=""grid-container"" style=""{gridContainerStyle}"">" +
@@ -98,6 +148,9 @@
                 "</div>";
         }
 
+        /// <summary>
+        /// Określa, czy węzeł należy do ścieżki krytycznej.
+        /// </summary>
         public bool IsCritical { get => SlackTime == 0; }
 
         const string gridContainerStyle = "display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto; background-color: transparent; gap: 2px";

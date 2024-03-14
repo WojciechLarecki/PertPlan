@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace PertPlan.WebUI.Models.ViewModels
+﻿namespace PertPlan.WebUI.Models.ViewModels
 {
     public class ProjectTask
     {

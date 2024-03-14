@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Localization;
 using PertPlan.WebUI.Models.Helpers;
-using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 

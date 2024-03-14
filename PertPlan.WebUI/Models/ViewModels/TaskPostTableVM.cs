@@ -2,15 +2,35 @@
 using System.Text;
 
 namespace PertPlan.WebUI.Models.ViewModels
-{
+{   
+    /// <summary>
+    /// Widok modelu reprezentujący tabele kombinacji i prawdopodobieństw.
+    /// </summary>
     public class TaskPostTableVM
     {
+
         private List<byte[]> _combinations;
         private List<ActionPERT> _nodes;
-
+        
+        /// <summary>
+        /// Lista zadań PERT.
+        /// </summary>
         public List<ActionPERT> Nodes { get => _nodes; }
+        
+        /// <summary>
+        /// Lista wierszy tabeli kombinacji.
+        /// </summary>
         public List<CombinationRow> Rows { get; private set; }
+
+        /// <summary>
+        /// Słownik wierszy tabeli prawdopodobieństw.
+        /// </summary>
         public Dictionary<double, double> SummaryTableRows { get; private set; }
+
+        /// <summary>
+        /// Inicjalizuje nową instancję obiektu tabeli zadań PERT.
+        /// </summary>
+        /// <param name="actions">Dostępne zadania.</param>
         public TaskPostTableVM(IEnumerable<ActionPERT> actions)
         {
             Rows = new List<CombinationRow>();
@@ -62,7 +82,13 @@ namespace PertPlan.WebUI.Models.ViewModels
             }
         }
 
-
+        /// <summary>
+        /// Wyszukuje najdłuższą ścieżkę między dwoma zadaniami PERT.
+        /// </summary>
+        /// <param name="start">Zadanie startowe.</param>
+        /// <param name="target">Zadanie docelowe.</param>
+        /// <param name="sequence">Sekwencja określająca czasy poszczególnych zadań.</param>
+        /// <returns>Krotka zawierająca czas trwania ścieżki i prawdopodobieństwo.</returns>
         public (double, double) FindLongestPath(ActionPERT start, ActionPERT target, byte[] sequence)
         {
             Dictionary<ActionPERT, double> distance = new Dictionary<ActionPERT, double>();
@@ -137,14 +163,18 @@ namespace PertPlan.WebUI.Models.ViewModels
             chance /= Math.Pow(6, _nodes.Count - 2);
             return chance;
         }
-        
+
 
 
         /*
             Time complexity: O(3^n)
             Memory complexity: O(3^n)
         */
-
+        /// <summary>
+        /// Generuje kombinacje sekwencji zadań z określonymi czasami PERT.
+        /// </summary>
+        /// <param name="n">Liczba zadań PERT.</param>
+        /// <param name="sequence">Sekwencja rozpoczynająca generowanie, powinna zawierać same zera.</param>
         private void GenerateCombinationsHelper(int n, byte[] sequence)
         {
             if (n == 0)
@@ -162,7 +192,12 @@ namespace PertPlan.WebUI.Models.ViewModels
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Generuje wykres słupkowy na podstawie danych z tabeli prawdopodobieństw.
+        /// </summary>
+        /// <param name="chartTitle">Tytuł wykresu.</param>
+        /// <returns>Tekst reprezentujący wykres słupkowy.</returns>
         public string ToBarChart(string chartTitle)
         {
             double maxValue = SummaryTableRows.Values.Max();
@@ -188,11 +223,25 @@ namespace PertPlan.WebUI.Models.ViewModels
             return strBuilder.ToString();
         }
     }
-
+    
+    /// <summary>
+    /// Klasa reprezentująca wiersz tabeli kombinacji.
+    /// </summary>
     public class CombinationRow
     {
+        /// <summary>
+        /// Sekwencja określająca kombinację działań.
+        /// </summary>
         public byte[]? Sequence { get; set; }
+        
+        /// <summary>
+        /// Czas trwania kombinacji działań.
+        /// </summary>
         public double Time { get; set; }
+
+        /// <summary>
+        /// Prawdopodobieństwo kombinacji działań.
+        /// </summary>
         public double Probability { get; set; }
     }
 }
