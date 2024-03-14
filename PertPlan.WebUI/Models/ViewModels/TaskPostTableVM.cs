@@ -89,7 +89,7 @@ namespace PertPlan.WebUI.Models.ViewModels
         /// <param name="target">Zadanie docelowe.</param>
         /// <param name="sequence">Sekwencja określająca czasy poszczególnych zadań.</param>
         /// <returns>Krotka zawierająca czas trwania ścieżki i prawdopodobieństwo.</returns>
-        public (double, double) FindLongestPath(ActionPERT start, ActionPERT target, byte[] sequence)
+        public Tuple<double, double> FindLongestPath(ActionPERT start, ActionPERT target, byte[] sequence)
         {
             Dictionary<ActionPERT, double> distance = new Dictionary<ActionPERT, double>();
             double chance = GetNodesChance(sequence);
@@ -108,7 +108,7 @@ namespace PertPlan.WebUI.Models.ViewModels
                 var current = queue.Dequeue();
                 if (current == target)
                 {
-                    return (distance[current], chance);
+                    return new Tuple<double, double>(distance[current], chance);
                 }
 
                 var neighbors = current.NextActions ?? Enumerable.Empty<ActionPERT>();
@@ -124,7 +124,7 @@ namespace PertPlan.WebUI.Models.ViewModels
                 }
             }
 
-            return (-1d, -1d); // If the path does not exist
+            return new Tuple<double,double>(-1d, -1d); // If the path does not exist
         }
 
         private double GetDistance(ActionPERT neighbor, byte[] sequence)

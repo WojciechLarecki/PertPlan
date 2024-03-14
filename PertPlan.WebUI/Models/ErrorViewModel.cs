@@ -1,17 +1,17 @@
-namespace PertPlan.WebUI.Models
+ï»¿namespace PertPlan.WebUI.Models
 {
     /// <summary>
-    /// Model b³êdu.
+    /// Model bÅ‚Ä™du.
     /// </summary>
     public class ErrorViewModel
     {
         /// <summary>
-        /// Identyfikator ¿¹dania.
+        /// Identyfikator zadania.
         /// </summary>
         public string? RequestId { get; set; }
 
         /// <summary>
-        /// Okreœla, czy identyfikator ¿¹dania powinien byæ wyœwietlany.
+        /// OkreÅ›la, czy identyfikator zadania powinien byÄ‡ wyÅ›wietlany.
         /// </summary>
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
