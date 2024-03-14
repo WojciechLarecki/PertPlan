@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Localization;
-using System.Text;
+﻿using System.Text;
 
 namespace PertPlan.WebUI.Models.ViewModels
-{   
+{
     /// <summary>
     /// Widok modelu reprezentujący tabele kombinacji i prawdopodobieństw.
     /// </summary>
