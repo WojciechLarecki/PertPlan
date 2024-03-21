@@ -211,15 +211,15 @@ namespace PertPlan.WebUI.Models.ViewModels
             strBuilder.Append("x-axis [");
             strBuilder.AppendJoin(", ", keysToDisaply);
             strBuilder.AppendLine("]");
-            strBuilder.AppendLine($"y-axis 0 --> {roundedValue}");
+            strBuilder.AppendLine($"y-axis 0 --> {roundedValue.ToString(System.Globalization.CultureInfo.InvariantCulture)}");
             strBuilder.Append("bar [");
             strBuilder.AppendJoin(", ", valuesToDisaply);
             strBuilder.AppendLine("]");
             strBuilder.Append("line [");
             strBuilder.AppendJoin(", ", valuesToDisaply);
             strBuilder.AppendLine("]");
-
-            return strBuilder.ToString();
+            string str = strBuilder.ToString();
+            return str;
         }
     }
     
