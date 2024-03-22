@@ -133,10 +133,10 @@ namespace PertPlan.WebUI.Models.ViewModels
         }
 
         /// <summary>
-        /// Konwertuje obiekt na tekstową reprezentację diagramu.
+        /// Konwertuje obiekt na tekstową reprezentację diagramu w notacji PDM.
         /// </summary>
         /// <returns>Reprezentacja diagramu w postaci tekstu.</returns>
-        public override string ToString()
+        public string ToPDMGraph()
         {
             var chars = "ABCDEFGHIJKLMNOPERSTUWXYZ";
             var output = "graph TD\n";
@@ -145,7 +145,7 @@ namespace PertPlan.WebUI.Models.ViewModels
             {
                 if (node.Value.NextNodes == null && node.Value.IsCritical)
                 {
-                    output += chars[node.Value.Id] + $"[{node.Value.ToHtmlString()}]:::critical\n";
+                    output += chars[node.Value.Id] + $"[{node.Value.ToPDMNotation()}]:::critical\n";
                     continue;
                 }
                 else if (node.Value.NextNodes == null)
@@ -158,19 +158,66 @@ namespace PertPlan.WebUI.Models.ViewModels
                 {
                     if (node.Value.IsCritical && nextNode.IsCritical)
                     {
-                        output += chars[node.Value.Id] + $"[{node.Value.ToHtmlString()}]:::critical" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToHtmlString()}]:::critical\n";
+                        output += chars[node.Value.Id] + $"[{node.Value.ToPDMNotation()}]:::critical" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToPDMNotation()}]:::critical\n";
                     }
                     else if (node.Value.IsCritical)
                     {
-                        output += chars[node.Value.Id] + $"[{node.Value.ToHtmlString()}]:::critical" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToHtmlString()}]\n";
+                        output += chars[node.Value.Id] + $"[{node.Value.ToPDMNotation()}]:::critical" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToPDMNotation()}]\n";
                     }
                     else if (nextNode.IsCritical)
                     {
-                        output += chars[node.Value.Id] + $"[{node.Value.ToHtmlString()}]" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToHtmlString()}]:::critical\n";
+                        output += chars[node.Value.Id] + $"[{node.Value.ToPDMNotation()}]" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToPDMNotation()}]:::critical\n";
                     }
                     else
                     {
-                        output += chars[node.Value.Id] + $"[{node.Value.ToHtmlString()}]" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToHtmlString()}]\n";
+                        output += chars[node.Value.Id] + $"[{node.Value.ToPDMNotation()}]" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToPDMNotation()}]\n";
+                    }
+                }
+            }
+            output += "classDef critical stroke:#f00,stroke-width: 3px\n";
+            output += "classDef critical-disabled stroke:#9370DB\n";
+            return output;
+        }
+
+        /// <summary>
+        /// Konwertuje obiekt na tekstową reprezentację diagramu w wygodnej notacji.
+        /// </summary>
+        /// <returns>Reprezentacja diagramu w postaci tekstu.</returns>
+        public string ToCustomGraph()
+        {
+            var chars = "ABCDEFGHIJKLMNOPERSTUWXYZ";
+            var output = "graph TD\n";
+
+            foreach (var node in Nodes)
+            {
+                if (node.Value.NextNodes == null && node.Value.IsCritical)
+                {
+                    output += chars[node.Value.Id] + $"[{node.Value.ToCustomNotation()}]:::critical\n";
+                    continue;
+                }
+                else if (node.Value.NextNodes == null)
+                {
+                    output += chars[node.Value.Id] + $"\n";
+                    continue;
+                }
+
+                foreach (var nextNode in node.Value.NextNodes)
+                {
+                    if (node.Value.IsCritical && nextNode.IsCritical)
+                    {
+                        output += chars[node.Value.Id] + $"[{node.Value.ToCustomNotation()}]:::critical" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToCustomNotation()}]:::critical\n";
+                    }
+                    else if (node.Value.IsCritical)
+                    {
+                        output += chars[node.Value.Id] + $"[{node.Value.ToCustomNotation()}]:::critical" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToCustomNotation()}]\n";
+                    }
+                    else if (nextNode.IsCritical)
+                    {
+                        output += chars[node.Value.Id] + $"[{node.Value.ToCustomNotation()}]" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToCustomNotation()}]:::critical\n";
+                    }
+                    else
+                    {
+                        output += chars[node.Value.Id] + $"[{node.Value.ToCustomNotation()}]" + " --> " + chars[nextNode.Id] + $"[{nextNode.ToCustomNotation()}]\n";
                     }
                 }
             }

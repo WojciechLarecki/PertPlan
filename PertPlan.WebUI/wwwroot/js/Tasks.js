@@ -177,7 +177,7 @@ function createTableRow() {
     cell3.innerHTML = `<input type='number' class='form-control tableCell taskPositiveTimeInput' name='[${taskIndex}].PositiveFinishTime' step="0.5" min="0.5" max="999">`;
     cell4.innerHTML = `<input type='number' class='form-control tableCell taskAverageTimeInput' name='[${taskIndex}].AverageFinishTime' step="0.5" min="0.5" max="999">`;
     cell5.innerHTML = `<input type='number' class='form-control tableCell taskNegativeTimeInput' name='[${taskIndex}].NegativeFinishTime' step="0.5" min="0.5" max='999'>`;
-    cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks' name='[${taskIndex}].DependOnTasks' placeholder="1, 2, 3..." value="-">`;
+    cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks' name='[${taskIndex}].DependOnTasks' placeholder="1, 2, 3..." value="x">`;
 
     return newRow;
 }

@@ -132,10 +132,10 @@
         }
 
         /// <summary>
-        /// Tworzy reprezentację węzła w formie kodu HTML.
+        /// Tworzy reprezentację węzła w formie kodu HTML w notacji PDM.
         /// </summary>
         /// <returns>Reprezentacja węzła w postaci kodu HTML.</returns>
-        public string ToHtmlString()
+        public string ToPDMNotation()
         {
             return $@"<div class=""grid-container"" style=""{gridContainerStyle}"">" +
                     $@"<div class=""grid-item"" style=""{gridItemStyle}"">{EarlyStart?.ToString("F2")}</div>" +
@@ -145,6 +145,21 @@
                     $@"<div class=""grid-item"" style=""{gridItemStyle}"">{LateStart?.ToString("F2")}</div>" +
                     $@"<div class=""grid-item"" style=""{gridItemStyle}"">{SlackTime?.ToString("F2")}</div>" +
                     $@"<div class=""grid-item"" style=""{gridItemStyle}"">{LateEnd?.ToString("F2")}</div>" +
+                "</div>";
+        }
+
+        /// <summary>
+        /// Tworzy reprezentację węzła w formie kodu HTML w notacji PDM.
+        /// </summary>
+        /// <returns>Reprezentacja węzła w postaci kodu HTML.</returns>
+        public string ToCustomNotation()
+        {
+            return $@"<div class=""grid-container"" style=""{gridContainerStyle}"">" +
+                    $@"<div class=""grid-item"" style=""{gridItemStyle}"">{_task.Positive.ToString("F2")}</div>" +
+                    $@"<div class=""grid-item"" style=""{gridItemStyle}"">{_task.Average.ToString("F2")}</div>" +
+                    $@"<div class=""grid-item"" style=""{gridItemStyle}"">{_task.Negative.ToString("F2")}</div>" +
+                    $@"<div class=""grid-item span-three-columns"" style=""{gridItemStyle} {gridItem3ColumnsStyle}"">{Name}</div>" +
+                    $@"<div class=""grid-item span-three-columns"" style=""{gridItemStyle} {gridItem3ColumnsStyle}"">{_task.Estimated.ToString("F2")}</div>" +
                 "</div>";
         }
 
