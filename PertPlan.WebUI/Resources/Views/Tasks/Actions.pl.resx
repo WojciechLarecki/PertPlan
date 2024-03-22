@@ -139,10 +139,10 @@
     <value>Przewidywany czas realizacji</value>
   </data>
   <data name="Export to CSV" xml:space="preserve">
-    <value>Eksportój do CSV</value>
+    <value>Eksportuj do CSV</value>
   </data>
   <data name="Export to SVG" xml:space="preserve">
-    <value>Eksportój od SVG</value>
+    <value>Eksportuj od SVG</value>
   </data>
   <data name="N" xml:space="preserve">
     <value>N</value>

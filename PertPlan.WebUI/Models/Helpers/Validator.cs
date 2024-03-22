@@ -80,8 +80,11 @@ namespace PertPlan.WebUI.Models.Helpers
             foreach (var numberStr in tasksNumbers)
             {
                 string trimmedNumberStr = numberStr.Trim().ToLower();
-
-                if (!int.TryParse(trimmedNumberStr, out var number) && trimmedNumberStr != "x")
+                if (trimmedNumberStr == "x") 
+                {
+                    continue;
+                }
+                else if (!int.TryParse(trimmedNumberStr, out var number))
                 {
                     throw new ArgumentException(_localizer["Field contains incorrect data."]);
                 }
