@@ -190,10 +190,19 @@ namespace PertPlan.WebUI.Models.ViewModels
             strBuilder.AppendLine("Number;Name;Positive finish time;Average finish time;Negative finish time;Depends on");
             for (int i = 0; i < projectTasks.Count; i++)
             {
-                var preccesingTasksIds = projectTasks[i].PreviousActions?.Select(x => x.Id).ToList() ?? new List<int>();
-
-                strBuilder.AppendLine($"{i};{projectTasks[i].Name};{projectTasks[i].Positive};" +
-                    $"{projectTasks[i].Average};{projectTasks[i].Negative};{string.Join(", ", preccesingTasksIds)}");
+                strBuilder.Append($"{i};{projectTasks[i].Name};{projectTasks[i].Positive};" +
+                    $"{projectTasks[i].Average};{projectTasks[i].Negative};");
+                
+                if (projectTasks[i].PreviousActions is null)
+                {
+                    strBuilder.AppendLine("x");
+                }
+                else
+                {
+                    var preccesingTasksIds = projectTasks[i].PreviousActions!.Select(x => x.Id).ToList();
+                    strBuilder.AppendJoin(", ", preccesingTasksIds);
+                    strBuilder.AppendLine();
+                }
             }
 
             return strBuilder.ToString().TrimEnd();
