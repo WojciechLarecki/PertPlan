@@ -75,6 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
             validateNegativeTimeInput(taskNegativeTimeInput, taskAverageTimeInput);
             validateDependentTasksInput(taskDependOnInput, taskNumberInput.textContent);
         }
+
+        const tbody = document.getElementById("table-body");
+        localStorage.setItem("tbody", tbody.innerHTML);
     });
 
     // unselects row 
@@ -89,6 +92,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+    // populate document if user backs from diagram
+    const tbody = document.getElementById("table-body");
+    const savedBody = localStorage.getItem("tbody");
+    if (savedBody != null) {
+        tbody.innerHTML = savedBody;
+        localStorage.removeItem("tbody");
+    }
 });
 
 function deleteLastRow(table) {
