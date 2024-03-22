@@ -170,16 +170,14 @@ function createTableRow() {
 
     cell0.setAttribute("draggable", true);
     cell0.classList.add("dndCell");
-    cell0.innerHTML = `<div class="threeDotsIcon">
-                            <i class="bi bi-three-dots-vertical"></i>
-                           </div>`;
+    cell0.innerHTML = `<div class="threeDotsIcon">^</div>`;
 
     cell1.innerHTML = `<div type="text" class="form-control tableCell taskNumberInput" readonly>${taskIndex}</div>`;
     cell2.innerHTML = `<input type='text' class='form-control tableCell taskNameInput' name='[${taskIndex}].Name' required maxlength='100'>`;
     cell3.innerHTML = `<input type='number' class='form-control tableCell taskPositiveTimeInput' name='[${taskIndex}].PositiveFinishTime' step="0.5" min="0.5" max="999">`;
     cell4.innerHTML = `<input type='number' class='form-control tableCell taskAverageTimeInput' name='[${taskIndex}].AverageFinishTime' step="0.5" min="0.5" max="999">`;
     cell5.innerHTML = `<input type='number' class='form-control tableCell taskNegativeTimeInput' name='[${taskIndex}].NegativeFinishTime' step="0.5" min="0.5" max='999'>`;
-    cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks' name='[${taskIndex}].DependOnTasks' placeholder="1, 2, 3...">`;
+    cell6.innerHTML = `<input type='text' class='form-control tableCell taskDependentTasks' name='[${taskIndex}].DependOnTasks' placeholder="1, 2, 3..." value="-">`;
 
     return newRow;
 }
@@ -345,13 +343,14 @@ function validateDependentTasksInput(dependentTasksInput, strTaskNumber) {
     const taskNumber = Number(strTaskNumber);
 
     for (let numberStr of dependTasksNumbers) {
-        numberStr = numberStr.trim();
-
-        if (numberStr === "") break;
+        numberStr = numberStr.trim().toLowerCase();
 
         const strIsNumber = isNumber(numberStr);
-        
-        if (!strIsNumber) {
+
+        if (numberStr === "") {
+            dependentTasksInput.setCustomValidity(localizer.emptyProceedingTaskField);
+            break;
+        } else if (numberStr !== "x" && !strIsNumber) {
             dependentTasksInput.setCustomValidity(localizer.dependencyFormatError);
             break;
         }
@@ -360,13 +359,10 @@ function validateDependentTasksInput(dependentTasksInput, strTaskNumber) {
 
         if (number < 0) {
             dependentTasksInput.setCustomValidity(localizer.negativeNumberError);
-            break;
         } else if (number > taskNumber) {
             dependentTasksInput.setCustomValidity(localizer.undefinedTaskError);
-            break;
         } else if (number === taskNumber) {
             dependentTasksInput.setCustomValidity(localizer.selfDependencyError);
-            break;
         } else {
             dependentTasksInput.setCustomValidity("");
         }

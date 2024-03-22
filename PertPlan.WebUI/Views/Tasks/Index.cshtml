@@ -44,9 +44,7 @@
                 {
                     <tr id="@Model[i].Id" class="table-row">
                         <td class="dndCell" draggable="true">
-                            <div class="threeDotsIcon">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </div>
+                            <div class="threeDotsIcon">^</div>
                         </td>
                         <td>
                             <div type="text" class="form-control tableCell taskNumberInput" readonly>@i</div>
@@ -108,7 +106,8 @@
             positive: @Json.Serialize(Localizer["Positive"].Value),
             average: @Json.Serialize(Localizer["Average"].Value),
             negative: @Json.Serialize(Localizer["Negative"].Value),
-            
+            emptyProceedingTaskField: @Json.Serialize(Localizer["Proceeding tasks field cannot be empty."].Value),
+
             // indexes for smaller screens
             numberIndex: @Json.Serialize(Localizer["numberIndex"].Value),
             nameIndex: @Json.Serialize(Localizer["nameIndex"].Value),
@@ -116,8 +115,7 @@
             previousTasksIndex: @Json.Serialize(Localizer["previousTasksIndex"].Value),
             positiveTimeIndex: @Json.Serialize(Localizer["positiveTimeIndex"].Value),
             averageTimeIndex: @Json.Serialize(Localizer["averageTimeIndex"].Value),
-            negativeTimeIndex: @Json.Serialize(Localizer["negativeTimeIndex"].Value),
-            
+            negativeTimeIndex: @Json.Serialize(Localizer["negativeTimeIndex"].Value)
         }
     </script>
 }

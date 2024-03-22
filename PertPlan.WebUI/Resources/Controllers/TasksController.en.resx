@@ -129,6 +129,9 @@
   <data name="Line {0}: Positive time is not a number." xml:space="preserve">
     <value>Line {0}: Positive time is not a number.</value>
   </data>
+  <data name="Line {0}: Proceeding tasks field cannot be empty." xml:space="preserve">
+    <value>Line {0}: Previous tasks field cannot be empty.</value>
+  </data>
   <data name="Line {0}: Task number is not a number." xml:space="preserve">
     <value>Line {0}: Task number is not a number.</value>
   </data>

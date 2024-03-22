@@ -129,6 +129,9 @@
   <data name="Line {0}: Positive time is not a number." xml:space="preserve">
     <value>Linia {0}: Pozytywny czas nie jest numerem.</value>
   </data>
+  <data name="Line {0}: Proceeding tasks field cannot be empty." xml:space="preserve">
+    <value>Linia {0}: Pole poprzednich zadań nie może być puste.</value>
+  </data>
   <data name="Line {0}: Task number is not a number." xml:space="preserve">
     <value>Linia {0}: Numer zadania nie jest numerem.</value>
   </data>
@@ -136,6 +139,6 @@
     <value>Linia {0}: {1}</value>
   </data>
   <data name="The file is not uploaded or is empty." xml:space="preserve">
-    <value>Nie wybrano pliku lub plik jest pusty.1</value>
+    <value>Nie wybrano pliku lub plik jest pusty.</value>
   </data>
 </root>

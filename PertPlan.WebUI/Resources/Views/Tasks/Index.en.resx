@@ -201,6 +201,9 @@
   <data name="previousTasksIndex" xml:space="preserve">
     <value>Pr&lt;sub&gt;tasks&lt;/sub&gt;</value>
   </data>
+  <data name="Proceeding tasks field cannot be empty." xml:space="preserve">
+    <value>Previous tasks field cannot be empty.</value>
+  </data>
   <data name="Task can not depend on itself." xml:space="preserve">
     <value>Task can not depend on itself.</value>
   </data>

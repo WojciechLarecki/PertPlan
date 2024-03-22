@@ -128,14 +128,19 @@ namespace PertPlan.WebUI.Controllers
                         {
                             throw new Exception(_localizer["Line {0}: Negative time is not a number.", lineIndex]);
                         }
+                        else if (string.IsNullOrEmpty(properties[5]))
+                        {
+                            throw new Exception(_localizer["Line {0}: Proceeding tasks field cannot be empty.", lineIndex]);
+                        }
 
                         try
                         {
                             Validator.ValidateTaskName(properties[1]);
                             Validator.ValidateTaskAverageTime(taskPositiveFinishTime, taskAverageFinishTime, taskNegativeFinishTime);
                             Validator.ValidateNegativeTimeInput(taskAverageFinishTime, taskNegativeFinishTime);
+                            Validator.ValidateDependentTasksInput(properties[5], taskNumber);
                         }
-                        catch(ArgumentException e)
+                        catch (ArgumentException e)
                         {
                             throw new Exception(_localizer["Line {0}: {1}", lineIndex, e.Message]);
                         }
@@ -149,11 +154,7 @@ namespace PertPlan.WebUI.Controllers
                             NegativeFinishTime = taskNegativeFinishTime
                         };
 
-                        if (!string.IsNullOrEmpty(properties[5]))
-                        {
-                            Validator.ValidateDependentTasksInput(properties[5], taskNumber);
-                            task.DependOnTasks = properties[5];
-                        }
+                        task.DependOnTasks = properties[5];
 
                         projectTasks.Add(task);
                     } while (line != null);

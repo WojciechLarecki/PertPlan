@@ -20,9 +20,9 @@ namespace PertPlan.WebUI.Models.Helpers
             {
                 var task = tasks.Where(x => x.Id == action.Id).First();
 
-                if (string.IsNullOrWhiteSpace(task.DependOnTasks)) continue; //avoid start tasks for project
+                if (task.DependOnTasks == "x") continue; //avoid start tasks for project
 
-                var depedenceIds = task.DependOnTasks
+                var depedenceIds = task.DependOnTasks!
                 .Split(',')
                 .Select(str => int.TryParse(str, out var num) ? num : -1)
                 .ToList();

@@ -75,11 +75,13 @@ namespace PertPlan.WebUI.Models.Helpers
         /// <param name="taskNumber">Numer sprawdzanego zadania.</param>
         public static void ValidateDependentTasksInput(string dependentTasks, int taskNumber)
         {
-            var tasksNumbers = dependentTasks.Split(',');
+            string[] tasksNumbers = dependentTasks.Split(',');
 
             foreach (var numberStr in tasksNumbers)
             {
-                if (!int.TryParse(numberStr.Trim(), out var number))
+                string trimmedNumberStr = numberStr.Trim().ToLower();
+
+                if (!int.TryParse(trimmedNumberStr, out var number) && trimmedNumberStr != "x")
                 {
                     throw new ArgumentException(_localizer["Field contains incorrect data."]);
                 }
