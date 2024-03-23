@@ -19,6 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const deleteSelectedTaskBtn = document.getElementById("deleteSelectedTaskButton");
     const submitButton = document.getElementById("submitButton");
 
+    // populate document if user backs from diagram
+    const tbody = document.getElementById("table-body");
+    const savedBody = localStorage.getItem("tbody");
+    if (savedBody != null) {
+        tbody.innerHTML = savedBody;
+        localStorage.removeItem("tbody");
+    }
+
     applyMissingEvents();
     adjustTableState();
 
@@ -92,14 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
-
-    // populate document if user backs from diagram
-    const tbody = document.getElementById("table-body");
-    const savedBody = localStorage.getItem("tbody");
-    if (savedBody != null) {
-        tbody.innerHTML = savedBody;
-        localStorage.removeItem("tbody");
-    }
 });
 
 function deleteLastRow(table) {
