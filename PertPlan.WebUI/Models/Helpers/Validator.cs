@@ -45,11 +45,11 @@ namespace PertPlan.WebUI.Models.Helpers
         /// <param name="negativeTime">Czas negatywny.</param>
         public static void ValidateTaskAverageTime(double positiveTime, double averageTime, double negativeTime)
         {
-            if (averageTime < positiveTime)
+            if (averageTime <= positiveTime)
             {
                 throw new ArgumentException(_localizer["Average finish time can not be shorter than positive."]);
             }
-            else if (averageTime > negativeTime)
+            else if (averageTime >= negativeTime)
             {
                 throw new ArgumentException(_localizer["Average finish time can not be longer than negative."]);
             }
@@ -62,7 +62,7 @@ namespace PertPlan.WebUI.Models.Helpers
         /// <param name="negativeTime">Czas negatywny.</param>
         public static void ValidateNegativeTimeInput(double averageTime, double negativeTime)
         {
-            if (negativeTime < averageTime)
+            if (negativeTime <= averageTime)
             {
                 throw new ArgumentException(_localizer["Negative finish time can not be shorter than average."]);
             }

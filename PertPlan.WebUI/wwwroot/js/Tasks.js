@@ -327,9 +327,9 @@ function validateNameInput(nameInput) {
 }
 
 function validateAverageTimeInput(positiveTimeInput, averageTimeInput, negativeTimeInput) {
-    if (Number(averageTimeInput.value) < Number(positiveTimeInput.value)) {
+    if (Number(averageTimeInput.value) <= Number(positiveTimeInput.value)) {
         averageTimeInput.setCustomValidity(localizer.averageTimeTooShortError);
-    } else if (Number(averageTimeInput.value) > Number(negativeTimeInput.value)) {
+    } else if (Number(averageTimeInput.value) >= Number(negativeTimeInput.value)) {
         averageTimeInput.setCustomValidity(localizer.averageTimeTooLongError);
     } else {
         averageTimeInput.setCustomValidity("");
@@ -337,7 +337,7 @@ function validateAverageTimeInput(positiveTimeInput, averageTimeInput, negativeT
 }
 
 function validateNegativeTimeInput(negativeTimeInput, averageTimeInput) {
-    if (Number(negativeTimeInput.value) < Number(averageTimeInput.value)) {
+    if (Number(negativeTimeInput.value) <= Number(averageTimeInput.value)) {
         negativeTimeInput.setCustomValidity(localizer.negativeTimeError);
     } else {
         negativeTimeInput.setCustomValidity("");
