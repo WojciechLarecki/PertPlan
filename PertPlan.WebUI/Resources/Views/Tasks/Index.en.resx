@@ -133,7 +133,7 @@
     <value>T&lt;sub&gt;m&lt;/sub&gt;</value>
   </data>
   <data name="averate time to finish task" xml:space="preserve">
-    <value>Most likely time to finish task</value>
+    <value>most likely time to finish task</value>
   </data>
   <data name="Create diagram" xml:space="preserve">
     <value>Create diagram</value>
@@ -163,13 +163,13 @@
     <value>N&lt;sub&gt;am&lt;/sub&gt;</value>
   </data>
   <data name="Negative" xml:space="preserve">
-    <value>Pesimistic</value>
+    <value>Pessimistic</value>
   </data>
   <data name="Negative finish time can not be shorter than average." xml:space="preserve">
-    <value>Pesimistic finish time can not be shorter than average.</value>
+    <value>Pessimistic finish time can not be shorter than average.</value>
   </data>
   <data name="negative time to finish task" xml:space="preserve">
-    <value>pesimistic time to finish task</value>
+    <value>pessimistic time to finish task</value>
   </data>
   <data name="negativeTimeIndex" xml:space="preserve">
     <value>T&lt;sub&gt;p&lt;/sub&gt;</value>

@@ -120,6 +120,12 @@
   <data name="Additional options" xml:space="preserve">
     <value>Additional options</value>
   </data>
+  <data name="averageTimeIndex" xml:space="preserve">
+    <value>T&lt;sub&gt;m&lt;/sub&gt;</value>
+  </data>
+  <data name="averate time to finish task" xml:space="preserve">
+    <value>most likely time to finish task</value>
+  </data>
   <data name="Avg" xml:space="preserve">
     <value>T&lt;sub&gt;m&lt;/sub&gt;</value>
   </data>
@@ -147,7 +153,19 @@
   <data name="N" xml:space="preserve">
     <value>T&lt;sub&gt;p&lt;/sub&gt;</value>
   </data>
+  <data name="negative time to finish task" xml:space="preserve">
+    <value>pessimistic time to finish task</value>
+  </data>
+  <data name="negativeTimeIndex" xml:space="preserve">
+    <value>T&lt;sub&gt;p&lt;/sub&gt;</value>
+  </data>
   <data name="O" xml:space="preserve">
+    <value>T&lt;sub&gt;o&lt;/sub&gt;</value>
+  </data>
+  <data name="positive time to finish task" xml:space="preserve">
+    <value>optimistic time to finish task</value>
+  </data>
+  <data name="positiveTimeIndex" xml:space="preserve">
     <value>T&lt;sub&gt;o&lt;/sub&gt;</value>
   </data>
   <data name="Probability" xml:space="preserve">
