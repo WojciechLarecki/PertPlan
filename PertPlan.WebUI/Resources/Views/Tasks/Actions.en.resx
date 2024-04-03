@@ -150,6 +150,12 @@
   <data name="Export to SVG" xml:space="preserve">
     <value>Export to SVG</value>
   </data>
+  <data name="graph" xml:space="preserve">
+    <value>graph</value>
+  </data>
+  <data name="Likely" xml:space="preserve">
+    <value>Likely</value>
+  </data>
   <data name="N" xml:space="preserve">
     <value>T&lt;sub&gt;p&lt;/sub&gt;</value>
   </data>
@@ -158,6 +164,9 @@
   </data>
   <data name="negativeTimeIndex" xml:space="preserve">
     <value>T&lt;sub&gt;p&lt;/sub&gt;</value>
+  </data>
+  <data name="No data" xml:space="preserve">
+    <value>No data</value>
   </data>
   <data name="O" xml:space="preserve">
     <value>T&lt;sub&gt;o&lt;/sub&gt;</value>
@@ -177,7 +186,19 @@
   <data name="Product" xml:space="preserve">
     <value>Product</value>
   </data>
+  <data name="tasks" xml:space="preserve">
+    <value>tasks</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>Time</value>
+  </data>
+  <data name="Unlikely" xml:space="preserve">
+    <value>Unlikely</value>
+  </data>
+  <data name="Very likely" xml:space="preserve">
+    <value>Very likely</value>
+  </data>
+  <data name="Very unlikely" xml:space="preserve">
+    <value>Very unlikely</value>
   </data>
 </root>

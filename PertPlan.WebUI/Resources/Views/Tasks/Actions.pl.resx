@@ -150,6 +150,12 @@
   <data name="Export to SVG" xml:space="preserve">
     <value>Eksportuj od SVG</value>
   </data>
+  <data name="graph" xml:space="preserve">
+    <value>graf</value>
+  </data>
+  <data name="Likely" xml:space="preserve">
+    <value>Prawdopodobne</value>
+  </data>
   <data name="N" xml:space="preserve">
     <value>T&lt;sub&gt;p&lt;/sub&gt;</value>
   </data>
@@ -180,7 +186,19 @@
   <data name="Product" xml:space="preserve">
     <value>Iloczyn</value>
   </data>
+  <data name="tasks" xml:space="preserve">
+    <value>zadania</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>Czas</value>
+  </data>
+  <data name="Unlikely" xml:space="preserve">
+    <value>Małoprawdopodobne</value>
+  </data>
+  <data name="Very likely" xml:space="preserve">
+    <value>Bardzo prawdopodobne</value>
+  </data>
+  <data name="Very unlikely" xml:space="preserve">
+    <value>Bardzo małoprawdopodobne</value>
   </data>
 </root>
