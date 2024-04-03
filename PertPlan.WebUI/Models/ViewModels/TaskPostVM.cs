@@ -197,7 +197,7 @@ namespace PertPlan.WebUI.Models.ViewModels
                 }
                 else if (node.Value.NextNodes == null)
                 {
-                    output += chars[node.Value.Id] + $"\n";
+                    output += chars[node.Value.Id] + $"[{node.Value.ToCustomNotation()}]\n";
                     continue;
                 }
 
