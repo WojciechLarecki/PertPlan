@@ -8,7 +8,7 @@ namespace PertPlan.WebUI.Models.Helpers
     public static class Validator
     {
         private static IStringLocalizer _localizer;
-        private const int _NAME_LENGTH = 100;
+        private const int _NAME_LENGTH = 50;
 
 
         /// <summary>

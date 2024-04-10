@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Line {0}: Average time is not a number." xml:space="preserve">
-    <value>Linia {0}: Średni czas nie jest numerem.</value>
+    <value>Linia {0}: Najbardziej prawdopodobny czas nie jest numerem.</value>
   </data>
   <data name="Line {0}: File has wrong structure." xml:space="preserve">
     <value>Linia {0}: Plik ma złą strukturę.</value>
   </data>
   <data name="Line {0}: Negative time is not a number." xml:space="preserve">
-    <value>Linia {0}: Negatywny czas nie jest numerem.</value>
+    <value>Linia {0}: Pesymistyczny czas nie jest numerem.</value>
   </data>
   <data name="Line {0}: Positive time is not a number." xml:space="preserve">
-    <value>Linia {0}: Pozytywny czas nie jest numerem.</value>
+    <value>Linia {0}: Optymistyczny czas nie jest numerem.</value>
   </data>
   <data name="Line {0}: Proceeding tasks field cannot be empty." xml:space="preserve">
     <value>Linia {0}: Pole poprzednich zadań nie może być puste.</value>
