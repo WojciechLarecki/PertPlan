@@ -49,10 +49,6 @@ namespace PertPlan.WebUI.Models.Helpers
             {
                 throw new ArgumentException(_localizer["Average finish time can not be shorter than positive."]);
             }
-            else if (averageTime >= negativeTime)
-            {
-                throw new ArgumentException(_localizer["Average finish time can not be longer than negative."]);
-            }
         }
         
         /// <summary>

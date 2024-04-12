@@ -329,8 +329,6 @@ function validateNameInput(nameInput) {
 function validateAverageTimeInput(positiveTimeInput, averageTimeInput, negativeTimeInput) {
     if (Number(averageTimeInput.value) <= Number(positiveTimeInput.value)) {
         averageTimeInput.setCustomValidity(localizer.averageTimeTooShortError);
-    } else if (Number(averageTimeInput.value) >= Number(negativeTimeInput.value)) {
-        averageTimeInput.setCustomValidity(localizer.averageTimeTooLongError);
     } else {
         averageTimeInput.setCustomValidity("");
     }
