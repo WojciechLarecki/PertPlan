@@ -215,9 +215,6 @@ namespace PertPlan.WebUI.Models.ViewModels
             strBuilder.Append("bar [");
             strBuilder.AppendJoin(", ", valuesToDisaply);
             strBuilder.AppendLine("]");
-            strBuilder.Append("line [");
-            strBuilder.AppendJoin(", ", valuesToDisaply);
-            strBuilder.AppendLine("]");
             string str = strBuilder.ToString();
             return str;
         }
